@@ -9,6 +9,7 @@ class GameObject {
   private PImage gameObjectImage;
   private PImage gameObjectImageHover;
   protected boolean mouseIsHovering;
+  //hi
   
   public GameObject(String identifier, int x, int y, int owidth, int oheight) {
     this(identifier, x, y, owidth, oheight, "");
