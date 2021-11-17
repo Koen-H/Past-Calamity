@@ -11,11 +11,21 @@ void settings()
 
 void setup()
 {
+  //Collectable name = new Collectable(String name, String imageFile);
+  //CollectableObject name = new CollectableObject(String name, Int xPos, Int yPos, Int width, Int height, Collectable name);
+  //MoveToSceneObject name = new MoveToSceneObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String sceneName);
+  //Scene name = new Scene(String name, String sceneBackgroundImageFile);
+  //RequireObject name = new RequireObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String text, Collectable name, MoveToSceneObject name);
+  //TextObject name = new TextObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String Text);
+  //GameObject.setHoverImage(String imageFile);
+  //Scene.addGameObject(GameObject name);
+  //sceneManager.addScene(Scene name);
+
   Collectable apple = new Collectable("apple", "back04_apple.png");
   MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
 
   Scene scene01 = new Scene("scene01", "back01.png");
-  RequireObject loupe01 = new RequireObject("requiresApple_scene01", 206, 461, 50, 50, "zoom.png", "Your hand scan didn't work", apple, object7);
+  RequireObject loupe01 = new RequireObject("requiresApple_scene01", 206, 461, 50, 50, "zoom.png", "Your need a apple!", apple, object7);
   loupe01.setHoverImage("zoomIn.png");
   scene01.addGameObject(loupe01);
   TextObject loupe02 = new TextObject("smallText_scene01", 541, 445, 50, 50, "zoom.png", "This object has a text!");
@@ -55,19 +65,14 @@ void setup()
   loupe05.setHoverImage("zoomIn.png");
   scene05.addGameObject(loupe05);
 
-  Scene scene06 = new Scene("scene06", "back03.png");
-  TextObject goodJob = new TextObject("smallText_scene06", 80, 375, 50, 50, "zoom.png", "Hello world this is a bit longer hunkhakmd1d!");
-  scene01.addGameObject(goodJob);
+  //Scene keypad = new Scene("keypad", "keypad.png");
 
-
-
-
+  //sceneManager.addScene(keypad);
   sceneManager.addScene(scene01);
   sceneManager.addScene(scene02);
   sceneManager.addScene(scene03);
   sceneManager.addScene(scene04);
   sceneManager.addScene(scene05);
-  sceneManager.addScene(scene06);
 }
 
 void draw()
