@@ -65,21 +65,27 @@ void setup()
   loupe05.setHoverImage("zoomIn.png");
   scene05.addGameObject(loupe05);
 
-  //Scene keypad = new Scene("keypad", "keypad.png");
-
-  //sceneManager.addScene(keypad);
+  Scene keypad = new Scene("keypad", "keypad.png");//TODO update keypad.png
+  createKeypad(200, 200, 80, 10);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
+  
+  sceneManager.addScene(keypad);//zoomed-in keypad scene
   sceneManager.addScene(scene01);
   sceneManager.addScene(scene02);
   sceneManager.addScene(scene03);
   sceneManager.addScene(scene04);
   sceneManager.addScene(scene05);
-}
+  
+  
+} 
 
 void draw()
 {
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
   inventoryManager.clearMarkedForDeathCollectables();
+  if (sceneManager.getCurrentScene().getSceneName() == "keypad") {
+    drawKeypad();
+  }
 }
 
 void mouseMoved() {
@@ -88,4 +94,7 @@ void mouseMoved() {
 
 void mouseClicked() {
   sceneManager.getCurrentScene().mouseClicked();
+  if (sceneManager.getCurrentScene().getSceneName() == "keypad") {
+    for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
+  }
 }
