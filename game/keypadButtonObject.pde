@@ -3,7 +3,7 @@ public ArrayList<keypadButtonObject> keypad = new ArrayList<keypadButtonObject>(
 int keypadCode = 1234;
 int attempt;
 String result;
-boolean keypadCompleted;
+boolean keypadCompleted, keypadSetProgress;
 float keypadContinueTime;
 
 
@@ -27,9 +27,16 @@ void drawKeypad() {
   fill(0);
   textSize(40);
   if (result == "CORRECT") {
+    
+    if (!keypadSetProgress) {
+      keypadSetProgress = true;
+      sceneManager.scenes.get("scene02").backgroundImage = loadImage("scene02doorOpen.png");
+      MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 640, 300, 50, 50, "debugblock.png", "scene03");//go to outside Door scene
+      sceneManager.scenes.get("scene02").addGameObject(s02GoOutside);
+    }
     text("CORRECT", (width/2), 300);
     if (keypadContinueTime <= millis() && !keypadCompleted) {
-      sceneManager.goToScene("scene01");//TODO set next scene TODO
+      sceneManager.goToScene("scene02");//TODO set next scene TODO
       keypadCompleted = true;
     }
   } else if (attempt != 0) {
