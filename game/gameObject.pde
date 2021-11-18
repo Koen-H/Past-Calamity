@@ -9,12 +9,13 @@ class GameObject {
   private PImage gameObjectImage;
   private PImage gameObjectImageHover;
   protected boolean mouseIsHovering;
-  
-  
+
+  protected String method = null;
+
   public GameObject(String identifier, int x, int y, int owidth, int oheight) {
     this(identifier, x, y, owidth, oheight, "");
   }
-  
+
   public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile) {
     this.identifier = identifier;
     this.x = x;
@@ -22,52 +23,64 @@ class GameObject {
     this.owidth = owidth;
     this.oheight = oheight;
     this.hasImage = !gameObjectImageFile.equals(""); 
-    if(this.hasImage) {
-       this.gameObjectImage = loadImage(gameObjectImageFile);
+    if (this.hasImage) {
+      this.gameObjectImage = loadImage(gameObjectImageFile);
     }
     hasHoverImage = false;
     mouseIsHovering = false;
   }
-  
+
   public void setHoverImage(String gameObjectImageHoverFile) {
     this.gameObjectImageHover = loadImage(gameObjectImageHoverFile);
     hasHoverImage = true;
   }
-  
+
+  public void setMethod(String method) {
+    this.method = method;
+  }
+
   public void draw() {
-    if(hasImage) {
-      if(mouseIsHovering && hasHoverImage) {
+    if (hasImage) {
+      if (mouseIsHovering && hasHoverImage) {
         image(gameObjectImageHover, x, y, owidth, oheight);
       } else {
         image(gameObjectImage, x, y, owidth, oheight);
       }
     }
   }
-  
+
   public void mouseMoved() {
     mouseIsHovering = false;
-    if(mouseX >= x && mouseX <= x + owidth &&
-       mouseY >= y && mouseY <= y + oheight) {
-        mouseIsHovering = true;
-     }
+    if (mouseX >= x && mouseX <= x + owidth &&
+      mouseY >= y && mouseY <= y + oheight) {
+      mouseIsHovering = true;
+    }
   }
-  
-  public void mouseClicked() { }
-  
+
+
+
+  public void mouseClicked() {
+
+  }
+
   public String getIdentifier() {
     return this.identifier;
   }
-  
+
   @Override 
-  public boolean equals(Object obj) { 
-    if (obj == this) { return true; } 
-    if (obj == null || obj.getClass() != this.getClass()) { return false; } 
+    public boolean equals(Object obj) { 
+    if (obj == this) { 
+      return true;
+    } 
+    if (obj == null || obj.getClass() != this.getClass()) { 
+      return false;
+    } 
     GameObject otherGameObject = (GameObject) obj; 
     return otherGameObject.getIdentifier().equals(this.identifier);
   } 
 
   @Override 
-  public int hashCode() { 
+    public int hashCode() { 
     final int prime = 11;
     return prime * this.identifier.hashCode();
   }

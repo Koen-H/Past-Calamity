@@ -22,83 +22,90 @@ void setup()
   //Scene.addGameObject(GameObject name);
   //sceneManager.addScene(Scene name);
 
-  //2 APPLE OBJECTS 
-  Collectable apple = new Collectable("apple", "back04_apple.png");
-  Collectable apple2 = new Collectable("apple2", "back04_apple.png");
-  
-  MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
-
-  Scene scene01 = new Scene("scene01", "back01.png");
-  RequireObject loupe01 = new RequireObject("requiresApple_scene01", 206, 461, 50, 50, "zoom.png", "Your need a apple!", apple, object7);
-  loupe01.setHoverImage("zoomIn.png");
-  scene01.addGameObject(loupe01);
-  TextObject loupe02 = new TextObject("smallText_scene01", 541, 445, 50, 50, "zoom.png", "This object has a text!");
-  loupe02.setHoverImage("zoomIn.png");
-  scene01.addGameObject(loupe02);
-  TextObject loupe03 = new TextObject("largeText_scene01", 46, 687, 50, 50, "zoom.png", "This object has a way longer text. It shows that the windows can be of varied size according to the text.");
-  loupe03.setHoverImage("zoomIn.png");
-  scene01.addGameObject(loupe03);
-  MoveToSceneObject object2 = new MoveToSceneObject("goToScene02_scene01", 708, 445, 50, 50, "arrowRight.png", "scene02");
-  scene01.addGameObject(object2);
-  MoveToSceneObject restaurantSceneMoveTo = new MoveToSceneObject("goToScene06_scene01", 388, 440, 50, 50, "arrowUp.png", "scene05");
-  scene01.addGameObject(restaurantSceneMoveTo);
-
-  Scene scene02 = new Scene("scene02", "back02.png");
-  MoveToSceneObject object3 = new MoveToSceneObject("goBack_scene02", 350, 700, 50, 50, "arrowDown.png", true);
-  scene02.addGameObject(object3);
-  MoveToSceneObject object4 = new MoveToSceneObject("goToScene03_scene02", 441, 494, 50, 50, "arrowUp.png", "scene03");
-  scene02.addGameObject(object4);
-
-  Scene scene03 = new Scene("scene03", "back04.png");
-  MoveToSceneObject object5 = new MoveToSceneObject("goBack_scene03", 203, 673, 50, 50, "arrowDown.png", true);
-  scene03.addGameObject(object5);
 
 
+  //Main menu
+  Scene mainMenu = new Scene("mainMenu", "mainmenu.png"); //TODO update mainmenu.png
+  MoveToSceneObject playButton = new MoveToSceneObject("playButton", 350, 300, 300, 300, "debugblock.png", "cutScene01");//TODO Remove debugblock
+  playButton.setMethod("doCutScene01"); 
+  mainMenu.addGameObject(playButton);
+  sceneManager.addScene(mainMenu);
 
-  //second apple Object!
-  CollectableObject objectApple = new CollectableObject("apple_test", 500, 366, 123, 101, apple2);
-  scene03.addGameObject(objectApple);
-  //First APPLE OBJECT
-  CollectableObject object6 = new CollectableObject("apple_scene03", 325, 366, 123, 101, apple);
-  scene03.addGameObject(object6);
+  Scene cutScene01 = new Scene("cutScene01", "cutscene01.png");//playing tag
+  sceneManager.addScene(cutScene01);
 
-  
-  
-  
+  Scene cutScene02 = new Scene("cutScene02", "cutscene02.png");//fall in teleporter
+  sceneManager.addScene(cutScene02);
 
-  Scene scene04 = new Scene("scene04", "back03.png");
-  TextObject endGame = new TextObject("smallText_scene04", 430, 590, 50, 50, "medal1.png", "Congratulations. You finished the game!");
-  scene04.addGameObject(endGame);
+  Scene cutScene03 = new Scene("cutScene03", "storyboard2.png");//dark room with a switch
+  MoveToSceneObject lightSwitch = new MoveToSceneObject("lightSwitch", 50, 300, 10, 30, "debugblock.png", "scene01");//TODO Remove debugblock
+  cutScene03.addGameObject(lightSwitch);
+  sceneManager.addScene(cutScene03);
 
-  Scene scene05 = new Scene("scene05", "back05.png");
-  MoveToSceneObject object8 = new MoveToSceneObject("goBack_scene01", 203, 753, 50, 50, "arrowDown.png", true);
-  scene05.addGameObject(object8);
-  TextObject loupe04 = new TextObject("smallText_scene05", 120, 275, 50, 50, "zoom.png", "Have you checked the apples in that odd house to the right?");
-  loupe04.setHoverImage("zoomIn.png");
-  scene05.addGameObject(loupe04);
-  TextObject loupe05 = new TextObject("smallText_2_scene05", 480, 285, 50, 50, "zoom.png", "Hello! How are you doing?");
-  loupe05.setHoverImage("zoomIn.png");
-  scene05.addGameObject(loupe05);
-
-  //Scene keypad = new Scene("keypad", "keypad.png");
-
-  //sceneManager.addScene(keypad);
+  Scene scene01 = new Scene("scene01", "storyboard3.png");// the lab
+  TextObject s01Hologram = new TextObject("hologram01", 700, 400, 50, 50, "debugblock.png", "Hey kids, what's up");//hologram text
+  MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1200, 300, 10, 30, "debugblock.png", "scene02");//go to door scene
+  MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
+  //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); // TODO
+  scene01.addGameObject(s01Hologram); 
+  scene01.addGameObject(s01ZoomOnPainting); 
+  scene01.addGameObject(s01GoToDoor);
+  //scene01.addGameObject(drawerLocker);
   sceneManager.addScene(scene01);
+
+  Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png");//zoomedIn painting
+  MoveToSceneObject s01OpenPainting = new MoveToSceneObject("s01ZoomOutPainting", 800, 300, 10, 30, "debugblock.png", "scene01OpenPainting");//open painting
+  MoveToSceneObject s01ZoomOutPainting = new MoveToSceneObject("s01ZoomOutPainting", 640, 680, 50, 50, "arrowDown.png", "scene01");//go back to the lab
+  scene01Painting.addGameObject(s01OpenPainting); 
+  scene01Painting.addGameObject(s01ZoomOutPainting); 
+  sceneManager.addScene(scene01Painting);
+
+  Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png");//painting open
+  MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 640, 680, 50, 50, "arrowDown.png", "scene01");//close painting
+  Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");
+  CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey);
+  scene01OpenPainting.addGameObject(drawerKeyObj); 
+  scene01OpenPainting.addGameObject(s01ClosePainting); 
+  sceneManager.addScene(scene01OpenPainting);
+
+  Scene scene02 = new Scene("scene02", "scene02doorClosed.png");//door scene
+  MoveToSceneObject s02GoToLab = new MoveToSceneObject("s02GoToLab", 50, 360, 50, 50, "arrowLeft.png", "scene01");//go back to the lab
+  MoveToSceneObject s02ZoomOnKeypad = new MoveToSceneObject("s02ZoomOnKeypad", 300, 360, 10, 30, "debugblock.png", "scene02Keypad");// go to keypad
+  scene02.addGameObject(s02GoToLab); 
+  scene02.addGameObject(s02ZoomOnKeypad); 
   sceneManager.addScene(scene02);
+
+  Scene scene02Keypad = new Scene("scene02Keypad", "keypad.png");//zoomed-in keypad scene
+  MoveToSceneObject s02KeyPadBack = new MoveToSceneObject("s02KeyPadBack", 640, 680, 50, 50, "arrowDown.png", "scene02");//go to door scene
+  scene02Keypad.addGameObject(s02KeyPadBack);
+  createKeypad(200, 200, 80, 10);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
+
+  sceneManager.addScene(scene02Keypad);
+
+  Scene scene03 = new Scene("scene03", "storyboard7.png");//door scene
+  MoveToSceneObject s03GoToDoor = new MoveToSceneObject("s03GoToDoor", 640, 680, 50, 50, "debugblock.png", "scene02");//go back to the door scene
+  scene03.addGameObject(s03GoToDoor); 
   sceneManager.addScene(scene03);
-  sceneManager.addScene(scene04);
-  sceneManager.addScene(scene05);
-}
+
+
+
+
+
+  //startGameInScene
+  sceneManager.goToScene("scene01");
+} 
 
 void draw()
 {
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
+  inventoryManager.clearMarkedForDeathCollectables();
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+    drawKeypad();
+  }
+  for ( CutScene cutScene : cutScenes) cutScene.update();
   inventoryManager.clearMarkedForDeathCollectables(); //this was already here
   inventoryManager.drawInventory();         // was that here? might need some modification, esp regarding the objects in the inventory
-  
-  
-  
 }
 
 void mouseDragged(){
@@ -107,7 +114,9 @@ void mouseDragged(){
 
 void mouseReleased(){
   inventoryManager.mouseReleased();
+  
 }
+
 
 void mouseMoved() {
   sceneManager.getCurrentScene().mouseMoved();
@@ -115,4 +124,9 @@ void mouseMoved() {
 
 void mouseClicked() {
   sceneManager.getCurrentScene().mouseClicked();
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+    for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
+  }
 }
+
+//CustomFunctions
