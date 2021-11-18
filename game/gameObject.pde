@@ -3,7 +3,7 @@ class GameObject {
   protected int y;
   protected int owidth;
   protected int oheight;
-  private String identifier;
+  protected String identifier;        //changed to protected bc collectableObject
   private boolean hasImage;
   private boolean hasHoverImage;
   private PImage gameObjectImage;
@@ -52,6 +52,7 @@ class GameObject {
      }
   }
   
+  public void mouseDragged() { }
   public void mouseClicked() { }
   
   public String getIdentifier() {

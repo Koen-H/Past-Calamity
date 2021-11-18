@@ -56,6 +56,13 @@ class Scene {
     }
   }
   
+  //WIP
+  public void mouseDragged(){
+    for(GameObject object: gameObjects){
+      object.mouseDragged();
+    }
+  }
+  
   public String getSceneName() {
     return this.sceneName;
   }

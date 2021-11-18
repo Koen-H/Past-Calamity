@@ -1,5 +1,5 @@
-int wwidth = 1280;
-int wheight = 720;
+int wwidth = 800;
+int wheight = 800;
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
@@ -21,7 +21,10 @@ void setup()
   //Scene.addGameObject(GameObject name);
   //sceneManager.addScene(Scene name);
 
+  //2 APPLE OBJECTS 
   Collectable apple = new Collectable("apple", "back04_apple.png");
+  Collectable apple2 = new Collectable("apple2", "back04_apple.png");
+  
   MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
 
   Scene scene01 = new Scene("scene01", "back01.png");
@@ -48,8 +51,19 @@ void setup()
   Scene scene03 = new Scene("scene03", "back04.png");
   MoveToSceneObject object5 = new MoveToSceneObject("goBack_scene03", 203, 673, 50, 50, "arrowDown.png", true);
   scene03.addGameObject(object5);
+
+
+
+  //second apple Object!
+  CollectableObject objectApple = new CollectableObject("apple_test", 500, 366, 123, 101, apple2);
+  scene03.addGameObject(objectApple);
+  //First APPLE OBJECT
   CollectableObject object6 = new CollectableObject("apple_scene03", 325, 366, 123, 101, apple);
   scene03.addGameObject(object6);
+
+  
+  
+  
 
   Scene scene04 = new Scene("scene04", "back03.png");
   TextObject endGame = new TextObject("smallText_scene04", 430, 590, 50, 50, "medal1.png", "Congratulations. You finished the game!");
@@ -80,6 +94,11 @@ void draw()
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
   inventoryManager.clearMarkedForDeathCollectables();
+  inventoryManager.drawInventory();         // was that here? might need some modification, esp regarding the objects in the inventory
+}
+
+void mouseDragged(){
+
 }
 
 void mouseMoved() {

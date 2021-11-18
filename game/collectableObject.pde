@@ -25,10 +25,14 @@ class CollectableObject extends GameObject {
     super.draw();
   }
   
+  
+  
+  //PROBLEM mouseClicked is working in a set of orders!! need to work on this :d
   @Override
   public void mouseClicked() {
     if(mouseIsHovering) {
-      inventoryManager.addCollectable(collectable);
+      //inventoryManager.addCollectable(collectable);
+      inventoryManager.addInventory(new InventoryObject(identifier, x, y, owidth, oheight, collectable));
       sceneManager.getCurrentScene().removeGameObject(this);
       if(willReplaceByAnotherGameObject) {
         sceneManager.getCurrentScene().addGameObject(replaceWith);  
