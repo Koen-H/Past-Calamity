@@ -9,7 +9,7 @@ class GameObject {
   private PImage gameObjectImage;
   private PImage gameObjectImageHover;
   protected boolean mouseIsHovering;
-  
+  //hi
   
   public GameObject(String identifier, int x, int y, int owidth, int oheight) {
     this(identifier, x, y, owidth, oheight, "");
@@ -49,9 +49,11 @@ class GameObject {
     if(mouseX >= x && mouseX <= x + owidth &&
        mouseY >= y && mouseY <= y + oheight) {
         mouseIsHovering = true;
+        println("mouseIsHovering");
      }
   }
   
+  public void mouseDragged() { }
   public void mouseClicked() { }
   
   public String getIdentifier() {

@@ -1,6 +1,5 @@
 int wwidth = 1280;
 int wheight = 720;
-boolean currentlyDragging = false;
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
@@ -94,19 +93,12 @@ void draw()
 {
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
-  inventoryManager.clearMarkedForDeathCollectables(); //this was already here
+  inventoryManager.clearMarkedForDeathCollectables();
   inventoryManager.drawInventory();         // was that here? might need some modification, esp regarding the objects in the inventory
-  
-  
-  
 }
 
 void mouseDragged(){
-  inventoryManager.mouseDragged();
-}
-
-void mouseReleased(){
-  inventoryManager.mouseReleased();
+  
 }
 
 void mouseMoved() {

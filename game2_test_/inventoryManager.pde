@@ -34,7 +34,6 @@ class InventoryManager {
     if(markedForDeathCollectables.size() > 0) {
       for(Collectable collectable : markedForDeathCollectables) {
         collectables.remove(collectable);
-        println("removed collectable");
       }
       markedForDeathCollectables  = new ArrayList<Collectable>();
     }
@@ -51,42 +50,16 @@ class InventoryManager {
       
       for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
         InventoryObject inventoryObject = inventoryObjects.get(o);
-        InventorySlot inventorySlot = inventorySlots.get(o);      //repeating code... :d
+        InventorySlot inventorySlot = inventorySlots.get(o);
         
+        //if(inventoryObject.isDragging){          // WIP
         push();
+
         inventoryObject.display(inventorySlot.objX, inventorySlot.objY);
         pop();
-      
+      //}
         
       } 
-    }
-  
-  //if the mouse is in the image, mouve it when the mouse is dragged
-  public void mouseDragged(){
-      for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
-        InventoryObject inventoryObject = inventoryObjects.get(o);
-        InventorySlot inventorySlot = inventorySlots.get(o);      //repeating code... :d
-        
-        if(inventoryObject.mouseIsHovering){
-        float deltaX = mouseX - pmouseX;
-        float deltaY = mouseY - pmouseY;
-        
-        inventorySlot.objX += deltaX;
-        inventorySlot.objY += deltaY;
-        }
-      }
+    }   
   }
-  
-  public void mouseReleased(){
-        for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
-        InventorySlot inventorySlot = inventorySlots.get(o);     //repeating code... :d
-        
-        //reset to 
-        inventorySlot.objX = inventorySlot.x + 40;
-        inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
-      
-    }
-  
-  }
-}
   

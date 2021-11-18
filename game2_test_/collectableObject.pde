@@ -28,6 +28,7 @@ class CollectableObject extends GameObject {
   
   
   
+  //PROBLEM mouseClicked is working in a set of orders!! need to work on this :d
   @Override
   public void mouseClicked() {
     if(mouseIsHovering) {

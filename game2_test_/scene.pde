@@ -4,7 +4,7 @@ class Scene {
   private ArrayList<GameObject> gameObjects;
   
   private ArrayList<GameObject> recentlyAddedGameObjects;
-  private ArrayList<GameObject> markedForDeathGameObjects;      //not in use
+  private ArrayList<GameObject> markedForDeathGameObjects;
   
   public Scene(String sceneName, String backgroundImageFile) {
     this.sceneName = sceneName;
@@ -54,6 +54,13 @@ class Scene {
   public void mouseClicked() {
     for(GameObject object : gameObjects) {
       object.mouseClicked();
+    }
+  }
+  
+  //WIP
+  public void mouseDragged(){
+    for(GameObject object: gameObjects){
+      object.mouseDragged();
     }
   }
   
