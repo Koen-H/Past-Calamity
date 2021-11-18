@@ -21,61 +21,34 @@ void setup()
   //Scene.addGameObject(GameObject name);
   //sceneManager.addScene(Scene name);
 
-  Collectable apple = new Collectable("apple", "back04_apple.png");
-  MoveToSceneObject object7 = new MoveToSceneObject("goToScene04_scene01", 206, 461, 50, 50, "arrowUp.png", "scene04");
 
-  Scene scene01 = new Scene("scene01", "back01.png");
-  RequireObject loupe01 = new RequireObject("requiresApple_scene01", 206, 461, 50, 50, "zoom.png", "Your need a apple!", apple, object7);
-  loupe01.setHoverImage("zoomIn.png");
-  scene01.addGameObject(loupe01);
-  TextObject loupe02 = new TextObject("smallText_scene01", 541, 445, 50, 50, "zoom.png", "This object has a text!");
-  loupe02.setHoverImage("zoomIn.png");
-  scene01.addGameObject(loupe02);
-  TextObject loupe03 = new TextObject("largeText_scene01", 46, 687, 50, 50, "zoom.png", "This object has a way longer text. It shows that the windows can be of varied size according to the text.");
-  loupe03.setHoverImage("zoomIn.png");
-  scene01.addGameObject(loupe03);
-  MoveToSceneObject object2 = new MoveToSceneObject("goToScene02_scene01", 708, 445, 50, 50, "arrowRight.png", "scene02");
-  scene01.addGameObject(object2);
-  MoveToSceneObject restaurantSceneMoveTo = new MoveToSceneObject("goToScene06_scene01", 388, 440, 50, 50, "arrowUp.png", "scene05");
-  scene01.addGameObject(restaurantSceneMoveTo);
+  //Main menu
+  Scene mainMenu = new Scene("mainMenu", "mainmenu.png"); //TODO update mainmenu.png
+  MoveToSceneObject playButton = new MoveToSceneObject("playButton", 350, 300, 300, 300, "debugblock.png", "cutScene01");//TODO Remove debugblock
+  playButton.setMethod("doCutScene01"); 
+  mainMenu.addGameObject(playButton); 
 
-  Scene scene02 = new Scene("scene02", "back02.png");
-  MoveToSceneObject object3 = new MoveToSceneObject("goBack_scene02", 350, 700, 50, 50, "arrowDown.png", true);
-  scene02.addGameObject(object3);
-  MoveToSceneObject object4 = new MoveToSceneObject("goToScene03_scene02", 441, 494, 50, 50, "arrowUp.png", "scene03");
-  scene02.addGameObject(object4);
+  Scene cutScene01 = new Scene("cutScene01", "cutscene01.png");
+  Scene cutScene02 = new Scene("cutScene02", "cutscene02.png");
 
-  Scene scene03 = new Scene("scene03", "back04.png");
-  MoveToSceneObject object5 = new MoveToSceneObject("goBack_scene03", 203, 673, 50, 50, "arrowDown.png", true);
-  scene03.addGameObject(object5);
-  CollectableObject object6 = new CollectableObject("apple_scene03", 325, 366, 123, 101, apple);
-  scene03.addGameObject(object6);
+  Scene cutScene03 = new Scene("cutScene03", "storyboard2.png");
+  MoveToSceneObject lightSwitch = new MoveToSceneObject("lightSwitch", 50, 300, 10, 30, "debugblock.png", "scene01");//TODO Remove debugblock
+  cutScene03.addGameObject(lightSwitch); 
 
-  Scene scene04 = new Scene("scene04", "back03.png");
-  TextObject endGame = new TextObject("smallText_scene04", 430, 590, 50, 50, "medal1.png", "Congratulations. You finished the game!");
-  scene04.addGameObject(endGame);
+  Scene scene01 = new Scene("scene01", "storyboard3.png");
+  TextObject hologram01 = new TextObject("hologram01", 700, 400, 50, 50, "debugblock.png", "Hey kids, what's up");
+  scene01.addGameObject(hologram01); 
 
-  Scene scene05 = new Scene("scene05", "back05.png");
-  MoveToSceneObject object8 = new MoveToSceneObject("goBack_scene01", 203, 753, 50, 50, "arrowDown.png", true);
-  scene05.addGameObject(object8);
-  TextObject loupe04 = new TextObject("smallText_scene05", 120, 275, 50, 50, "zoom.png", "Have you checked the apples in that odd house to the right?");
-  loupe04.setHoverImage("zoomIn.png");
-  scene05.addGameObject(loupe04);
-  TextObject loupe05 = new TextObject("smallText_2_scene05", 480, 285, 50, 50, "zoom.png", "Hello! How are you doing?");
-  loupe05.setHoverImage("zoomIn.png");
-  scene05.addGameObject(loupe05);
+
 
   Scene keypad = new Scene("keypad", "keypad.png");//TODO update keypad.png
   createKeypad(200, 200, 80, 10);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
-  
-  sceneManager.addScene(keypad);//zoomed-in keypad scene
+  sceneManager.addScene(mainMenu);
+  sceneManager.addScene(cutScene01);
+  sceneManager.addScene(cutScene02);
+  sceneManager.addScene(cutScene03);
   sceneManager.addScene(scene01);
-  sceneManager.addScene(scene02);
-  sceneManager.addScene(scene03);
-  sceneManager.addScene(scene04);
-  sceneManager.addScene(scene05);
-  
-  
+  sceneManager.addScene(keypad);//zoomed-in keypad scene
 } 
 
 void draw()
@@ -86,7 +59,9 @@ void draw()
   if (sceneManager.getCurrentScene().getSceneName() == "keypad") {
     drawKeypad();
   }
+  for ( CutScene cutScene : cutScenes) cutScene.update();
 }
+
 
 void mouseMoved() {
   sceneManager.getCurrentScene().mouseMoved();
@@ -98,3 +73,5 @@ void mouseClicked() {
     for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
   }
 }
+
+//CustomFunctions

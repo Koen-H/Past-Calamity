@@ -34,7 +34,12 @@ class TextObject extends GameObject {
     public void mouseClicked() {
     displayText = false;
     if (mouseIsHovering) { 
+      textCurrent = 0;
+      printText = "";
       displayText = true;
+      if (method != null) {
+        method(method);
+      }
     }
   }
 
