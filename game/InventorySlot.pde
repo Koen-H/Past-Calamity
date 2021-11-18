@@ -16,6 +16,7 @@ class InventorySlot{
   
   void drawSlots(){
     push();
+    fill(255);
     strokeWeight(2);
     rect(x, wheight - inventoryHeight, width/(numberOfSlots), inventoryHeight);
     pop();
