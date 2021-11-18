@@ -68,7 +68,7 @@ void setup()
   sceneManager.addScene(scene01OpenPainting);
 
   Scene scene02 = new Scene("scene02", "scene02doorClosed.png");//door scene
-  MoveToSceneObject s02GoToLab = new MoveToSceneObject("s02GoToLab", 50, 360, 10, 30, "debugblock.png", "scene01");//go back to the lab
+  MoveToSceneObject s02GoToLab = new MoveToSceneObject("s02GoToLab", 50, 360, 50, 50, "arrowLeft.png", "scene01");//go back to the lab
   MoveToSceneObject s02ZoomOnKeypad = new MoveToSceneObject("s02ZoomOnKeypad", 300, 360, 10, 30, "debugblock.png", "scene02Keypad");// go to keypad
   scene02.addGameObject(s02GoToLab); 
   scene02.addGameObject(s02ZoomOnKeypad); 
