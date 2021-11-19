@@ -2,21 +2,29 @@ class Scene {
   private String sceneName;
   protected PImage backgroundImage;
   private ArrayList<GameObject> gameObjects;
+  private ArrayList<ScannerObject> scannerObjects;
   
   private ArrayList<GameObject> recentlyAddedGameObjects;
-  private ArrayList<GameObject> markedForDeathGameObjects;      //not in use
+  private ArrayList<GameObject> markedForDeathGameObjects;
+  
   
   public Scene(String sceneName, String backgroundImageFile) {
     this.sceneName = sceneName;
     this.backgroundImage = loadImage(backgroundImageFile);
     gameObjects = new ArrayList<GameObject>();
+    scannerObjects = new ArrayList<ScannerObject>();
     
-    markedForDeathGameObjects = new ArrayList<GameObject>();  //what for?
+    
+    markedForDeathGameObjects = new ArrayList<GameObject>(); 
     recentlyAddedGameObjects = new ArrayList<GameObject>();
   }
   
   public void addGameObject(GameObject object) {
     recentlyAddedGameObjects.add(object);
+  }
+  
+  public void addScannerObject(ScannerObject scannerObject){
+    scannerObjects.add(scannerObject);                        //add ScannerObject in game
   }
   
   public void removeGameObject(GameObject object) {
@@ -28,7 +36,7 @@ class Scene {
       for(GameObject object : markedForDeathGameObjects) {
         gameObjects.remove(object);
       }
-      markedForDeathGameObjects  = new ArrayList<GameObject>();    //Previous one will be replaced by new ArrayList?
+      markedForDeathGameObjects  = new ArrayList<GameObject>();    
     }
     if(recentlyAddedGameObjects.size() > 0) {
       for(GameObject object : recentlyAddedGameObjects) {
@@ -43,6 +51,14 @@ class Scene {
     for(GameObject object : gameObjects) {
       object.draw();
     }
+    for(int i = 0; i < scannerObjects.size(); i++){            //scanner objects
+      ScannerObject scannerObject = scannerObjects.get(i);
+      scannerObject.display();                                 //display scannerObject based on in which scene they are in
+      if(scannerObject.mouseOverImage && scannerObject.draggingObject == inventoryManager.currentId){    //check whether required Dragging Object is over scannerObject
+        println(" YEEEEEE ");
+        scannerObject.isActive = true;                   // once it is true create a scenario!
+      }
+   }
   }
   
   public void mouseMoved() {

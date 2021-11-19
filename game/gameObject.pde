@@ -3,14 +3,14 @@ class GameObject {
   protected int y;
   protected int owidth;
   protected int oheight;
-  protected String identifier;        //changed to protected bc collectableObject
+  protected String identifier;
   private boolean hasImage;
   private boolean hasHoverImage;
   private PImage gameObjectImage;
   private PImage gameObjectImageHover;
   protected boolean mouseIsHovering;
 
-  protected String method = null;
+  protected String method = null;    //what does this do?
 
   public GameObject(String identifier, int x, int y, int owidth, int oheight) {
     this(identifier, x, y, owidth, oheight, "");

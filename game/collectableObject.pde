@@ -20,15 +20,13 @@ class CollectableObject extends GameObject {
     }
   }
   
-  @Override      //this works, but why doesnt it work for inventoryObject? 
+  @Override
   public void draw() {
     super.draw();
-    println("collectable Object drawn");
   }
 
-
-    @Override
-    public void mouseClicked() {
+  @Override
+  public void mouseClicked() {
     if (mouseIsHovering) {
       if (method != null) {
         method(method);

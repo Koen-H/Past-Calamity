@@ -1,6 +1,7 @@
 int wwidth = 1280;
 int wheight = 720;
 boolean currentlyDragging = false;
+boolean showInventory = false;
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
@@ -47,6 +48,9 @@ void setup()
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1200, 300, 10, 30, "debugblock.png", "scene02");//go to door scene
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
   //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); // TODO
+  ScannerObject s01Frame = new ScannerObject("s01frame",1000, 200, 150, 150, "frame.png", "drawerKeyObj");
+  scene01.addScannerObject(s01Frame);
+  
   scene01.addGameObject(s01Hologram); 
   scene01.addGameObject(s01ZoomOnPainting); 
   scene01.addGameObject(s01GoToDoor);
@@ -62,9 +66,10 @@ void setup()
 
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png");//painting open
   MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 640, 680, 50, 50, "arrowDown.png", "scene01");//close painting
-  Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");
-  CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey);
+  Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");                                ///////APPLE
+  CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey);   //drawerKeyObj is identifier
   scene01OpenPainting.addGameObject(drawerKeyObj); 
+  
   scene01OpenPainting.addGameObject(s01ClosePainting); 
   sceneManager.addScene(scene01OpenPainting);
 
@@ -105,7 +110,9 @@ void draw()
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
   inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-  inventoryManager.drawInventory();         // was that here? might need some modification, esp regarding the objects in the inventory
+  if (showInventory){
+  inventoryManager.drawInventory(); 
+  }
 }
 
 void mouseDragged(){
@@ -114,7 +121,6 @@ void mouseDragged(){
 
 void mouseReleased(){
   inventoryManager.mouseReleased();
-  
 }
 
 
@@ -123,6 +129,10 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
+ if(mouseButton == RIGHT){                                    //temporary! --> later make an icon (top right/topleft of screen for this functionality)
+      if(showInventory){ showInventory = false; }
+      else { showInventory = true;}
+  }
   sceneManager.getCurrentScene().mouseClicked();
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
     for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
