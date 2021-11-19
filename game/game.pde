@@ -42,7 +42,7 @@ void setup()
   testDialogue.addDialogueBox(testDialogueBox2);
   testDialogue.addDialogueBox(testDialogueBox3);
   dialogueManager.add(testDialogue);
-  testDialogue.activateDialogue();
+ // testDialogue.activateDialogue();
 
   //Main menu
   Scene mainMenu = new Scene("mainMenu", "mainmenu.png"); //TODO update mainmenu.png
