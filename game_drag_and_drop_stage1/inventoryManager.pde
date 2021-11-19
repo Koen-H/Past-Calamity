@@ -4,7 +4,6 @@ class InventoryManager {
   private ArrayList<InventoryObject> inventoryObjects;
   private ArrayList<InventorySlot> inventorySlots;
   private int numberOfSlots = 6;
-  private String currentId; 
   
   
   public InventoryManager() {
@@ -14,10 +13,11 @@ class InventoryManager {
      inventorySlots = new ArrayList<InventorySlot>();
      for(int i = 0; i < numberOfSlots ; i++ ){    //six slots
        inventorySlots.add(new InventorySlot (((wwidth/numberOfSlots)*i), numberOfSlots) );
-       //println("created Slot");
+       println("created Slot");
      }
   }
-
+  
+  
   public void addCollectable(Collectable collectable) {
     collectables.add(collectable);
   }
@@ -40,6 +40,7 @@ class InventoryManager {
     }
   }
   
+  
   public void addInventory(InventoryObject inventoryObject){
     inventoryObjects.add(inventoryObject);
     println(inventoryObject.getId());
@@ -55,17 +56,16 @@ class InventoryManager {
         push();
         inventoryObject.display(inventorySlot.objX, inventorySlot.objY);
         pop();
-  
+      
+        
       } 
     }
-
+  
   //if the mouse is in the image, mouve it when the mouse is dragged
   public void mouseDragged(){
-    
       for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
         InventoryObject inventoryObject = inventoryObjects.get(o);
         InventorySlot inventorySlot = inventorySlots.get(o);      //repeating code... :d
-        inventoryObject.isDragging = true;         //currently not in use
         
         if(inventoryObject.mouseIsHovering){
         float deltaX = mouseX - pmouseX;
@@ -73,21 +73,16 @@ class InventoryManager {
         
         inventorySlot.objX += deltaX;
         inventorySlot.objY += deltaY;
-        
-        currentId = inventoryObject.getId();
-        println(currentId);
         }
       }
   }
   
   public void mouseReleased(){
         for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
-        InventoryObject inventoryObject = inventoryObjects.get(o);
         InventorySlot inventorySlot = inventorySlots.get(o);     //repeating code... :d
-        inventoryObject.isDragging = false;                      //currently not in use
         
-        //reset to slot positon
-        inventorySlot.objX = inventorySlot.x + 40;                      //current x
+        //reset to 
+        inventorySlot.objX = inventorySlot.x + 40;
         inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
       
     }
