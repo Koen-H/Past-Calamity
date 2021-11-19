@@ -3,7 +3,6 @@ public ArrayList<CutScene> cutScenes = new ArrayList<CutScene>();
 //This example will automatically change the scene to cutScene02 after 3 seconds;
 
 public void doCutScene01() {
-  println("test");
   cutScenes.add(new CutScene(0, "cutScene01"));
   cutScenes.add(new CutScene(3, "cutScene02"));
   cutScenes.add(new CutScene(6, "cutScene03"));

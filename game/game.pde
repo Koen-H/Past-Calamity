@@ -4,6 +4,8 @@ int wheight = 720;
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 
+
+
 void settings()
 {
   size(wwidth, wheight);
@@ -16,12 +18,29 @@ void setup()
   //MoveToSceneObject name = new MoveToSceneObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String sceneName);
   //Scene name = new Scene(String name, String sceneBackgroundImageFile);
   //RequireObject name = new RequireObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String text, Collectable name, MoveToSceneObject name);
-  //TextObject name = new TextObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String Text);
+  //TextObject name = new TextObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String Text);//DONT USE THIS ANYMORE
   //GameObject.setHoverImage(String imageFile);
   //Scene.addGameObject(GameObject name);
   //sceneManager.addScene(Scene name);
 
+  //DialogueBox dialogueBox = new DialogueBox(String text); //NOTE: Use \n to create a newline
+  //Dialogue dialogue = new Dialogue();// multiple dialogueBoxes will be one dialogue.
+  //dialogue.addDialogueBox(dialogueBox); // adds the dialogueBox to the dialogue.
+  //dialogueManager.add(dialogue); // add the dialogue to the dialogueManager else it wont work!
+  //dialogue.activateDialogue(); // enables the dialogue
+  //DialogueObject dialogueObject = new DialogueObject(String identifier, Int xPos, Int yPos, Int width, Int height, String imageFile, Dialogue dialogue); //create a button that enables a dialogue
+  //scene.addDialogueOnEnter(Dialogue dialogue, boolean dialogueOnlyOnce) //start a dialogue when the payer enters the scene, enable dialogueOnlyOnce if the dialogue should only happen the first time the player enters the scene.
 
+
+  DialogueBox testDialogueBox1 = new DialogueBox("Who! this dialogue box works perfect!");
+  DialogueBox testDialogueBox2 = new DialogueBox("It even switches to the next one!");
+  DialogueBox testDialogueBox3 = new DialogueBox("It even switches to the next one!2");
+  Dialogue testDialogue = new Dialogue();
+  testDialogue.addDialogueBox(testDialogueBox1);
+  testDialogue.addDialogueBox(testDialogueBox2);
+  testDialogue.addDialogueBox(testDialogueBox3);
+  dialogueManager.add(testDialogue);
+  testDialogue.activateDialogue();
 
   //Main menu
   Scene mainMenu = new Scene("mainMenu", "mainmenu.png"); //TODO update mainmenu.png
@@ -37,12 +56,19 @@ void setup()
   sceneManager.addScene(cutScene02);
 
   Scene cutScene03 = new Scene("cutScene03", "storyboard2.png");//dark room with a switch
+  Dialogue dialogueCutScene03 = new Dialogue();
+  DialogueBox dialogueCutScene03Box01 = new DialogueBox("What happend, it's dark... where am I...");
+  DialogueBox dialogueCutScene03Box02 = new DialogueBox("second text here");
+  dialogueCutScene03.addDialogueBox(dialogueCutScene03Box01);
+  dialogueCutScene03.addDialogueBox(dialogueCutScene03Box02);
+  dialogueManager.add(dialogueCutScene03);
+  cutScene03.addDialogueOnEnter(dialogueCutScene03, true);
   MoveToSceneObject lightSwitch = new MoveToSceneObject("lightSwitch", 50, 300, 10, 30, "debugblock.png", "scene01");//TODO Remove debugblock
   cutScene03.addGameObject(lightSwitch);
   sceneManager.addScene(cutScene03);
 
   Scene scene01 = new Scene("scene01", "storyboard3.png");// the lab
-  TextObject s01Hologram = new TextObject("hologram01", 700, 400, 50, 50, "debugblock.png", "Hey kids, what's up");//hologram text
+  DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1200, 300, 10, 30, "debugblock.png", "scene02");//go to door scene
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
   //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); // TODO
@@ -91,7 +117,7 @@ void setup()
 
 
   //startGameInScene
-  sceneManager.goToScene("scene01");
+  // sceneManager.goToScene("scene01");
 } 
 
 void draw()
@@ -103,6 +129,7 @@ void draw()
     drawKeypad();
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
+  for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
 }
 
 
@@ -111,9 +138,13 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
-  sceneManager.getCurrentScene().mouseClicked();
-  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
-    for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
+  if (!isDialogueActive) {
+    sceneManager.getCurrentScene().mouseClicked();
+    if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+      for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
+    }
+  } else {
+    for ( Dialogue dialogue : dialogueManager) dialogue.nextDialogueBox();
   }
 }
 
