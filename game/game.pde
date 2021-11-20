@@ -42,7 +42,7 @@ void setup()
   testDialogue.addDialogueBox(testDialogueBox2);
   testDialogue.addDialogueBox(testDialogueBox3);
   dialogueManager.add(testDialogue);
- // testDialogue.activateDialogue();
+  // testDialogue.activateDialogue();
 
   //Main menu
   Scene mainMenu = new Scene("mainMenu", "mainmenu.png"); //TODO update mainmenu.png
@@ -59,10 +59,12 @@ void setup()
 
   Scene cutScene03 = new Scene("cutScene03", "storyboard2.png");//dark room with a switch
   Dialogue dialogueCutScene03 = new Dialogue();
-  DialogueBox dialogueCutScene03Box01 = new DialogueBox("What happend, it's dark... where am I...");
-  DialogueBox dialogueCutScene03Box02 = new DialogueBox("second text here");
+  DialogueBox dialogueCutScene03Box01 = new DialogueBox("Ouch that hurt...\nAre you okay?");
+  DialogueBox dialogueCutScene03Box02 = new DialogueBox("Yeah i think so.");
+  DialogueBox dialogueCutScene03Box03 = new DialogueBox("Alright. Stay here. I will turn on the lights.");
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box01);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box02);
+  dialogueCutScene03.addDialogueBox(dialogueCutScene03Box03);
   dialogueManager.add(dialogueCutScene03);
   cutScene03.addDialogueOnEnter(dialogueCutScene03, true);
   MoveToSceneObject lightSwitch = new MoveToSceneObject("lightSwitch", 50, 300, 10, 30, "debugblock.png", "scene01");//TODO Remove debugblock
@@ -70,20 +72,45 @@ void setup()
   sceneManager.addScene(cutScene03);
 
   Scene scene01 = new Scene("scene01", "storyboard3.png");// the lab
-  DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
-  MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1200, 300, 10, 30, "debugblock.png", "scene02");//go to door scene
+  Dialogue dialogueScene01 = new Dialogue();
+  DialogueBox dialogueScene01Box01 = new DialogueBox("Wow it's dad's hologram. He looks so old. \nHe has even more gray hairs than he used to have.\nAnd his beard...it's so long.");
+  DialogueBox dialogueScene01Box02 = new DialogueBox("Hello there. I hope this message reaches you \nsomewhere in the future. I will soon be killed. \nYou might be wondering what happened to everyone.");
+  DialogueBox dialogueScene01Box03 = new DialogueBox("But first i want you to go to my desk. \nInside, you c-can f-fi-find a-");
+  DialogueBox dialogueScene01Box04 = new DialogueBox("Dad's hologram ran out of power.");
+  dialogueScene01.addDialogueBox(dialogueScene01Box01);
+  dialogueScene01.addDialogueBox(dialogueScene01Box02);
+  dialogueScene01.addDialogueBox(dialogueScene01Box03);
+  dialogueScene01.addDialogueBox(dialogueScene01Box04);
+  dialogueManager.add(dialogueScene01);
+  scene01.addDialogueOnEnter(dialogueScene01, true);
+  //DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
+  MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1180, 330, 50, 50, "debugblock.png", "scene02");//go to door scene
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
+  MoveToSceneObject s01GoToTimeMachine = new MoveToSceneObject("s01GoToTimeMachine", 50, 360, 50, 50, "debugblock.png", "scene01TimeMachine");//go back to the lab
   //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); // TODO
-  ScannerObject s01Frame = new ScannerObject("s01frame",1000, 200, 150, 150, "frame.png", "drawerKeyObj");
+  ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
   scene01.addScannerObject(s01Frame);
-  
-  scene01.addGameObject(s01Hologram); 
+  //scene01.addGameObject(s01Hologram); 
   scene01.addGameObject(s01ZoomOnPainting); 
   scene01.addGameObject(s01GoToDoor);
+  scene01.addGameObject(s01GoToTimeMachine);
   //scene01.addGameObject(drawerLocker);
   sceneManager.addScene(scene01);
 
+  Scene scene01TimeMachine = new Scene("scene01TimeMachine", "storyboard3.png"); //here's the time machine
+  MoveToSceneObject s01TimeMachineGoToLab = new MoveToSceneObject("s01TimeMachineGoToLab", 1180, 330, 50, 50, "debugblock.png", "scene01");//go to door scene
+  scene01TimeMachine.addGameObject(s01TimeMachineGoToLab);
+  sceneManager.addScene(scene01TimeMachine);
+
+
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png");//zoomedIn painting
+  Dialogue dialogueScene01Painting = new Dialogue();
+  DialogueBox dialogueScene01PaintingBox01 = new DialogueBox("Look, there’s a picture of us and mom!");
+  DialogueBox dialogueScene01PaintingBox02 = new DialogueBox("Strange… Dad was never the type to care about \npictures. Especially ones with his family in it. \nI’ll take a closer look.");
+  dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox01);
+  dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox02);
+  dialogueManager.add(dialogueScene01Painting);
+  scene01Painting.addDialogueOnEnter(dialogueScene01Painting, true);
   MoveToSceneObject s01OpenPainting = new MoveToSceneObject("s01ZoomOutPainting", 800, 300, 10, 30, "debugblock.png", "scene01OpenPainting");//open painting
   MoveToSceneObject s01ZoomOutPainting = new MoveToSceneObject("s01ZoomOutPainting", 640, 680, 50, 50, "arrowDown.png", "scene01");//go back to the lab
   scene01Painting.addGameObject(s01OpenPainting); 
@@ -95,7 +122,7 @@ void setup()
   Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");                                ///////APPLE
   CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey);   //drawerKeyObj is identifier
   scene01OpenPainting.addGameObject(drawerKeyObj); 
-  
+
   scene01OpenPainting.addGameObject(s01ClosePainting); 
   sceneManager.addScene(scene01OpenPainting);
 
@@ -113,17 +140,75 @@ void setup()
 
   sceneManager.addScene(scene02Keypad);
 
-  Scene scene03 = new Scene("scene03", "storyboard7.png");//door scene
+  Scene scene03 = new Scene("scene03", "storyboard7.png");//outside car scene
   MoveToSceneObject s03GoToDoor = new MoveToSceneObject("s03GoToDoor", 640, 680, 50, 50, "debugblock.png", "scene02");//go back to the door scene
+  MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1170, 330, 50, 50, "debugblock.png", "scene04");//continue scene
+  Collectable teddy = new Collectable("teddy", "back04_apple.png");                            
+  CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy);
+  scene03.addGameObject(teddyObj);
   scene03.addGameObject(s03GoToDoor); 
+  scene03.addGameObject(s03GoToS04); 
   sceneManager.addScene(scene03);
+
+  Scene scene04 = new Scene("scene04", "storyboard8.png");//walking to city, emergency board
+  MoveToSceneObject s04GoToS03 = new MoveToSceneObject("s04GoToS03", 640, 680, 50, 50, "debugblock.png", "scene03");//go back a scene
+  MoveToSceneObject s04GoToS05 = new MoveToSceneObject("s04GoToS05", 900, 330, 50, 50, "debugblock.png", "scene05");//continue scene
+  scene04.addGameObject(s04GoToS03); 
+  scene04.addGameObject(s04GoToS05); 
+  sceneManager.addScene(scene04);
+
+  Scene scene05 = new Scene("scene05", "storyboard9.png");//found a store scene
+  MoveToSceneObject s05GoToS04 = new MoveToSceneObject("s05GoToS04", 640, 680, 50, 50, "debugblock.png", "scene04");
+  MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1180, 330, 50, 50, "debugblock.png", "scene07");
+  Collectable crowbar = new Collectable("crowbar", "back04_apple.png");                        
+  CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar);
+  //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
+  //for now, an object to go to the next scene
+  MoveToSceneObject s05GoToS06 = new MoveToSceneObject("s05GoToS06", 640, 300, 50, 50, "debugblock.png", "scene06");
+  scene05.addGameObject(s05GoToS04); 
+  scene05.addGameObject(s05GoToS06); //replace this with scannerobject
+  scene05.addGameObject(s05GoToS07);
+  scene05.addGameObject(crowbaObj); 
+  sceneManager.addScene(scene05);
+
+  Scene scene06 = new Scene("scene06", "storyboard9.png");//inside a store scene
+  MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 640, 680, 50, 50, "debugblock.png", "scene05");
+  Collectable powerCell01 = new Collectable("powerCell", "back04_apple.png");                        
+  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell01);
+  Collectable powerCell02 = new Collectable("powerCell", "back04_apple.png");                        
+  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell02);
+  Collectable powerCell03 = new Collectable("powerCell", "back04_apple.png");                        
+  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell03);
+  Collectable powerCell04 = new Collectable("powerCell", "back04_apple.png");                        
+  CollectableObject powerCellObj04 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell04);
+  Collectable powerCell05 = new Collectable("powerCell", "back04_apple.png");                        
+  CollectableObject powerCellObj05 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell05);
+  //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
+  //for now, an object to go to the next scene
+  scene06.addGameObject(s06GoToS05); 
+  scene06.addGameObject(powerCellObj01);
+  scene06.addGameObject(powerCellObj02); 
+  scene06.addGameObject(powerCellObj03); 
+  scene06.addGameObject(powerCellObj04); 
+  scene06.addGameObject(powerCellObj05); 
+  sceneManager.addScene(scene06);
+
+  Scene scene07 = new Scene("scene07", "storyboard9.png");//holograms in city scene
+  MoveToSceneObject s07GoToS05 = new MoveToSceneObject("s05GoToS04", 50, 330, 50, 50, "debugblock.png", "scene05");
+  //this scene needs holograms (scanObjects) they will provide dialogue with lore if a battery is dragged on top of it.
+  //
+  scene07.addGameObject(s07GoToS05); 
+  sceneManager.addScene(scene07);
+
+
+
 
 
 
 
 
   //startGameInScene
-  // sceneManager.goToScene("scene01");
+  sceneManager.goToScene("scene01");
 } 
 
 void draw()
@@ -136,17 +221,17 @@ void draw()
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
   inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-  if (showInventory){
-  inventoryManager.drawInventory(); 
+  if (showInventory) {
+    inventoryManager.drawInventory();
   }
   for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
 }
 
-void mouseDragged(){
+void mouseDragged() {
   inventoryManager.mouseDragged();
 }
 
-void mouseReleased(){
+void mouseReleased() {
   inventoryManager.mouseReleased();
 }
 
@@ -156,9 +241,13 @@ void mouseMoved() {
 }
 
 void mouseClicked() {
- if(mouseButton == RIGHT){                                    //temporary! --> later make an icon (top right/topleft of screen for this functionality)
-      if(showInventory){ showInventory = false; } //you can use showInventory = !showInventory to make it change from false to true and vica versa.
-      else { showInventory = true;}
+  if (mouseButton == RIGHT) {                                    //temporary! --> later make an icon (top right/topleft of screen for this functionality)
+    if (showInventory) { 
+      showInventory = false;
+    } //you can use showInventory = !showInventory to make it change from false to true and vica versa.
+    else { 
+      showInventory = true;
+    }
   }
   if (!isDialogueActive) {
     sceneManager.getCurrentScene().mouseClicked();
