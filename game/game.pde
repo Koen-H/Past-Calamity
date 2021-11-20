@@ -89,9 +89,9 @@ void setup()
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1180, 330, 50, 50, "debugblock.png", "scene02");//go to door scene
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
   MoveToSceneObject s01GoToTimeMachine = new MoveToSceneObject("s01GoToTimeMachine", 50, 360, 50, 50, "debugblock.png", "scene01TimeMachine");//go back to the lab
-  //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); // TODO
-  s01Frame = new ScannerObject("s01frame",1000, 200, 150, 150, "frame.png", "drawerKeyObj"); //check this
-  ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
+  //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); //
+  s01Frame = new ScannerObject("s01frame",1000, 200, 150, 150, "frame.png", "drawerKeyObj"); // does line 94 not work?
+  //ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
   scene01.addScannerObject(s01Frame);
   //scene01.addGameObject(s01Hologram); 
   scene01.addGameObject(s01ZoomOnPainting); 
@@ -166,7 +166,7 @@ void setup()
   MoveToSceneObject s03GoToDoor = new MoveToSceneObject("s03GoToDoor", 640, 680, 50, 50, "debugblock.png", "scene02");//go back to the door scene
   MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1170, 330, 50, 50, "debugblock.png", "scene04");//continue scene
   Collectable teddy = new Collectable("teddy", "back04_apple.png");                            
-  CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy);
+  CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy, false);
   scene03.addGameObject(teddyObj);
   scene03.addGameObject(s03GoToDoor); 
   scene03.addGameObject(s03GoToS04); 
@@ -183,7 +183,7 @@ void setup()
   MoveToSceneObject s05GoToS04 = new MoveToSceneObject("s05GoToS04", 640, 680, 50, 50, "debugblock.png", "scene04");
   MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1180, 330, 50, 50, "debugblock.png", "scene07");
   Collectable crowbar = new Collectable("crowbar", "back04_apple.png");                        
-  CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar);
+  CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar, false);
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
   //for now, an object to go to the next scene
   MoveToSceneObject s05GoToS06 = new MoveToSceneObject("s05GoToS06", 640, 300, 50, 50, "debugblock.png", "scene06");
@@ -196,15 +196,15 @@ void setup()
   Scene scene06 = new Scene("scene06", "storyboard9.png");//inside a store scene
   MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 640, 680, 50, 50, "debugblock.png", "scene05");
   Collectable powerCell01 = new Collectable("powerCell", "back04_apple.png");                        
-  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell01);
+  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell01, false);
   Collectable powerCell02 = new Collectable("powerCell", "back04_apple.png");                        
-  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell02);
+  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell02, false);
   Collectable powerCell03 = new Collectable("powerCell", "back04_apple.png");                        
-  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell03);
+  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell03, false);
   Collectable powerCell04 = new Collectable("powerCell", "back04_apple.png");                        
-  CollectableObject powerCellObj04 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell04);
+  CollectableObject powerCellObj04 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell04, false);
   Collectable powerCell05 = new Collectable("powerCell", "back04_apple.png");                        
-  CollectableObject powerCellObj05 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell05);
+  CollectableObject powerCellObj05 = new CollectableObject("powerCellObj", 600, 400, 150, 150, powerCell05, false);
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
   //for now, an object to go to the next scene
   scene06.addGameObject(s06GoToS05); 
@@ -249,7 +249,7 @@ void draw()
     drawKeypad();
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
-  inventoryManager.clearMarkedForDeathCollectables(); //this was already here
+  //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
   if (showInventory) {
     inventoryManager.drawInventory();
   }
