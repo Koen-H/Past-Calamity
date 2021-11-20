@@ -18,7 +18,8 @@ class InventoryManager {
      }
   }
 
-  public void addCollectable(Collectable collectable) {
+/*
+  public void addCollectable(Collectable collectable) {          //currently not in use: used in requiredObject
     collectables.add(collectable);
   }
   
@@ -26,11 +27,7 @@ class InventoryManager {
     markedForDeathCollectables.add(collectable);
   }
   
-  public boolean containsCollectable(Collectable collectable) {
-    return collectables.contains(collectable);
-  }
-  
-  public void clearMarkedForDeathCollectables() {
+  public void clearMarkedForDeathCollectables() {                //not in use: used in game.draw
     if(markedForDeathCollectables.size() > 0) {
       for(Collectable collectable : markedForDeathCollectables) {
         collectables.remove(collectable);
@@ -39,10 +36,20 @@ class InventoryManager {
       markedForDeathCollectables  = new ArrayList<Collectable>();
     }
   }
-  
-  public void addInventory(InventoryObject inventoryObject){
+ */ 
+  public boolean containsCollectable(Collectable collectable) {  //used in requireObject
+    return collectables.contains(collectable);
+  }
+
+
+
+  public void addInventoryObject(InventoryObject inventoryObject){
     inventoryObjects.add(inventoryObject);
     println(inventoryObject.getId());
+  }
+  
+  public void removeInventoryObject(InventoryObject inventoryObject){
+    inventoryObjects.remove(inventoryObject);
   }
 
   public void drawInventory(){
@@ -50,7 +57,7 @@ class InventoryManager {
       
       for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
         InventoryObject inventoryObject = inventoryObjects.get(o);
-        InventorySlot inventorySlot = inventorySlots.get(o);      //repeating code... :d
+        InventorySlot inventorySlot = inventorySlots.get(o);      
         
         push();
         inventoryObject.display(inventorySlot.objX, inventorySlot.objY);
@@ -64,31 +71,40 @@ class InventoryManager {
     
       for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
         InventoryObject inventoryObject = inventoryObjects.get(o);
-        InventorySlot inventorySlot = inventorySlots.get(o);      //repeating code... :d
-        inventoryObject.isDragging = true;         //currently not in use
+        InventorySlot inventorySlot = inventorySlots.get(o);      
         
         if(inventoryObject.mouseIsHovering){
-        float deltaX = mouseX - pmouseX;
-        float deltaY = mouseY - pmouseY;
+           println(inventoryObject.canBeRemoved);
+          
+          float deltaX = mouseX - pmouseX;
+          float deltaY = mouseY - pmouseY;
         
-        inventorySlot.objX += deltaX;
-        inventorySlot.objY += deltaY;
+          inventorySlot.objX += deltaX;
+          inventorySlot.objY += deltaY;
         
-        currentId = inventoryObject.getId();
-        println(currentId);
+          currentId = inventoryObject.getId();
+          println(currentId);
+                                                                                //recentScannerObject set false in game
+          if (inventoryObject.canBeRemoved && sceneManager.getCurrentScene().recentScannerObject.isActive){ 
+            inventoryObject.mouseIsHovering = false;
+            println(inventoryObject.mouseIsHovering);  
+            inventoryObjects.remove(o);        //PROBLEM this deletes ALL inventoryObjects   
+            
+            inventorySlot.objX = inventorySlot.x + 40;                      //currently 40, probably needs adjustment
+            inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
+          }
         }
       }
   }
   
   public void mouseReleased(){
         for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
-        InventoryObject inventoryObject = inventoryObjects.get(o);
-        InventorySlot inventorySlot = inventorySlots.get(o);     //repeating code... :d
-        inventoryObject.isDragging = false;                      //currently not in use
+        InventorySlot inventorySlot = inventorySlots.get(o);  
         
         //reset to slot positon
-        inventorySlot.objX = inventorySlot.x + 40;                      //current x
+        inventorySlot.objX = inventorySlot.x + 40;                      //currently 40, probably needs adjustment
         inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
+        
       
     }
   
