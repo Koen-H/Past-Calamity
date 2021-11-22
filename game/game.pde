@@ -3,11 +3,14 @@ int wheight = 720;
 boolean currentlyDragging = false;
 boolean showInventory = false;
 
-//INITIALIZE SCANNER OBJECTS
+boolean playDialogue = false;
+
+//INITIALIZE Inventory + SCANNER OBJECTS + SCENE
+InventoryButton inventoryButton;
 ScannerObject s01Frame;
 ScannerObject s01Frame2;
 
-ScannerObject timeScrew1,timeScrew2,timeScrew3,timeScrew4,timeBattery1,timeBattery2;
+ScannerObject timeScrew1, timeScrew2, timeScrew3, timeScrew4, timeBattery1, timeBattery2;
 //timeScrew varialbes;
 boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, timeBattery1B, timeBattery2B, timeBatterySolved;
 
@@ -89,11 +92,15 @@ void setup()
   dialogueScene01.addDialogueBox(dialogueScene01Box04);
   dialogueManager.add(dialogueScene01);
   scene01.addDialogueOnEnter(dialogueScene01, true);
+
   //DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1180, 330, 50, 50, "debugblock.png", "scene02");//go to door scene
+  s01GoToDoor.setHoverImage("frame.png");
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
+  s01ZoomOnPainting.setHoverImage("frame.png");
   MoveToSceneObject s01ZoomOnLocker = new MoveToSceneObject("s01ZoomOnLocker", 900, 460, 50, 50, "debugblock.png", "scene01Locker");//go to zoomedLocker scene
   MoveToSceneObject s01GoToTimeMachine = new MoveToSceneObject("s01GoToTimeMachine", 50, 360, 50, 50, "debugblock.png", "scene01TimeMachine");//go back to the lab
+  s01GoToTimeMachine.setHoverImage("frame.png");
   //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); //
   s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj"); // does line 94 not work?
   //ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
@@ -105,12 +112,13 @@ void setup()
   scene01.addGameObject(s01GoToTimeMachine);
   //scene01.addGameObject(drawerLocker);
   sceneManager.addScene(scene01);
+  inventoryButton = new InventoryButton(20, 20, 50, 50, "back04_apple.png");
 
   Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png");
   Collectable diary = new Collectable("diary", "Notebook.png");                        
-  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false);
+  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, false);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
-  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false);
+  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01");
   scene01Locker.addGameObject(sceneLockerBack);
   scene01Locker.addGameObject(diaryObj);
@@ -119,14 +127,14 @@ void setup()
 
 
   //////////// TESTING REMOVING ITEMS REMOVE ONCE FINISHED ////////////////////
-  /*
-  Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");                               
-   CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey, false);   //drawerKeyObj is identifier
-   scene01.addGameObject(drawerKeyObj); 
-   Collectable drawerKey2 = new Collectable("drawerKey2", "back04_apple.png");                                
-   CollectableObject drawerKeyObj2 = new CollectableObject("drawerKeyObj2", 200, 400, 150, 150, drawerKey2, false);   //drawerKeyObj is identifier
-   scene01.addGameObject(drawerKeyObj2);
-   */
+  /**/
+  Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");                           //isRemoveable, canBeclicked
+  CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey, true, false);   //drawerKeyObj is identifier
+  scene01.addGameObject(drawerKeyObj); 
+  Collectable drawerKey2 = new Collectable("drawerKey2", "back04_apple.png");                                
+  CollectableObject drawerKeyObj2 = new CollectableObject("drawerKeyObj2", 200, 400, 150, 150, drawerKey2, false, true );   //drawerKeyObj is identifier
+  scene01.addGameObject(drawerKeyObj2);
+  /**/
   //FRAME SCANNER
   s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
   scene01.addScannerObject(s01Frame);
@@ -176,8 +184,9 @@ void setup()
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png");//painting open
   MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 640, 680, 50, 50, "arrowDown.png", "scene01");//close painting
 
-  Collectable drawerKey3 = new Collectable("drawerKey3", "key.png");           
-  CollectableObject drawerKeyObj3 = new CollectableObject("drawerKeyObj3", 600, 400, 150, 150, drawerKey3, true);   //drawerKeyObj is identifier
+  Collectable drawerKey3 = new Collectable("drawerKey3", "key.png");                                   
+  CollectableObject drawerKeyObj3 = new CollectableObject("drawerKeyObj3", 600, 400, 150, 150, drawerKey3, true, false);   //drawerKeyObj is identifier
+
   scene01OpenPainting.addGameObject(drawerKeyObj3); 
 
   scene01OpenPainting.addGameObject(s01ClosePainting); 
@@ -201,7 +210,7 @@ void setup()
   MoveToSceneObject s03GoToDoor = new MoveToSceneObject("s03GoToDoor", 640, 680, 50, 50, "debugblock.png", "scene02");//go back to the door scene
   MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1170, 330, 50, 50, "debugblock.png", "scene04");//continue scene
   Collectable teddy = new Collectable("teddy", "back04_apple.png");                            
-  CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy, false);
+  CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy, false, false);
   scene03.addGameObject(teddyObj);
   scene03.addGameObject(s03GoToDoor); 
   scene03.addGameObject(s03GoToS04); 
@@ -218,7 +227,7 @@ void setup()
   MoveToSceneObject s05GoToS04 = new MoveToSceneObject("s05GoToS04", 640, 680, 50, 50, "debugblock.png", "scene04");
   MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1180, 330, 50, 50, "debugblock.png", "scene07");
   Collectable crowbar = new Collectable("crowbar", "back04_apple.png");                        
-  CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar, false);
+  CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar, false, false);
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
   //for now, an object to go to the next scene
   MoveToSceneObject s05GoToS06 = new MoveToSceneObject("s05GoToS06", 640, 300, 50, 50, "debugblock.png", "scene06");
@@ -231,15 +240,15 @@ void setup()
   Scene scene06 = new Scene("scene06", "storyboard9.png");//inside a store scene
   MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 640, 680, 50, 50, "debugblock.png", "scene05");
   Collectable powerCell01 = new Collectable("powerCell1", "Battery1.png");                        
-  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj1", 20, 400, 150, 150, powerCell01, true);
+  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj1", 20, 400, 150, 150, powerCell01, true, false);
   Collectable powerCell02 = new Collectable("powerCell2", "Battery1.png");                        
-  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj2", 200, 400, 150, 150, powerCell02, true);
+  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj2", 200, 400, 150, 150, powerCell02, true, false);
   Collectable powerCell03 = new Collectable("powerCell3", "Battery1.png");                        
-  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj3", 300, 400, 150, 150, powerCell03, true);
+  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj3", 300, 400, 150, 150, powerCell03, true, false);
   Collectable powerCell04 = new Collectable("powerCell4", "Battery1.png");                        
-  CollectableObject powerCellObj04 = new CollectableObject("powerCellObj4", 500, 400, 150, 150, powerCell04, true);
+  CollectableObject powerCellObj04 = new CollectableObject("powerCellObj4", 500, 400, 150, 150, powerCell04, true, false);
   Collectable powerCell05 = new Collectable("powerCell5", "Battery1.png");                        
-  CollectableObject powerCellObj05 = new CollectableObject("powerCellObj5", 600, 800, 150, 150, powerCell05, true);
+  CollectableObject powerCellObj05 = new CollectableObject("powerCellObj5", 600, 800, 150, 150, powerCell05, true, false);
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
   //for now, an object to go to the next scene
   scene06.addGameObject(s06GoToS05); 
@@ -257,8 +266,6 @@ void setup()
   scene07.addGameObject(s07GoToS05); 
   sceneManager.addScene(scene07);
 
-
-
   //startGameInScene
   sceneManager.goToScene("scene01");
 } 
@@ -268,11 +275,14 @@ void draw()
   // SCANNER OBJECTS SCENARIOS ( koen: Scannerobjects should be deleted and isActive = false after they've been used)
   if (s01Frame.isActive) {
     s01Frame.isActive = false; //if not set to false all ItemObjects will be removed at once!
-    println(" test" );
-    // do something
+    MoveToSceneObject s01Test = new MoveToSceneObject("s01ZoomOnPainting", s01Frame.x, s01Frame.y, s01Frame.owidth, s01Frame.oheight, "debugblock.png", "scene01Painting");//go to zoomedpainting scene// do something
+    sceneManager.getCurrentScene().addGameObject(s01Test);
   }
+
   if (s01Frame2.isActive) {
     s01Frame2.isActive = false;
+    MoveToSceneObject s01TEST = new MoveToSceneObject("TEST", s01Frame2.x, s01Frame2.y, s01Frame2.owidth, s01Frame2.oheight, "debugblock.png", "scene02Keypad" );
+    sceneManager.getCurrentScene().addGameObject(s01TEST);    //add move to scene Object
   }
   if (timeScrew1.isActive) {
     timeScrew1.isActive = false;
@@ -327,10 +337,14 @@ void draw()
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
   //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-  if (showInventory) {
+  if (showInventory && !isDialogueActive ) {
     inventoryManager.drawInventory();
   }
   for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
+
+  if (!isDialogueActive) {
+    inventoryButton.display();      //InventoryButton
+  }
 }
 
 void mouseDragged() {
@@ -344,22 +358,16 @@ void mouseReleased() {
 
 void mouseMoved() {
   sceneManager.getCurrentScene().mouseMoved();
+  inventoryButton.mouseMoved();
 }
 
 void mouseClicked() {
   if (!isDialogueActive) {
-    if (mouseButton == RIGHT) {                                    //temporary! --> later make an icon (top right/topleft of screen for this functionality)
-      if (showInventory) { 
-        showInventory = false;
-      } //you can use showInventory = !showInventory to make it change from false to true and vica versa.
-      else { 
-        showInventory = true;
-      }
-    }
-    sceneManager.getCurrentScene().mouseClicked();
-    if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
-      for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
-    }
+    inventoryButton.mouseClicked();
+  }
+  sceneManager.getCurrentScene().mouseClicked();
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+    for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
   } else {
     for ( Dialogue dialogue : dialogueManager) dialogue.nextDialogueBox();
   }
@@ -382,7 +390,7 @@ public void  checkTimeMachineBattery() {
   if (timeBattery1B && timeBattery2B && !timeBatterySolved) {
     println("Batteries inserted");
     //play dialogue because it's ready!
-   // dialogueManager.(" testDialogue").activateDialogue();
+    // dialogueManager.(" testDialogue").activateDialogue();
     timeBatterySolved = true;
   }
 }

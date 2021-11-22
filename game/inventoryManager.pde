@@ -5,7 +5,7 @@ class InventoryManager {
   private ArrayList<InventorySlot> inventorySlots;
   private int numberOfSlots = 6;
   private String currentId; 
-
+  private boolean currentlyDragging = false;
 
   public InventoryManager() {
     collectables = new ArrayList<Collectable>();
@@ -53,28 +53,49 @@ class InventoryManager {
   }
 
   public void drawInventory() {
-    for (InventorySlot inventorySlot : inventorySlots) inventorySlot.drawSlots(); //draw all slots
+    if (!currentlyDragging) {                                                         //draw entire inventory
+      for (InventorySlot inventorySlot : inventorySlots) inventorySlot.drawSlots(); //draw all slots
+      for (int o = inventoryObjects.size()-1; o >= 0; o--) {
+        InventoryObject inventoryObject = inventoryObjects.get(o);                
+        InventorySlot inventorySlot = inventorySlots.get(o);      
 
-    for (int o = inventoryObjects.size()-1; o >= 0; o--) {
-      InventoryObject inventoryObject = inventoryObjects.get(o);
-      InventorySlot inventorySlot = inventorySlots.get(o);      
+        push();
+        inventoryObject.display(inventorySlot.objX, inventorySlot.objY);      //draw All items
+        pop();
+      }
+    } else {                                                                           //only draw the dragged Item, hide inventory
+      for (int o = inventoryObjects.size()-1; o >= 0; o--) {
+        InventoryObject inventoryObject = inventoryObjects.get(o);                
+        InventorySlot inventorySlot = inventorySlots.get(o); 
 
-      push();
-      inventoryObject.display(inventorySlot.objX, inventorySlot.objY);
-      pop();
+        if (inventoryObject.mouseIsHovering) { 
+          push();
+          inventoryObject.display(inventorySlot.objX, inventorySlot.objY);      //draw All items
+          pop();
+        }
+      }
     }
   }
 
-  //if the mouse is in the image, mouve it when the mouse is dragged
-  public void mouseDragged() {
+  public void mouseClicked() {      //for opening the diary
+    for (int o = inventoryObjects.size()-1; o >= 0; o--) {
+      InventoryObject inventoryObject = inventoryObjects.get(o);
+      if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering) {
+        println("inventoryManager mousecanBeClicked");
+      }
+    }
+  }
 
+  //if the mouse is in the image, move it when the mouse is dragged
+  public void mouseDragged() {
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
       InventorySlot inventorySlot = inventorySlots.get(o);      
 
       if (inventoryObject.mouseIsHovering) {
-        //println(inventoryObject.canBeRemoved);
-
+        println("canBeRemoved " + inventoryObject.canBeRemoved);
+        currentlyDragging = true;
+        println("Draggin with mouse Drag");
         float deltaX = mouseX - pmouseX;
         float deltaY = mouseY - pmouseY;
 
@@ -86,8 +107,9 @@ class InventoryManager {
         //recentScannerObject set false in game
         if (inventoryObject.canBeRemoved && sceneManager.getCurrentScene().recentScannerObject.isActive) { 
           inventoryObject.mouseIsHovering = false;
-          //println(inventoryObject.mouseIsHovering);  
-          inventoryObjects.remove(o);        //PROBLEM this deletes ALL inventoryObjects   
+          currentlyDragging = false;
+          println(inventoryObject.mouseIsHovering);  
+          inventoryObjects.remove(o);  
           currentId = null;
 
           inventorySlot.objX = inventorySlot.x + 40;                      //currently 40, probably needs adjustment
@@ -97,14 +119,15 @@ class InventoryManager {
     }
   }
 
+
   public void mouseReleased() {
+    currentId = null;
+    currentlyDragging = false;
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventorySlot inventorySlot = inventorySlots.get(o);  
-
       //reset to slot positon
       inventorySlot.objX = inventorySlot.x + 40;                      //currently 40, probably needs adjustment
       inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
-      currentId = null;
     }
   }
 }

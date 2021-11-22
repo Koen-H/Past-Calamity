@@ -1,8 +1,5 @@
 class Scene {
 
-
-
-
   private String sceneName;
   protected PImage backgroundImage;
   private ArrayList<GameObject> gameObjects;
@@ -12,10 +9,7 @@ class Scene {
 
   private ArrayList<GameObject> recentlyAddedGameObjects;
   private ArrayList<GameObject> markedForDeathGameObjects;
-
-
-
-
+  
   protected boolean hasEntered ;
   protected Dialogue dialogue;
   protected boolean dialogueOnlyOnce;
@@ -46,7 +40,7 @@ class Scene {
   public void removeGameObject(GameObject object) {
     markedForDeathGameObjects.add(object);
   }
-
+  
   public void updateScene() {
     if (markedForDeathGameObjects.size() > 0) {
       for (GameObject object : markedForDeathGameObjects) {
@@ -67,6 +61,7 @@ class Scene {
       recentlyAddedGameObjects  = new ArrayList<GameObject>();
     }
   }
+  
   public void playDialogueOnEnter() {
     if (dialogue != null) {
       if (!hasEntered || !dialogueOnlyOnce) {
@@ -100,7 +95,8 @@ class Scene {
       }
     }
   }
-
+  
+  
   public void mouseMoved() {
     for (GameObject object : gameObjects) {
       object.mouseMoved();

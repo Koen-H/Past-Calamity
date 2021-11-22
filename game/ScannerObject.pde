@@ -11,6 +11,7 @@ class ScannerObject extends GameObject{
     }
     
   public void display( ){
+    
     if(mouseX > x && mouseX < x + owidth &&
        mouseY > y && mouseY < y + oheight){
        mouseOverImage = true;
