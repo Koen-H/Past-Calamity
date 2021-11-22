@@ -4,8 +4,9 @@ class Scene {
   protected PImage backgroundImage;
   private ArrayList<GameObject> gameObjects;
   private ArrayList<ScannerObject> scannerObjects;
+  private ArrayList<ScannerObject> markedForDeathScanGameObjects;
   protected ScannerObject recentScannerObject;
-  
+
   private ArrayList<GameObject> recentlyAddedGameObjects;
   private ArrayList<GameObject> markedForDeathGameObjects;
   
@@ -19,8 +20,8 @@ class Scene {
     gameObjects = new ArrayList<GameObject>();
     scannerObjects = new ArrayList<ScannerObject>();
     recentScannerObject = new ScannerObject("", 0, 0, 0, 0, "", "");    //nothing
-    
-    
+
+    markedForDeathScanGameObjects = new ArrayList<ScannerObject>();
     markedForDeathGameObjects = new ArrayList<GameObject>(); 
     recentlyAddedGameObjects = new ArrayList<GameObject>();
   }
@@ -28,17 +29,14 @@ class Scene {
   public void addGameObject(GameObject object) {
     recentlyAddedGameObjects.add(object);
   }
-  
-  public void addScannerObject(ScannerObject scannerObject){
+
+  public void addScannerObject(ScannerObject scannerObject) {
     scannerObjects.add(scannerObject);                        //add ScannerObject in game
   }
-  
- /* public void removeScannerObject(){
-    for(ScannerObject scannerObject : scannerObjects) scannerObjects.remove(scannerObject);    //even this doesnt work
-    println(scannerObjects.size());
+  public void removeScannerObject(ScannerObject object) {
+    markedForDeathScanGameObjects.add(object);
   }
-  */
-  
+
   public void removeGameObject(GameObject object) {
     markedForDeathGameObjects.add(object);
   }
@@ -48,7 +46,13 @@ class Scene {
       for (GameObject object : markedForDeathGameObjects) {
         gameObjects.remove(object);
       }
-      markedForDeathGameObjects  = new ArrayList<GameObject>();    
+      markedForDeathGameObjects  = new ArrayList<GameObject>();
+    }
+    if (markedForDeathScanGameObjects.size() > 0) {
+      for (ScannerObject object : markedForDeathScanGameObjects) {
+        scannerObjects.remove(object);
+      }
+      markedForDeathGameObjects  = new ArrayList<GameObject>();
     }
     if (recentlyAddedGameObjects.size() > 0) {
       for (GameObject object : recentlyAddedGameObjects) {
@@ -76,17 +80,20 @@ class Scene {
     for (GameObject object : gameObjects) {
       object.draw();
     }
-    // SCANNER OBJECTS
-    for(int i = 0; i < scannerObjects.size(); i++){           
+    for (int i = 0; i < scannerObjects.size(); i++) {            //scanner objects
       ScannerObject scannerObject = scannerObjects.get(i);
       scannerObject.display();        //display scannerObject based on in which scene they are in
-      if(scannerObject.mouseOverImage && scannerObject.draggingObject == inventoryManager.currentId ){    //check whether required Dragging Object is over scannerObject
-        println(" ScannerObject Activated ");                 
-        scannerObject.isActive = true;        // once it is true create a scenario!
-        recentScannerObject = scannerObject;
-        scannerObjects.remove(i);             //remove activated ScannerObject
+      //println(inventoryManager.currentId +  " and " + scannerObject.draggingObject);
+      if (scannerObject.mouseOverImage) {    //check whether required Dragging Object is over scannerObject
+        if (inventoryManager.currentId != null) {
+          if ( inventoryManager.currentId.indexOf(scannerObject.draggingObject) >= 0) {
+            //println(" YEEEEEE ");                 
+            scannerObject.isActive = true;        // once it is true create a scenario!
+            recentScannerObject = scannerObject;
+          }
+        }
       }
-   }
+    }
   }
   
   
