@@ -90,13 +90,15 @@ class Dialogue {
   }
 
   public void activateDialogue() {
-    for ( DialogueBox dialogueBox : dialogue) {
-      dialogueBox.textCurrent = 0;
-      dialogueBox.printText = "";
+    if (playDialogue) {
+      for ( DialogueBox dialogueBox : dialogue) {
+        dialogueBox.textCurrent = 0;
+        dialogueBox.printText = "";
+      }
+      this.currentDialogueBox = 0;
+      isDialogueActive = true;
+      isActive = true;
     }
-    this.currentDialogueBox = 0;
-    isDialogueActive = true;
-    isActive = true;
   }
 
   public void drawDialogueBox() {

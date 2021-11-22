@@ -3,12 +3,14 @@ int wheight = 720;
 boolean currentlyDragging = false;
 boolean showInventory = false;
 
+boolean playDialogue = false;
+
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
 ScannerObject s01Frame;
 ScannerObject s01Frame2;
 
-ScannerObject timeScrew1,timeScrew2,timeScrew3,timeScrew4,timeBattery1,timeBattery2;
+ScannerObject timeScrew1, timeScrew2, timeScrew3, timeScrew4, timeBattery1, timeBattery2;
 //timeScrew varialbes;
 boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, timeBattery1B, timeBattery2B, timeBatterySolved;
 
@@ -79,7 +81,7 @@ void setup()
   sceneManager.addScene(cutScene03);
 
   Scene scene01 = new Scene("scene01", "storyboard3.png");// the lab
- /* Dialogue dialogueScene01 = new Dialogue();
+  Dialogue dialogueScene01 = new Dialogue();
   DialogueBox dialogueScene01Box01 = new DialogueBox("Wow it's dad's hologram. He looks so old. \nHe has even more gray hairs than he used to have.\nAnd his beard...it's so long.");
   DialogueBox dialogueScene01Box02 = new DialogueBox("Hello there. I hope this message reaches you \nsomewhere in the future. I will soon be killed. \nYou might be wondering what happened to everyone.");
   DialogueBox dialogueScene01Box03 = new DialogueBox("But first i want you to go to my desk. \nInside, you c-can f-fi-find a-");
@@ -90,7 +92,7 @@ void setup()
   dialogueScene01.addDialogueBox(dialogueScene01Box04);
   dialogueManager.add(dialogueScene01);
   scene01.addDialogueOnEnter(dialogueScene01, true);
-  */
+
   //DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1180, 330, 50, 50, "debugblock.png", "scene02");//go to door scene
   s01GoToDoor.setHoverImage("frame.png");
@@ -114,9 +116,9 @@ void setup()
 
   Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png");
   Collectable diary = new Collectable("diary", "Notebook.png");                        
-  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false);
+  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, false);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
-  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false);
+  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01");
   scene01Locker.addGameObject(sceneLockerBack);
   scene01Locker.addGameObject(diaryObj);
@@ -130,7 +132,7 @@ void setup()
   CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey, true, false);   //drawerKeyObj is identifier
   scene01.addGameObject(drawerKeyObj); 
   Collectable drawerKey2 = new Collectable("drawerKey2", "back04_apple.png");                                
-  CollectableObject drawerKeyObj2 = new CollectableObject("drawerKeyObj2", 200, 400, 150, 150, drawerKey2, false,true );   //drawerKeyObj is identifier
+  CollectableObject drawerKeyObj2 = new CollectableObject("drawerKeyObj2", 200, 400, 150, 150, drawerKey2, false, true );   //drawerKeyObj is identifier
   scene01.addGameObject(drawerKeyObj2);
   /**/
   //FRAME SCANNER
@@ -184,7 +186,7 @@ void setup()
 
   Collectable drawerKey3 = new Collectable("drawerKey3", "key.png");                                   
   CollectableObject drawerKeyObj3 = new CollectableObject("drawerKeyObj3", 600, 400, 150, 150, drawerKey3, true, false);   //drawerKeyObj is identifier
-       
+
   scene01OpenPainting.addGameObject(drawerKeyObj3); 
 
   scene01OpenPainting.addGameObject(s01ClosePainting); 
@@ -279,7 +281,7 @@ void draw()
 
   if (s01Frame2.isActive) {
     s01Frame2.isActive = false;
-    MoveToSceneObject s01TEST = new MoveToSceneObject("TEST",s01Frame2.x, s01Frame2.y, s01Frame2.owidth, s01Frame2.oheight,"debugblock.png", "scene02Keypad" );
+    MoveToSceneObject s01TEST = new MoveToSceneObject("TEST", s01Frame2.x, s01Frame2.y, s01Frame2.owidth, s01Frame2.oheight, "debugblock.png", "scene02Keypad" );
     sceneManager.getCurrentScene().addGameObject(s01TEST);    //add move to scene Object
   }
   if (timeScrew1.isActive) {
@@ -339,11 +341,10 @@ void draw()
     inventoryManager.drawInventory();
   }
   for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
-  
+
   if (!isDialogueActive) {
     inventoryButton.display();      //InventoryButton
   }
-  
 }
 
 void mouseDragged() {
@@ -362,13 +363,12 @@ void mouseMoved() {
 
 void mouseClicked() {
   if (!isDialogueActive) {
-    inventoryButton.mouseClicked(); 
+    inventoryButton.mouseClicked();
   }
   sceneManager.getCurrentScene().mouseClicked();
-    if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
-      for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
-    }
-    else {
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+    for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
+  } else {
     for ( Dialogue dialogue : dialogueManager) dialogue.nextDialogueBox();
   }
 }
@@ -390,7 +390,7 @@ public void  checkTimeMachineBattery() {
   if (timeBattery1B && timeBattery2B && !timeBatterySolved) {
     println("Batteries inserted");
     //play dialogue because it's ready!
-   // dialogueManager.(" testDialogue").activateDialogue();
+    // dialogueManager.(" testDialogue").activateDialogue();
     timeBatterySolved = true;
   }
 }

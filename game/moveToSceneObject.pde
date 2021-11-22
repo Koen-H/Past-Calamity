@@ -33,9 +33,11 @@ class MoveToSceneObject extends GameObject {
       }
       if (moveBack) {
         sceneManager.goToPreviousScene();
+        sceneManager.getCurrentScene().mouseMoved();
       } else {
         try {
           sceneManager.goToScene(nextSceneIdentifier);
+          sceneManager.getCurrentScene().mouseMoved();
         } 
         catch(Exception e) { 
           println(e.getMessage());
