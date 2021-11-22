@@ -7,12 +7,7 @@ boolean showInventory = false;
 ScannerObject s01Frame;
 ScannerObject s01Frame2;
 
-ScannerObject timeScrew1;
-ScannerObject timeScrew2;
-ScannerObject timeScrew3;
-ScannerObject timeScrew4;
-ScannerObject timeBattery1;
-ScannerObject timeBattery2;
+ScannerObject timeScrew1,timeScrew2,timeScrew3,timeScrew4,timeBattery1,timeBattery2;
 //timeScrew varialbes;
 boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, timeBattery1B, timeBattery2B, timeBatterySolved;
 
@@ -112,9 +107,9 @@ void setup()
   sceneManager.addScene(scene01);
 
   Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png");
-  Collectable diary = new Collectable("diary", "back04_apple.png");                        
+  Collectable diary = new Collectable("diary", "Notebook.png");                        
   CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false);
-  Collectable screwDriver = new Collectable("screwDriver", "back04_apple.png");                        
+  Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
   CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01");
   scene01Locker.addGameObject(sceneLockerBack);
@@ -181,7 +176,7 @@ void setup()
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png");//painting open
   MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 640, 680, 50, 50, "arrowDown.png", "scene01");//close painting
 
-  Collectable drawerKey3 = new Collectable("drawerKey3", "back04_apple.png");                                ///////APPLE
+  Collectable drawerKey3 = new Collectable("drawerKey3", "key.png");           
   CollectableObject drawerKeyObj3 = new CollectableObject("drawerKeyObj3", 600, 400, 150, 150, drawerKey3, true);   //drawerKeyObj is identifier
   scene01OpenPainting.addGameObject(drawerKeyObj3); 
 
@@ -235,15 +230,15 @@ void setup()
 
   Scene scene06 = new Scene("scene06", "storyboard9.png");//inside a store scene
   MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 640, 680, 50, 50, "debugblock.png", "scene05");
-  Collectable powerCell01 = new Collectable("powerCell1", "back04_apple.png");                        
+  Collectable powerCell01 = new Collectable("powerCell1", "Battery1.png");                        
   CollectableObject powerCellObj01 = new CollectableObject("powerCellObj1", 20, 400, 150, 150, powerCell01, true);
-  Collectable powerCell02 = new Collectable("powerCell2", "back04_apple.png");                        
+  Collectable powerCell02 = new Collectable("powerCell2", "Battery1.png");                        
   CollectableObject powerCellObj02 = new CollectableObject("powerCellObj2", 200, 400, 150, 150, powerCell02, true);
-  Collectable powerCell03 = new Collectable("powerCell3", "back04_apple.png");                        
+  Collectable powerCell03 = new Collectable("powerCell3", "Battery1.png");                        
   CollectableObject powerCellObj03 = new CollectableObject("powerCellObj3", 300, 400, 150, 150, powerCell03, true);
-  Collectable powerCell04 = new Collectable("powerCell4", "back04_apple.png");                        
+  Collectable powerCell04 = new Collectable("powerCell4", "Battery1.png");                        
   CollectableObject powerCellObj04 = new CollectableObject("powerCellObj4", 500, 400, 150, 150, powerCell04, true);
-  Collectable powerCell05 = new Collectable("powerCell5", "back04_apple.png");                        
+  Collectable powerCell05 = new Collectable("powerCell5", "Battery1.png");                        
   CollectableObject powerCellObj05 = new CollectableObject("powerCellObj5", 600, 800, 150, 150, powerCell05, true);
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
   //for now, an object to go to the next scene
