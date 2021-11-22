@@ -1,8 +1,5 @@
 class Scene {
 
-
-
-
   private String sceneName;
   protected PImage backgroundImage;
   private ArrayList<GameObject> gameObjects;
@@ -12,9 +9,6 @@ class Scene {
   private ArrayList<GameObject> recentlyAddedGameObjects;
   private ArrayList<GameObject> markedForDeathGameObjects;
   
-  
-
-
   protected boolean hasEntered ;
   protected Dialogue dialogue;
   protected boolean dialogueOnlyOnce;
@@ -39,11 +33,16 @@ class Scene {
     scannerObjects.add(scannerObject);                        //add ScannerObject in game
   }
   
-
+ /* public void removeScannerObject(){
+    for(ScannerObject scannerObject : scannerObjects) scannerObjects.remove(scannerObject);    //even this doesnt work
+    println(scannerObjects.size());
+  }
+  */
+  
   public void removeGameObject(GameObject object) {
     markedForDeathGameObjects.add(object);
   }
-
+  
   public void updateScene() {
     if (markedForDeathGameObjects.size() > 0) {
       for (GameObject object : markedForDeathGameObjects) {
@@ -58,6 +57,7 @@ class Scene {
       recentlyAddedGameObjects  = new ArrayList<GameObject>();
     }
   }
+  
   public void playDialogueOnEnter() {
     if (dialogue != null) {
       if (!hasEntered || !dialogueOnlyOnce) {
@@ -76,17 +76,20 @@ class Scene {
     for (GameObject object : gameObjects) {
       object.draw();
     }
-    for(int i = 0; i < scannerObjects.size(); i++){            //scanner objects
+    // SCANNER OBJECTS
+    for(int i = 0; i < scannerObjects.size(); i++){           
       ScannerObject scannerObject = scannerObjects.get(i);
       scannerObject.display();        //display scannerObject based on in which scene they are in
       if(scannerObject.mouseOverImage && scannerObject.draggingObject == inventoryManager.currentId ){    //check whether required Dragging Object is over scannerObject
-        println(" YEEEEEE ");                 
+        println(" ScannerObject Activated ");                 
         scannerObject.isActive = true;        // once it is true create a scenario!
         recentScannerObject = scannerObject;
+        scannerObjects.remove(i);             //remove activated ScannerObject
       }
    }
   }
-
+  
+  
   public void mouseMoved() {
     for (GameObject object : gameObjects) {
       object.mouseMoved();

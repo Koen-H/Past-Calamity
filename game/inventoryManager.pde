@@ -41,8 +41,6 @@ class InventoryManager {
     return collectables.contains(collectable);
   }
 
-
-
   public void addInventoryObject(InventoryObject inventoryObject){
     inventoryObjects.add(inventoryObject);
     println(inventoryObject.getId());
@@ -66,6 +64,17 @@ class InventoryManager {
       } 
     }
 
+
+  public void mouseClicked(){      //for opening the diary
+    for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
+        InventoryObject inventoryObject = inventoryObjects.get(o);
+         if(inventoryObject.canBeClicked && inventoryObject.mouseIsHovering){
+           println("inventoryManager mousecanBeClicked");
+         
+         }
+    }
+  
+  }
   //if the mouse is in the image, mouve it when the mouse is dragged
   public void mouseDragged(){
     
@@ -74,7 +83,7 @@ class InventoryManager {
         InventorySlot inventorySlot = inventorySlots.get(o);      
         
         if(inventoryObject.mouseIsHovering){
-           println(inventoryObject.canBeRemoved);
+           println("canBeRemoved " + inventoryObject.canBeRemoved);
           
           float deltaX = mouseX - pmouseX;
           float deltaY = mouseY - pmouseY;
@@ -83,12 +92,12 @@ class InventoryManager {
           inventorySlot.objY += deltaY;
         
           currentId = inventoryObject.getId();
-          println(currentId);
+          //println(currentId);
                                                                                 //recentScannerObject set false in game
           if (inventoryObject.canBeRemoved && sceneManager.getCurrentScene().recentScannerObject.isActive){ 
             inventoryObject.mouseIsHovering = false;
             println(inventoryObject.mouseIsHovering);  
-            inventoryObjects.remove(o);        //PROBLEM this deletes ALL inventoryObjects   
+            inventoryObjects.remove(o);           
             
             inventorySlot.objX = inventorySlot.x + 40;                      //currently 40, probably needs adjustment
             inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
@@ -98,9 +107,9 @@ class InventoryManager {
   }
   
   public void mouseReleased(){
+        currentId = null;
         for (int o = inventoryObjects.size()-1; o >= 0 ; o--){
         InventorySlot inventorySlot = inventorySlots.get(o);  
-        
         //reset to slot positon
         inventorySlot.objX = inventorySlot.x + 40;                      //currently 40, probably needs adjustment
         inventorySlot.objY = wheight - inventorySlot.inventoryHeight;
