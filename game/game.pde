@@ -116,7 +116,7 @@ void setup()
 
   Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png");
   Collectable diary = new Collectable("diary", "Notebook.png");                        
-  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, false);
+  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, true);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
   CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01");
@@ -127,20 +127,20 @@ void setup()
 
 
   //////////// TESTING REMOVING ITEMS REMOVE ONCE FINISHED ////////////////////
-  /**/
+  /*
   Collectable drawerKey = new Collectable("drawerKey", "back04_apple.png");                           //isRemoveable, canBeclicked
   CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey, true, false);   //drawerKeyObj is identifier
   scene01.addGameObject(drawerKeyObj); 
   Collectable drawerKey2 = new Collectable("drawerKey2", "back04_apple.png");                                
-  CollectableObject drawerKeyObj2 = new CollectableObject("drawerKeyObj2", 200, 400, 150, 150, drawerKey2, false, true );   //drawerKeyObj is identifier
+  CollectableObject drawerKeyObj2 = new CollectableObject("drawerKeyObj2", 200, 400, 150, 150, drawerKey2, false, false );   //drawerKeyObj is identifier
   scene01.addGameObject(drawerKeyObj2);
-  /**/
+  /*
   //FRAME SCANNER
   s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
   scene01.addScannerObject(s01Frame);
   s01Frame2 = new ScannerObject("s01frame2", 200, 200, 150, 150, "frame.png", "drawerKeyObj3");
   scene01.addScannerObject(s01Frame2);
-
+  */
   //////////// TESTING REMOVING ITEMS REMOVE ONCE FINISHED ////////////////////
 
 
@@ -265,7 +265,21 @@ void setup()
   //
   scene07.addGameObject(s07GoToS05); 
   sceneManager.addScene(scene07);
-
+  
+  /////////////////////////////////////////////////////DIARY SCENE/////////////////////////////////////////////////////////////
+  Scene sceneDiary = new Scene("sceneDiary", "openDiary.jpeg");  
+  MoveToSceneObject diary1GoToDiary2 = new MoveToSceneObject ("diaryPage1", 100, 100, 100, 100,  "debugblock.png", "sceneDiary2");
+  MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 300, 300, 100, 100, "frame.png", true);
+  sceneDiary.addGameObject(diary1GoToDiary2);
+  sceneDiary.addGameObject(diary1GoBack);
+  sceneManager.addScene(sceneDiary);
+  
+  Scene sceneDiary2 = new Scene ("sceneDiary2", "openDiary2.jpeg");
+  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 200, 200, 100, 100, "debugblock.png", true);
+  sceneDiary2.addGameObject(diary2GoToDiary1);
+  sceneManager.addScene(sceneDiary2);
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   //startGameInScene
   sceneManager.goToScene("scene01");
 } 
@@ -273,8 +287,12 @@ void setup()
 void draw()
 { 
   // SCANNER OBJECTS SCENARIOS ( koen: Scannerobjects should be deleted and isActive = false after they've been used)
+  
+  //Start - REMOVE ONCE FINISHED
+  /*
   if (s01Frame.isActive) {
     s01Frame.isActive = false; //if not set to false all ItemObjects will be removed at once!
+    sceneManager.getCurrentScene().removeScannerObject(s01Frame);
     MoveToSceneObject s01Test = new MoveToSceneObject("s01ZoomOnPainting", s01Frame.x, s01Frame.y, s01Frame.owidth, s01Frame.oheight, "debugblock.png", "scene01Painting");//go to zoomedpainting scene// do something
     sceneManager.getCurrentScene().addGameObject(s01Test);
   }
@@ -284,6 +302,9 @@ void draw()
     MoveToSceneObject s01TEST = new MoveToSceneObject("TEST", s01Frame2.x, s01Frame2.y, s01Frame2.owidth, s01Frame2.oheight, "debugblock.png", "scene02Keypad" );
     sceneManager.getCurrentScene().addGameObject(s01TEST);    //add move to scene Object
   }
+  */
+  /////End - REMOVE ONCE FINISHED
+  
   if (timeScrew1.isActive) {
     timeScrew1.isActive = false;
     timeScrew1B = true;
@@ -354,8 +375,7 @@ void mouseDragged() {
 void mouseReleased() {
   inventoryManager.mouseReleased();
 }
-
-
+  
 void mouseMoved() {
   sceneManager.getCurrentScene().mouseMoved();
   inventoryButton.mouseMoved();
@@ -364,6 +384,7 @@ void mouseMoved() {
 void mouseClicked() {
   if (!isDialogueActive) {
     inventoryButton.mouseClicked();
+    inventoryManager.mouseClicked();
   }
   sceneManager.getCurrentScene().mouseClicked();
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {

@@ -44,5 +44,13 @@ class MoveToSceneObject extends GameObject {
         }
       }
     }
+    
+   if(nextSceneIdentifier == "sceneDiary"){
+      identifier = null;
+      x = 0;
+      y = 0;
+      owidth = 0;
+      oheight = 0;
+   }
   }
 }

@@ -6,6 +6,13 @@ class InventoryManager {
   private int numberOfSlots = 6;
   private String currentId; 
   private boolean currentlyDragging = false;
+  private MoveToSceneObject moveToDiary;   //move to DiaryScene
+  private int diaryX;
+  private int diaryY;
+  private int diaryWidth;
+  private int diaryHeight;
+  private PImage diaryImage; //currently not in use
+  
 
   public InventoryManager() {
     collectables = new ArrayList<Collectable>();
@@ -53,14 +60,14 @@ class InventoryManager {
   }
 
   public void drawInventory() {
-    if (!currentlyDragging) {                                                         //draw entire inventory
-      for (InventorySlot inventorySlot : inventorySlots) inventorySlot.drawSlots(); //draw all slots
+    if (!currentlyDragging) {                                                          //draw entire inventory
+      for (InventorySlot inventorySlot : inventorySlots) inventorySlot.drawSlots();    //draw all slots
       for (int o = inventoryObjects.size()-1; o >= 0; o--) {
         InventoryObject inventoryObject = inventoryObjects.get(o);                
         InventorySlot inventorySlot = inventorySlots.get(o);      
 
         push();
-        inventoryObject.display(inventorySlot.objX, inventorySlot.objY);      //draw All items
+        inventoryObject.display(inventorySlot.objX, inventorySlot.objY);               //draw All items
         pop();
       }
     } else {                                                                           //only draw the dragged Item, hide inventory
@@ -70,7 +77,7 @@ class InventoryManager {
 
         if (inventoryObject.mouseIsHovering) { 
           push();
-          inventoryObject.display(inventorySlot.objX, inventorySlot.objY);      //draw All items
+          inventoryObject.display(inventorySlot.objX, inventorySlot.objY);           
           pop();
         }
       }
@@ -80,8 +87,18 @@ class InventoryManager {
   public void mouseClicked() {      //for opening the diary
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
+      InventorySlot inventorySlot = inventorySlots.get(o);
+      
       if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering) {
         println("inventoryManager mousecanBeClicked");
+        
+        diaryX = inventorySlot.objX;
+        diaryY = inventorySlot.objY;
+        diaryWidth = inventoryObject.owidth;
+        diaryHeight = inventoryObject.oheight;
+        diaryImage = inventoryObject.imageFile;                                                    //shouldnt be visible
+        moveToDiary = new MoveToSceneObject("moveToDiary",diaryX, diaryY, diaryWidth, diaryHeight, "transparent.png", "sceneDiary");
+        sceneManager.getCurrentScene().addGameObject(moveToDiary);
       }
     }
   }
@@ -95,7 +112,6 @@ class InventoryManager {
       if (inventoryObject.mouseIsHovering) {
         println("canBeRemoved " + inventoryObject.canBeRemoved);
         currentlyDragging = true;
-        println("Draggin with mouse Drag");
         float deltaX = mouseX - pmouseX;
         float deltaY = mouseY - pmouseY;
 
