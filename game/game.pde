@@ -97,10 +97,30 @@ void setup()
   //scene01.addGameObject(drawerLocker);
   sceneManager.addScene(scene01);
 
-  Scene scene01TimeMachine = new Scene("scene01TimeMachine", "storyboard3.png"); //here's the time machine
+  Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png");
+  Collectable diary = new Collectable("diary", "back04_apple.png");                        
+  CollectableObject diaryObj = new CollectableObject("diarylObj", 200, 400, 150, 150, diary);
+  Collectable screwDriver = new Collectable("screwDriver", "back04_apple.png");                        
+  CollectableObject screwDriverObj = new CollectableObject("powerCellObj", 800, 400, 150, 150, screwDriver);
+  MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01");
+  scene01Locker.addGameObject(sceneLockerBack);
+  scene01Locker.addGameObject(diaryObj);
+  scene01Locker.addGameObject(screwDriverObj);
+  sceneManager.addScene(scene01Locker);
+
+
+
+  Scene scene01TimeMachine = new Scene("scene01TimeMachine", "timemachinebackground.png"); //here's the time machine
   MoveToSceneObject s01TimeMachineGoToLab = new MoveToSceneObject("s01TimeMachineGoToLab", 1180, 330, 50, 50, "debugblock.png", "scene01");//go to door scene
+  MoveToSceneObject s01TimeMachineGoToScrew = new MoveToSceneObject("s01TimeMachineGoToLab", 840, 640, 50, 50, "debugblock.png", "scene01TimeMachineScrew");//go zoomed Screw
+  scene01TimeMachine.addGameObject(s01TimeMachineGoToScrew);
   scene01TimeMachine.addGameObject(s01TimeMachineGoToLab);
   sceneManager.addScene(scene01TimeMachine);
+
+  Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "frame.png");
+  MoveToSceneObject timeMachineScrewBack = new MoveToSceneObject("timeMachineScrewBack", 640, 680, 50, 50, "debugblock.png", "scene01TimeMachine");//go back to the scene01TimeMachine
+  scene01TimeMachineScrew.addGameObject(timeMachineScrewBack);
+  sceneManager.addScene(scene01TimeMachineScrew);
 
 
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png");//zoomedIn painting
