@@ -1,11 +1,13 @@
 class InventoryObject extends GameObject {
   private PImage imageFile;                        
   boolean isDragging;
-  
+  boolean canBeRemoved;
+
   public InventoryObject(String identifier, int x, int y, int owidth, 
-                         int oheight, Collectable collectable) {
+                         int oheight, Collectable collectable, boolean canBeRemoved) {
     super(identifier, x, y, owidth, oheight, collectable.getGameObjectImageFile());
     imageFile = loadImage(collectable.getGameObjectImageFile());
+    this.canBeRemoved = canBeRemoved; 
   }  
   
   //display InventoryObject at displayX/Y

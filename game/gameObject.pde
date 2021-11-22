@@ -57,11 +57,7 @@ class GameObject {
     }
   }
 
-
-
-  public void mouseClicked() {
-
-  }
+  public void mouseClicked() {  }
 
   public String getIdentifier() {
     return this.identifier;
