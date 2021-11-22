@@ -1,6 +1,17 @@
 ArrayList<Dialogue> dialogueManager = new ArrayList<Dialogue>();
 public boolean isDialogueActive;
 
+class SpriteCharacter {
+  protected PImage sprite;
+  protected String name;
+
+  public SpriteCharacter( String name, String sprite) {
+    this.sprite = loadImage(sprite);
+    this.name = name;
+  }
+}
+
+
 class DialogueObject extends GameObject {
 
   private Dialogue dialogue;
@@ -28,6 +39,10 @@ class DialogueBox {
   protected int h = 139;
   protected float textSize = 25;
   protected PImage background /*= loadImage("debugblock.png")*/;
+  protected PImage backgroundText;
+
+  //character
+  protected SpriteCharacter sprite;
 
   //text 
   protected String text;
@@ -35,7 +50,8 @@ class DialogueBox {
   protected int textCurrent;
   protected String printText = "";
 
-  public DialogueBox(String text) {
+  public DialogueBox(String text, SpriteCharacter sprite) {
+    this.sprite = sprite;
     this.text = text;
     this.textLength = text.length();
   }
@@ -43,12 +59,16 @@ class DialogueBox {
 
   public void drawDialogueBox() {
     // quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+    image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
     if (background != null) {
       image(background, xPos, yPos, w, h);
+      image(backgroundText, xPos, (yPos-textSize), 200, (yPos+textSize));
     } else {
       fill(#F79500);
+      quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
       quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
     }
+
     drawText();
   }
 
@@ -59,7 +79,8 @@ class DialogueBox {
       textCurrent++;
     }
     textSize(textSize);
-    text(printText, xPos + 15, yPos + textSize);
+    text(printText, xPos + 5, yPos + textSize);
+    text(sprite.name, xPos + 5, yPos -2);
   }
 
   boolean finishedTyping() {
