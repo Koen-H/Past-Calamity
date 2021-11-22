@@ -3,7 +3,7 @@ int wheight = 720;
 boolean currentlyDragging = false;
 boolean showInventory = false;
 
-boolean playDialogue = false;
+boolean playDialogue = true;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
@@ -11,8 +11,11 @@ ScannerObject s01Frame;
 ScannerObject s01Frame2;
 
 ScannerObject timeScrew1, timeScrew2, timeScrew3, timeScrew4, timeBattery1, timeBattery2;
-//timeScrew varialbes;
+//timeScrew variables;
 boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, timeBattery1B, timeBattery2B, timeBatterySolved;
+
+//hologram variables
+//boolean holo1Screw1B, holo1Screw2B, holo1Active, holo2Screw1B, holo2Screw2B, holo3Screw1B, holo3Screw2B;
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
@@ -42,10 +45,16 @@ void setup()
   //DialogueObject dialogueObject = new DialogueObject(String identifier, Int xPos, Int yPos, Int width, Int height, String imageFile, Dialogue dialogue); //create a button that enables a dialogue
   //scene.addDialogueOnEnter(Dialogue dialogue, boolean dialogueOnlyOnce) //start a dialogue when the payer enters the scene, enable dialogueOnlyOnce if the dialogue should only happen the first time the player enters the scene.
 
+  SpriteCharacter finn = new SpriteCharacter("Finn", "characterSpritetest.png");
+  SpriteCharacter lila = new SpriteCharacter("Lila", "lila.png");
+  SpriteCharacter father = new SpriteCharacter("Father", "characterSpritetest.png");
+  SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "characterSpritetest.png");
 
-  DialogueBox testDialogueBox1 = new DialogueBox("Who! this dialogue box works perfect!");
-  DialogueBox testDialogueBox2 = new DialogueBox("It even switches to the next one!");
-  DialogueBox testDialogueBox3 = new DialogueBox("It even switches to the next one!2");
+
+
+  DialogueBox testDialogueBox1 = new DialogueBox("Who! this dialogue box works perfect!", finn);
+  DialogueBox testDialogueBox2 = new DialogueBox("It even switches to the next one!", father);
+  DialogueBox testDialogueBox3 = new DialogueBox("It even switches to the next one!2", lila);
   Dialogue testDialogue = new Dialogue();
   testDialogue.addDialogueBox(testDialogueBox1);
   testDialogue.addDialogueBox(testDialogueBox2);
@@ -68,9 +77,9 @@ void setup()
 
   Scene cutScene03 = new Scene("cutScene03", "storyboard2.png");//dark room with a switch
   Dialogue dialogueCutScene03 = new Dialogue();
-  DialogueBox dialogueCutScene03Box01 = new DialogueBox("Ouch that hurt...\nAre you okay?");
-  DialogueBox dialogueCutScene03Box02 = new DialogueBox("Yeah i think so.");
-  DialogueBox dialogueCutScene03Box03 = new DialogueBox("Alright. Stay here. I will turn on the lights.");
+  DialogueBox dialogueCutScene03Box01 = new DialogueBox("Ouch that hurt...\nAre you okay?", finn);
+  DialogueBox dialogueCutScene03Box02 = new DialogueBox("Yeah i think so.", lila);
+  DialogueBox dialogueCutScene03Box03 = new DialogueBox("Alright. Stay here. I will turn on the lights.", finn);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box01);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box02);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box03);
@@ -82,10 +91,10 @@ void setup()
 
   Scene scene01 = new Scene("scene01", "storyboard3.png");// the lab
   Dialogue dialogueScene01 = new Dialogue();
-  DialogueBox dialogueScene01Box01 = new DialogueBox("Wow it's dad's hologram. He looks so old. \nHe has even more gray hairs than he used to have.\nAnd his beard...it's so long.");
-  DialogueBox dialogueScene01Box02 = new DialogueBox("Hello there. I hope this message reaches you \nsomewhere in the future. I will soon be killed. \nYou might be wondering what happened to everyone.");
-  DialogueBox dialogueScene01Box03 = new DialogueBox("But first i want you to go to my desk. \nInside, you c-can f-fi-find a-");
-  DialogueBox dialogueScene01Box04 = new DialogueBox("Dad's hologram ran out of power.");
+  DialogueBox dialogueScene01Box01 = new DialogueBox("Wow it's dad's hologram. He looks so old. \nHe has even more gray hairs than he used to have.\nAnd his beard...it's so long.", finn);
+  DialogueBox dialogueScene01Box02 = new DialogueBox("Hello there. I hope this message reaches you \nsomewhere in the future. I will soon be killed. \nYou might be wondering what happened to everyone.", father);
+  DialogueBox dialogueScene01Box03 = new DialogueBox("But first i want you to go to my desk. \nInside, you c-can f-fi-find a-", father);
+  DialogueBox dialogueScene01Box04 = new DialogueBox("Dad's hologram ran out of power.", finn);
   dialogueScene01.addDialogueBox(dialogueScene01Box01);
   dialogueScene01.addDialogueBox(dialogueScene01Box02);
   dialogueScene01.addDialogueBox(dialogueScene01Box03);
@@ -169,8 +178,8 @@ void setup()
 
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png");//zoomedIn painting
   Dialogue dialogueScene01Painting = new Dialogue();
-  DialogueBox dialogueScene01PaintingBox01 = new DialogueBox("Look, there’s a picture of us and mom!");
-  DialogueBox dialogueScene01PaintingBox02 = new DialogueBox("Strange… Dad was never the type to care about \npictures. Especially ones with his family in it. \nI’ll take a closer look.");
+  DialogueBox dialogueScene01PaintingBox01 = new DialogueBox("Look, there’s a picture of us and mom!", lila);
+  DialogueBox dialogueScene01PaintingBox02 = new DialogueBox("Strange… Dad was never the type to care about \npictures. Especially ones with his family in it. \nI’ll take a closer look.", finn);
   dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox01);
   dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox02);
   dialogueManager.add(dialogueScene01Painting);
@@ -348,6 +357,24 @@ void draw()
     checkTimeMachineBattery();
     println("Loaded battery 2");
   }
+
+  /** if (holo1Screw1.isActive) {
+   holo1Screw1.isActive = false;
+   holo1Screw1B = true;
+   sceneManager.getCurrentScene().removeScannerObject(holoScrew1);
+   if (holo1Screw2B) {
+   //summon battery
+   }
+   }
+   if (holo1Screw2.isActive) {
+   holo1Screw2.isActive = false;
+   holo1Screw1B = true;
+   sceneManager.getCurrentScene().removeScannerObject(holoScrew2);
+   if (holo1Screw1B) {
+   //summon battery
+   }
+   }*/
+
 
 
   sceneManager.getCurrentScene().draw(wwidth, wheight);
