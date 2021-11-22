@@ -27,6 +27,10 @@ class InventoryObject extends GameObject {
      else { mouseIsHovering = false; }
    }
   
+  public void mouseDragged(){
+    if (mouseIsHovering)
+    image(imageFile, mouseX, mouseY, owidth, oheight);
+  }
   public String getId(){
     return identifier;
   }

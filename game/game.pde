@@ -256,7 +256,7 @@ void draw()
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
   //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-  if (showInventory && !isDialogueActive) {
+  if (showInventory && !isDialogueActive ) {
     inventoryManager.drawInventory();
   }
   for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
