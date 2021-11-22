@@ -2,7 +2,6 @@ class ScannerObject extends GameObject{
   
   InventoryObject inventoryObject;
   private String draggingObject; //use GameObject.getIdentifier to compare
-  private boolean isDragging = false;
   private boolean isActive = false; //if active create an scenario
   private boolean mouseOverImage = false;
                                                                                                               //name of collectable Object! not collectable
@@ -16,22 +15,12 @@ class ScannerObject extends GameObject{
        mouseY > y && mouseY < y + oheight){
        mouseOverImage = true;
       fill(255,100);
-      rect(x, y, owidth, oheight);
-      if (isDragging && inventoryObject.identifier == draggingObject){
-      
-      }
+      rect(x, y, owidth, oheight);  //collider
     }
     else{ mouseOverImage = false; }
     super.draw();      //draw the image
   }
   
-  public void mouseDragged(){
-    isDragging = true;         //when dragging and has an item
-  }
-  
-  public void mouseReleased(){
-    isDragging = false;
-  }
   public String getDraggingObject(){
     return draggingObject;
   }
