@@ -86,12 +86,14 @@ void setup()
   //DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1180, 330, 50, 50, "debugblock.png", "scene02");//go to door scene
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 800, 300, 10, 30, "debugblock.png", "scene01Painting");//go to zoomedpainting scene
+  MoveToSceneObject s01ZoomOnLocker = new MoveToSceneObject("s01ZoomOnLocker", 900, 460, 50, 50, "debugblock.png", "scene01Locker");//go to zoomedLocker scene
   MoveToSceneObject s01GoToTimeMachine = new MoveToSceneObject("s01GoToTimeMachine", 50, 360, 50, 50, "debugblock.png", "scene01TimeMachine");//go back to the lab
   //ScannerObject drawerLocker = new ScannerObject("drawerLocker",400,400,20,20, "debuglock.png"); // TODO
   ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
   scene01.addScannerObject(s01Frame);
   //scene01.addGameObject(s01Hologram); 
   scene01.addGameObject(s01ZoomOnPainting); 
+  scene01.addGameObject(s01ZoomOnLocker);
   scene01.addGameObject(s01GoToDoor);
   scene01.addGameObject(s01GoToTimeMachine);
   //scene01.addGameObject(drawerLocker);
@@ -99,7 +101,7 @@ void setup()
 
   Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png");
   Collectable diary = new Collectable("diary", "back04_apple.png");                        
-  CollectableObject diaryObj = new CollectableObject("diarylObj", 200, 400, 150, 150, diary);
+  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary);
   Collectable screwDriver = new Collectable("screwDriver", "back04_apple.png");                        
   CollectableObject screwDriverObj = new CollectableObject("powerCellObj", 800, 400, 150, 150, screwDriver);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01");
@@ -107,7 +109,6 @@ void setup()
   scene01Locker.addGameObject(diaryObj);
   scene01Locker.addGameObject(screwDriverObj);
   sceneManager.addScene(scene01Locker);
-
 
 
   Scene scene01TimeMachine = new Scene("scene01TimeMachine", "timemachinebackground.png"); //here's the time machine
