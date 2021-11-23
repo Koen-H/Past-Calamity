@@ -3,7 +3,7 @@ int wheight = 720;
 boolean currentlyDragging = false;
 boolean showInventory = false;
 
-boolean playDialogue = true;
+boolean playDialogue = false;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
@@ -155,9 +155,11 @@ void setup()
 
   Scene scene01TimeMachine = new Scene("scene01TimeMachine", "timemachinebackground.png"); //here's the time machine
   MoveToSceneObject s01TimeMachineGoToLab = new MoveToSceneObject("s01TimeMachineGoToLab", 1180, 330, 50, 50, "debugblock.png", "scene01");//go to door scene
-  MoveToSceneObject s01TimeMachineGoToScrew = new MoveToSceneObject("s01TimeMachineGoToLab", 840, 640, 50, 50, "debugblock.png", "scene01TimeMachineScrew");//go zoomed Screw
+  MoveToSceneObject s01TimeMachineGoToScrew = new MoveToSceneObject("s01TimeMachineGoToScrew", 840, 640, 50, 50, "debugblock.png", "scene01TimeMachineScrew");//go zoomed Screw
+  MoveToSceneObject s01TimeMachineGoToTimeKeypad= new MoveToSceneObject("s01TimeMachineGoToTimeKeypad", 340, 640, 50, 50, "debugblock.png", "scene01TimeMachineKeyPad");//go zoomed keypad
   scene01TimeMachine.addGameObject(s01TimeMachineGoToScrew);
   scene01TimeMachine.addGameObject(s01TimeMachineGoToLab);
+  scene01TimeMachine.addGameObject(s01TimeMachineGoToTimeKeypad);
   sceneManager.addScene(scene01TimeMachine);
 
   Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "debugblock.png");
@@ -174,6 +176,10 @@ void setup()
   scene01TimeMachineScrew.addScannerObject( timeScrew4);
   scene01TimeMachineScrew.addGameObject(timeMachineScrewBack);
   sceneManager.addScene(scene01TimeMachineScrew);
+
+  Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "debugblock.png");
+
+  sceneManager.addScene(scene01TimeMachineKeyPad);
 
 
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png");//zoomedIn painting
@@ -201,21 +207,21 @@ void setup()
   scene01OpenPainting.addGameObject(s01ClosePainting); 
   sceneManager.addScene(scene01OpenPainting);
 
-  Scene scene02 = new Scene("scene02", "scene02doorClosed.png");//door scene
+  Scene scene02 = new Scene("scene02", "door.png");//door scene
   MoveToSceneObject s02GoToLab = new MoveToSceneObject("s02GoToLab", 50, 360, 50, 50, "arrowLeft.png", "scene01");//go back to the lab
-  MoveToSceneObject s02ZoomOnKeypad = new MoveToSceneObject("s02ZoomOnKeypad", 300, 360, 10, 30, "debugblock.png", "scene02Keypad");// go to keypad
+  MoveToSceneObject s02ZoomOnKeypad = new MoveToSceneObject("s02ZoomOnKeypad", 199, 275, 100, 150, "scene02Keypad");// go to keypad
   scene02.addGameObject(s02GoToLab); 
   scene02.addGameObject(s02ZoomOnKeypad); 
   sceneManager.addScene(scene02);
 
-  Scene scene02Keypad = new Scene("scene02Keypad", "keypad.png");//zoomed-in keypad scene
+  Scene scene02Keypad = new Scene("scene02Keypad", "keyzoomdoor.png");//zoomed-in keypad scene
   MoveToSceneObject s02KeyPadBack = new MoveToSceneObject("s02KeyPadBack", 640, 680, 50, 50, "arrowDown.png", "scene02");//go to door scene
   scene02Keypad.addGameObject(s02KeyPadBack);
-  createKeypad(200, 200, 80, 10);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
+  createKeypad(493, 307, 60, 10);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
 
   sceneManager.addScene(scene02Keypad);
 
-  Scene scene03 = new Scene("scene03", "storyboard7.png");//outside car scene
+  Scene scene03 = new Scene("scene03", "housecrop.png");//outside car scene
   MoveToSceneObject s03GoToDoor = new MoveToSceneObject("s03GoToDoor", 640, 680, 50, 50, "debugblock.png", "scene02");//go back to the door scene
   MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1170, 330, 50, 50, "debugblock.png", "scene04");//continue scene
   Collectable teddy = new Collectable("teddy", "back04_apple.png");                            
@@ -232,7 +238,7 @@ void setup()
   scene04.addGameObject(s04GoToS05); 
   sceneManager.addScene(scene04);
 
-  Scene scene05 = new Scene("scene05", "storyboard9.png");//found a store scene
+  Scene scene05 = new Scene("scene05", "city.png");//found a store scene
   MoveToSceneObject s05GoToS04 = new MoveToSceneObject("s05GoToS04", 640, 680, 50, 50, "debugblock.png", "scene04");
   MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1180, 330, 50, 50, "debugblock.png", "scene07");
   Collectable crowbar = new Collectable("crowbar", "back04_apple.png");                        
@@ -359,7 +365,7 @@ void draw()
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
   //inventoryManager.clearMarkedForDeathCollectables();
-  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad" || sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
     drawKeypad();
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
@@ -393,11 +399,12 @@ void mouseClicked() {
     inventoryButton.mouseClicked();
   }
   sceneManager.getCurrentScene().mouseClicked();
-  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad" || sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
     for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
   } else {
     for ( Dialogue dialogue : dialogueManager) dialogue.nextDialogueBox();
   }
+  println(mouseX + " and " + mouseY);
 }
 
 //CustomFunctions
@@ -405,7 +412,7 @@ void mouseClicked() {
 public void checkTimeMachineScrew() {
   if (timeScrew1B && timeScrew2B && timeScrew3B && timeScrew4B && !timeMachineScrewed) {//if all screws are open,
     timeMachineScrewed = true;
-    sceneManager.getCurrentScene().backgroundImage = loadImage("scene02doorOpen.png");
+    sceneManager.getCurrentScene().backgroundImage = loadImage("door_open.png");
     println("open");
     sceneManager.getCurrentScene().addScannerObject( timeBattery1);
     sceneManager.getCurrentScene().addScannerObject( timeBattery2);
