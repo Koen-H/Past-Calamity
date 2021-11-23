@@ -38,7 +38,7 @@ class DialogueBox {
   protected int w = 695;
   protected int h = 139;
   protected float textSize = 25;
-  protected PImage background /*= loadImage("debugblock.png")*/;
+  protected PImage background = loadImage("TextBox.png");
   protected PImage backgroundText;
 
   //character
@@ -59,14 +59,15 @@ class DialogueBox {
 
   public void drawDialogueBox() {
     // quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
-    image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
+    //image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
+    
+    fill(180);
+    //quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
+    quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+    image(sprite.sprite, -1,-1);
     if (background != null) {
       image(background, xPos, yPos, w, h);
-      image(backgroundText, xPos, (yPos-textSize), 200, (yPos+textSize));
-    } else {
-      fill(#F79500);
-      quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
-      quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+      //image(backgroundText, xPos, (yPos-textSize), 200, (yPos+textSize));
     }
 
     drawText();
@@ -79,8 +80,8 @@ class DialogueBox {
       textCurrent++;
     }
     textSize(textSize);
-    text(printText, xPos + 5, yPos + textSize);
-    text(sprite.name, xPos + 5, yPos -2);
+    text(printText, xPos + 15, yPos + 35);
+   // text(sprite.name, xPos + 5, yPos -2);
   }
 
   boolean finishedTyping() {
@@ -100,6 +101,7 @@ class Dialogue {
 
   public void nextDialogueBox() {
     if (isActive && dialogue.get(currentDialogueBox).finishedTyping() ) {
+      println("typing text...");
       ++currentDialogueBox;
       if (dialogue.size() == currentDialogueBox) {
         this.disableDialogue();

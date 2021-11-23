@@ -15,7 +15,7 @@ class InventoryObject extends GameObject {
   //display InventoryObject at displayX/Y
   public void display(int displayX, int displayY){
     if(mouseIsHovering){
-    rect(displayX, displayY, owidth, oheight);     //hitbox of object
+    //rect(displayX, displayY, owidth, oheight);     //hitbox of object
     }
     
     image(imageFile, displayX, displayY, owidth, oheight);

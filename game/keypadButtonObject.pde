@@ -47,7 +47,11 @@ void createTimeKeypad(int xPos, int yPos, int buttonSize, float spaceBetween) {
 }
 
 void drawKeypad() {
-  for ( keypadButtonObject keypadButton : keypad) keypadButton.drawButton();
+  if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
+    for ( keypadButtonObject keypadButton : keypad) keypadButton.drawButton();
+  } else if ( sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
+    for ( keypadButtonObject keypadButton : timeKeypad) keypadButton.drawButton();
+  }
   fill(0);
   textSize(42);
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
