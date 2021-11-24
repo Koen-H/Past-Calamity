@@ -143,7 +143,7 @@ class InventoryManager {
         if (inventoryObject.canBeRemoved && sceneManager.getCurrentScene().recentScannerObject.isActive) { 
           inventoryObject.mouseIsHovering = false;
           currentlyDragging = false;
-          println(inventoryObject.mouseIsHovering);  
+          //println(inventoryObject.mouseIsHovering);  
           inventoryObjects.remove(o);  
           currentId = null;
 
@@ -277,7 +277,7 @@ class InventorySlot {
     push();
     fill(255);
     strokeWeight(2);
-    println(slotImage);
+    //println(slotImage);
     //rect(x, wheight - inventoryHeight-10, width/(numberOfSlots), inventoryHeight);
     image (slotImage, x, wheight - inventoryHeight-10, width/(numberOfSlots), inventoryHeight);
     pop();

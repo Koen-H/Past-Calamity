@@ -19,7 +19,11 @@ boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, 
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
-Dialogue activatedHologram = new Dialogue();
+
+Dialogue activatedHologram = new Dialogue("activatedHologram");
+Dialogue dialogueScene01OpenDrawer;
+
+GameObject newsReporter;
 
 PImage slotImage;
 
@@ -65,7 +69,7 @@ void setup()
   SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "Dada1.png");
   SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "characterSpritetest.png");
   SpriteCharacter dad_finn = new SpriteCharacter("Finn", "dada3.png");
-  SpriteCharacter dad_lila = new SpriteCharacter("Lila", "dada2.png");
+  //SpriteCharacter dad_lila = new SpriteCharacter("Lila", "dada2.png");
 
 
   DialogueBox testDialogueBox1 = new DialogueBox("Who! this dialogue box works perfect!", finn);
@@ -117,7 +121,7 @@ void setup()
   dialogueScene01OpenPainting.addDialogueBox(dialogueScene01OpenPaintingBox01);
   dialogueManager.add(dialogueScene01OpenPainting);
 
-  Dialogue dialogueScene01OpenDrawer = new Dialogue("readBook");
+  dialogueScene01OpenDrawer = new Dialogue("readBook");
   DialogueBox dialogueScene01OpenDrawerBox01 = new DialogueBox("It's a book!", lila);
   DialogueBox dialogueScene01OpenDrawerBox02 = new DialogueBox("It’s dad’s Notebook? I didn't even know he had a notebook.", finn);
   dialogueScene01OpenDrawer.addDialogueBox(dialogueScene01OpenDrawerBox01);
@@ -128,9 +132,9 @@ void setup()
   DialogueBox dialogueOpenBookBox01 = new DialogueBox("Huh?? Christmas is in about 3 weeks. What is he talking about?", finn);
   DialogueBox dialogueOpenBookBox02 = new DialogueBox("He never said that he loved us!", lila);
   DialogueBox dialogueOpenBookBox03 = new DialogueBox("The way he says things is strange, something must be off!", finn);
-  dialogueScene01OpenDrawer.addDialogueBox(dialogueOpenBookBox01);
-  dialogueScene01OpenDrawer.addDialogueBox(dialogueOpenBookBox02);
-  dialogueScene01OpenDrawer.addDialogueBox(dialogueOpenBookBox03);
+  dialogueOpenBook.addDialogueBox(dialogueOpenBookBox01);
+  dialogueOpenBook.addDialogueBox(dialogueOpenBookBox02);
+  dialogueOpenBook.addDialogueBox(dialogueOpenBookBox03);
   dialogueManager.add(dialogueOpenBook);
 
   Dialogue pickUpCard = new Dialogue();
@@ -189,7 +193,7 @@ void setup()
 
 
   DialogueBox activatedHologramBox1 = new DialogueBox("I’ve still got it!", finn);
-  DialogueBox activatedHologramBox2 = new DialogueBox("Ever since the launch day, things have gone south. Casualties have doubled since yesterday… Watch….. Out…. stay…….Safe………", news_reporter);
+  DialogueBox activatedHologramBox2 = new DialogueBox("Ever since the launch day, things have gone south. \nCasualties have doubled since yesterday…\nWatch….. Out…. stay…….Safe………", news_reporter);
   DialogueBox activatedHologramBox3 = new DialogueBox("Must be an older projector.", finn);
   DialogueBox activatedHologramBox4 = new DialogueBox("Must be an older  projector.\nI don't want to know what those poor people went through.", finn);
   DialogueBox activatedHologramBox5 = new DialogueBox("Finn, what was the news man talking about?", lila);
@@ -203,8 +207,8 @@ void setup()
   dialogueManager.add(activatedHologram);
 
   //Main menu
-  Scene mainMenu = new Scene("mainMenu", "mainmenu.png", null); //TODO update mainmenu.png
-  MoveToSceneObject playButton = new MoveToSceneObject("playButton", 350, 300, 300, 300, "debugblock.png", "cutScene01", buttonClick );//TODO Remove debugblock
+  Scene mainMenu = new Scene("mainMenu", "title_screen.png", null); //TODO update mainmenu.png
+  MoveToSceneObject playButton = new MoveToSceneObject("playButton", 0, 0, 1280, 720, "cutScene01", buttonClick );//TODO Remove debugblock
   playButton.setMethod("doCutScene01"); 
   mainMenu.addGameObject(playButton);
   sceneManager.addScene(mainMenu);
@@ -271,22 +275,22 @@ void setup()
   sceneManager.addScene(scene01TimeMachine);
 
   //TIME MACHINE SCREWING
-  Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "debugblock.png", null);
+  Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "zoominpanel_timemachine.png", null);
   MoveToSceneObject timeMachineScrewBack = new MoveToSceneObject("timeMachineScrewBack", 602, 630, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);//go back to the scene01TimeMachine
   timeMachineScrewBack.setHoverImage("arrowDown2.png");
-  timeScrew1 = new ScannerObject(" timeScrew1", 50, 50, 20, 20, "frame.png", "screwDriverObj");
-  timeScrew2 = new ScannerObject(" timeScrew2", 50, 400, 20, 20, "frame.png", "screwDriverObj");
-  timeScrew3 = new ScannerObject(" timeScrew3", 600, 400, 20, 20, "frame.png", "screwDriverObj");
-  timeScrew4 = new ScannerObject(" timeScrew4", 600, 50, 20, 20, "frame.png", "screwDriverObj");
-  timeBattery1 = new ScannerObject("timeBattery1", 1000, 400, 20, 20, "frame.png", "powerCell");
-  timeBattery2 = new ScannerObject("timeBattery2", 1000, 50, 20, 20, "frame.png", "powerCell");
+  timeScrew1 = new ScannerObject("timeScrew1", 489, 257, 75, 75, "screw.png", "screwDriverObj");
+  timeScrew2 = new ScannerObject("timeScrew2", 771, 252, 75, 75, "screw.png", "screwDriverObj");
+  timeScrew3 = new ScannerObject("timeScrew3", 506, 449, 75, 75, "screw.png", "screwDriverObj");
+  timeScrew4 = new ScannerObject("timeScrew4", 760, 443, 75, 75, "screw.png", "screwDriverObj");
+  timeBattery1 = new ScannerObject("timeBattery1", 535, 357, 20, 20, "debugblock.png", "powerCell");
+  timeBattery2 = new ScannerObject("timeBattery2", 738, 369, 20, 20, "debugblock.png", "powerCell");
   scene01TimeMachineScrew.addScannerObject( timeScrew1);
   scene01TimeMachineScrew.addScannerObject( timeScrew2);
   scene01TimeMachineScrew.addScannerObject( timeScrew3);
   scene01TimeMachineScrew.addScannerObject( timeScrew4);
   scene01TimeMachineScrew.addGameObject(timeMachineScrewBack);
   sceneManager.addScene(scene01TimeMachineScrew);
-  
+
   //TIME MACHINE KEY PAD
   Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "zoom_keypad.png", null);
   MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
@@ -304,8 +308,6 @@ void setup()
   scene01Painting.addGameObject(s01ZoomOutPainting);
   scene01Painting.addDialogueOnEnter(dialogueScene01Painting, true);
   sceneManager.addScene(scene01Painting);
-
-
 
 
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png", null);//painting open
@@ -354,15 +356,13 @@ void setup()
   Scene scene05 = new Scene("scene05", "store.png", cityAmbience);//found a store scene
   MoveToSceneObject s05GoToS04 = new MoveToSceneObject("s05GoToS04", 640, 680, 50, 50, "debugblock.png", "scene04", walk1);
   MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1195, 322, 75, 75, "arrowRight.png", "scene07", walk2);
-  Collectable crowbar = new Collectable("crowbar", "back04_apple.png");                        
-  CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar, false, false, takeItem);
+
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
   //for now, an object to go to the next scene
-  MoveToSceneObject s05GoToS06 = new MoveToSceneObject("s05GoToS06", 640, 300, 50, 50, "debugblock.png", "scene06", walk1);
+  MoveToSceneObject s05GoToS06 = new MoveToSceneObject("s05GoToS06", 640, 300, 50, 50, "arrowUp.png", "scene06", walk1);
   scene05.addGameObject(s05GoToS04); 
   scene05.addGameObject(s05GoToS06); //replace this with scannerobject
   scene05.addGameObject(s05GoToS07);
-  scene05.addGameObject(crowbaObj); 
 
   sceneManager.addScene(scene05);
 
@@ -378,8 +378,6 @@ void setup()
   CollectableObject powerCellObj04 = new CollectableObject("powerCellObj4", 500, 400, 150, 150, powerCell04, true, false, takeItem);
   Collectable powerCell05 = new Collectable("powerCell5", "Battery1.png");                        
   CollectableObject powerCellObj05 = new CollectableObject("powerCellObj5", 600, 800, 150, 150, powerCell05, true, false, takeItem);
-  //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
-  //for now, an object to go to the next scene
   scene06.addGameObject(s06GoToS05); 
   scene06.addGameObject(powerCellObj01);
   scene06.addGameObject(powerCellObj02); 
@@ -403,6 +401,7 @@ void setup()
   MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 602, 630, 75, 75, "arrowDown.png", true, openBook);
   sceneDiary.addGameObject(diary1GoToDiary2);
   sceneDiary.addGameObject(diary1GoBack);
+  sceneDiary.addDialogueOnEnter(dialogueOpenBook, true);
   sceneManager.addScene(sceneDiary);
 
   // DIARY PAGE 2  
@@ -413,7 +412,7 @@ void setup()
 
 
   //startGameInScene
-  //sceneManager.goToScene("scene01");
+  sceneManager.goToScene("scene01");
 } 
 
 void draw()
@@ -433,7 +432,7 @@ void draw()
   if (hologram1.isActive) {
     hologram1.isActive = false;
     sceneManager.getCurrentScene().removeScannerObject(hologram1);
-    GameObject newsReporter = new GameObject("newsReporter", 20, 20, 250, 302, "reporter.png");
+    newsReporter = new GameObject("newsReporter", 20, 20, 250, 302, "reporter.png");
     activatedHologram.activateDialogue();
     sceneManager.getCurrentScene().addGameObject(newsReporter);
   }
@@ -517,14 +516,13 @@ void draw()
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
   //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-  if (showInventory && !isDialogueActive && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
-    inventoryManager.drawInventory();
+  if (!isDialogueActive && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary" && sceneManager.getCurrentScene().getSceneName() != "mainMenu" && sceneManager.getCurrentScene().getSceneName() != "cutScene01" && sceneManager.getCurrentScene().getSceneName() != "cutScene02"&& sceneManager.getCurrentScene().getSceneName() != "cutScene03") {
+    if (showInventory) {
+      inventoryManager.drawInventory();
+    }
+    inventoryButton.display();
   }
   for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
-
-  if (!isDialogueActive && showInventoryButton && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
-    inventoryButton.display();      //InventoryButton
-  }
 }
 
 void mouseDragged() {
@@ -563,12 +561,12 @@ void mouseClicked() {
 public void checkTimeMachineScrew() {
   if (timeScrew1B && timeScrew2B && timeScrew3B && timeScrew4B && !timeMachineScrewed) {//if all screws are open,
     timeMachineScrewed = true;
-    sceneManager.getCurrentScene().backgroundImage = loadImage("door_open.png");
+    sceneManager.getCurrentScene().backgroundImage = loadImage("zoominpanel_timemachineopen.png");
     println("open");
     sceneManager.getCurrentScene().addScannerObject( timeBattery1);
     sceneManager.getCurrentScene().addScannerObject( timeBattery2);
     // MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 640, 300, 50, 50, "debugblock.png", "scene03");//create scannerobjects where the batteries must be dragged
-    //  sceneManager.getCurrentScene().addGameObject(s02GoOutside); //add the scannerobjects to the scene
+    // sceneManager.getCurrentScene().addGameObject(s02GoOutside); //add the scannerobjects to the scene
   }
 }
 public void  checkTimeMachineBattery() {
