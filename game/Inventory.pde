@@ -89,7 +89,6 @@ class InventoryManager {
 
   public void mouseClicked() {      //for opening the diary
 
-  println("clicked");
   if(moveToDiaryScene){  sceneManager.goToScene("sceneDiary"); }
 
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {

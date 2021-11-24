@@ -30,18 +30,16 @@ class MoveToSceneObject extends GameObject {
 
     if (mouseIsHovering) {
       println(identifier);
-      if(soundEffect != null){
+      if (soundEffect != null) {
         soundEffect.rewind();
         soundEffect.play();
       }
       if (method != null) {
         method(method);
-        
       }
       if (moveBack) {
         sceneManager.goToPreviousScene();
         sceneManager.getCurrentScene().mouseMoved();
-        
       } else {
         try {
           sceneManager.goToScene(nextSceneIdentifier);
@@ -52,13 +50,13 @@ class MoveToSceneObject extends GameObject {
         }
       }
     }
-    
-   if(nextSceneIdentifier == "sceneDiary"){
+
+    if (nextSceneIdentifier == "sceneDiary") {
       identifier = null;
       x = 0;
       y = 0;
       owidth = 0;
       oheight = 0;
-   }
+    }
   }
 }

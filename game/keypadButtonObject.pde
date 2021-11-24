@@ -120,6 +120,8 @@ void drawKeypad() {
       }
     } else if (timeResult == "WRONG") {
       text("WRONG", 472, 224);
+    } else if (timeAttempt == "") {
+        text("00-00-0000", 472, 224);
     }
   }
 }

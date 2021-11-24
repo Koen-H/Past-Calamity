@@ -56,7 +56,7 @@ public GameObject(String identifier, int x, int y, int owidth, int oheight, Stri
 
   public void draw() {
     if (hasImage) {
-      if (mouseIsHovering && hasHoverImage) {
+      if (mouseIsHovering && hasHoverImage && !isDialogueActive) {
        // println("isHovering");
         image(gameObjectImageHover, x, y, owidth, oheight);
       } else {

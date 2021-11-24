@@ -9,29 +9,29 @@ class Scene {
 
   private ArrayList<GameObject> recentlyAddedGameObjects;
   private ArrayList<GameObject> markedForDeathGameObjects;
-  
+
   protected boolean hasEntered ;
   protected Dialogue dialogue;
   protected boolean dialogueOnlyOnce;
-  
+
   private AudioPlayer ambience;
   boolean isCutScene;
-  
+
   //CUT SCENE: play AudioPlayer ambience(soundEffect) only ONCE when entering the CutScene
-  public Scene(String sceneName, String backgroundImageFile, AudioPlayer ambience, boolean isCutScene){  //if it is a cutscene
-   this(sceneName, backgroundImageFile, ambience);
-   this.isCutScene = isCutScene;
+  public Scene(String sceneName, String backgroundImageFile, AudioPlayer ambience, boolean isCutScene) {  //if it is a cutscene
+    this(sceneName, backgroundImageFile, ambience);
+    this.isCutScene = isCutScene;
   }
-  
+
   //SCENE: play ambience in a loop
   public Scene(String sceneName, String backgroundImageFile, AudioPlayer ambience) {
     this.sceneName = sceneName;
-    
-    if (ambience != null){   
-    minim = new Minim(this);
-    this.ambience = ambience;                      //if yes load ambience
+
+    if (ambience != null) {   
+      minim = new Minim(this);
+      this.ambience = ambience;                      //if yes load ambience
     }
-    
+
     this.backgroundImage = loadImage(backgroundImageFile);
     gameObjects = new ArrayList<GameObject>();
     scannerObjects = new ArrayList<ScannerObject>();
@@ -42,11 +42,11 @@ class Scene {
     recentlyAddedGameObjects = new ArrayList<GameObject>();
   }
 
- /* public void addAmbience(AudioPlayer ambience){
-    ambiences.add(ambience);
-  }
-  */
-  
+  /* public void addAmbience(AudioPlayer ambience){
+   ambiences.add(ambience);
+   }
+   */
+
   public void addGameObject(GameObject object) {
     recentlyAddedGameObjects.add(object);
   }
@@ -61,7 +61,7 @@ class Scene {
   public void removeGameObject(GameObject object) {
     markedForDeathGameObjects.add(object);
   }
-  
+
   public void updateScene() {
     if (markedForDeathGameObjects.size() > 0) {
       for (GameObject object : markedForDeathGameObjects) {
@@ -82,7 +82,7 @@ class Scene {
       recentlyAddedGameObjects  = new ArrayList<GameObject>();
     }
   }
-  
+
   public void playDialogueOnEnter() {
     if (dialogue != null) {
       if (!hasEntered || !dialogueOnlyOnce) {
@@ -115,7 +115,7 @@ class Scene {
       }
     }
   } 
-  
+
   public void mouseMoved() {
     for (GameObject object : gameObjects) {
       object.mouseMoved();
@@ -124,6 +124,9 @@ class Scene {
 
   public void mouseClicked() {
     for (GameObject object : gameObjects) {
+      object.mouseClicked();
+    }
+    for (ScannerObject object : scannerObjects) {
       object.mouseClicked();
     }
   }

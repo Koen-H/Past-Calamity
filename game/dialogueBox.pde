@@ -33,10 +33,10 @@ class DialogueObject extends GameObject {
 
 class DialogueBox {
   //dialogueSettings
-  protected int xPos = 284;
-  protected int yPos = 545;
-  protected int w = 695;
-  protected int h = 139;
+  protected int xPos = 212;
+  protected int yPos = 531;
+  protected int w = 842;//695
+  protected int h = 167;//139
   protected float textSize = 20;
   protected PImage background = loadImage("TextBox.png");
   protected PImage backgroundText;
@@ -62,7 +62,7 @@ class DialogueBox {
     //image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
     fill(180);
     //quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
-    quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+    //quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
     image(sprite.sprite, -1, -1);
     if (background != null) {
       image(background, xPos, yPos, w, h);
@@ -79,7 +79,7 @@ class DialogueBox {
       textCurrent++;
     }
     textSize(textSize);
-    text(printText, xPos + 20, yPos + 35);
+    text(printText, xPos + 32, yPos + 35);
     // text(sprite.name, xPos + 5, yPos -2);
   }
 
@@ -142,17 +142,25 @@ class Dialogue {
   }
 
   public void disableDialogue() {
+
+    isActive = false;
+    isDialogueActive = false;
     if (afterDialogueMethod != null) {
       afterDialogue(afterDialogueMethod);
     }
-    isActive = false;
-    isDialogueActive = false;
   }
 }
 
 public void afterDialogue(String afterDialogue) {
-  println("Dialogue ended method:" + afterDialogue);
+  println("Dialogue ended method: " + afterDialogue);
   if (afterDialogue.equals("activatedHologram")) {
     sceneManager.getCurrentScene().removeGameObject(newsReporter);
+  }
+  if (afterDialogue.equals("cutScene01")) {
+    sceneManager.goToScene("cutScene02");
+  }
+  if (afterDialogue.equals("cutScene02")) {
+    heartbeat.play();
+    sceneManager.goToScene("cutScene03");
   }
 }
