@@ -116,7 +116,7 @@ void drawKeypad() {
         text(timeDate, 472, 224);
       }
     } else if (timeResult == "WRONG") {
-      text("WRONG", 472, 2240);
+      text("WRONG", 472, 224);
     }
   }
 }
