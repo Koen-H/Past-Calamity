@@ -13,9 +13,25 @@ class Scene {
   protected boolean hasEntered ;
   protected Dialogue dialogue;
   protected boolean dialogueOnlyOnce;
-
-  public Scene(String sceneName, String backgroundImageFile) {
+  
+  private AudioPlayer ambience;
+  boolean isCutScene;
+  
+  //CUT SCENE: play AudioPlayer ambience(soundEffect) only ONCE when entering the CutScene
+  public Scene(String sceneName, String backgroundImageFile, AudioPlayer ambience, boolean isCutScene){  //if it is a cutscene
+   this(sceneName, backgroundImageFile, ambience);
+   this.isCutScene = isCutScene;
+  }
+  
+  //SCENE: play ambience in a loop
+  public Scene(String sceneName, String backgroundImageFile, AudioPlayer ambience) {
     this.sceneName = sceneName;
+    
+    if (ambience != null){   
+    minim = new Minim(this);
+    this.ambience = ambience;                      //if yes load ambience
+    }
+    
     this.backgroundImage = loadImage(backgroundImageFile);
     gameObjects = new ArrayList<GameObject>();
     scannerObjects = new ArrayList<ScannerObject>();
@@ -26,6 +42,11 @@ class Scene {
     recentlyAddedGameObjects = new ArrayList<GameObject>();
   }
 
+ /* public void addAmbience(AudioPlayer ambience){
+    ambiences.add(ambience);
+  }
+  */
+  
   public void addGameObject(GameObject object) {
     recentlyAddedGameObjects.add(object);
   }
@@ -86,16 +107,14 @@ class Scene {
       //println(inventoryManager.currentId +  " and " + scannerObject.draggingObject);
       if (scannerObject.mouseOverImage) {    //check whether required Dragging Object is over scannerObject
         if (inventoryManager.currentId != null) {
-          if ( inventoryManager.currentId.indexOf(scannerObject.draggingObject) >= 0) {
-            //println(" YEEEEEE ");                 
+          if ( inventoryManager.currentId.indexOf(scannerObject.draggingObject) >= 0) {                
             scannerObject.isActive = true;        // once it is true create a scenario!
             recentScannerObject = scannerObject;
           }
         }
       }
     }
-  }
-  
+  } 
   
   public void mouseMoved() {
     for (GameObject object : gameObjects) {

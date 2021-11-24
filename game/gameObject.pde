@@ -9,14 +9,15 @@ class GameObject {
   private PImage gameObjectImage;
   private PImage gameObjectImageHover;
   protected boolean mouseIsHovering;
+  protected AudioPlayer soundEffect;
 
   protected String method = null;    //what does this do?
 
   public GameObject(String identifier, int x, int y, int owidth, int oheight) {
-    this(identifier, x, y, owidth, oheight, "");
+    this(identifier, x, y, owidth, oheight, "", null);
   }
 
-  public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile) {
+  public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile, AudioPlayer soundEffect) {
     this.identifier = identifier;
     this.x = x;
     this.y = y;
@@ -28,6 +29,7 @@ class GameObject {
     }
     hasHoverImage = false;
     mouseIsHovering = false;
+    this.soundEffect = soundEffect;
   }
 
   public void setHoverImage(String gameObjectImageHoverFile) {

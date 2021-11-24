@@ -14,7 +14,6 @@ boolean timeKeypadCompleted, timeKeypadSetProgress;
 float timeKeypadContinueTime;
 
 
-
 void createKeypad(int xPos, int yPos, int buttonSize, float spaceBetween) {
 
   int startXPos = xPos;
@@ -60,7 +59,7 @@ void drawKeypad() {
       if (!keypadSetProgress) {
         keypadSetProgress = true;
         sceneManager.scenes.get("scene02").backgroundImage = loadImage("door_open.png");
-        MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 625, 550, 50, 50, "debugblock.png", "scene03");//go to outside Door scene
+        MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 625, 550, 50, 50, "debugblock.png", "scene03", walk1);//go to outside Door scene
         sceneManager.scenes.get("scene02").addGameObject(s02GoOutside);
       }
       text("CORRECT", 490, 225);
@@ -71,11 +70,15 @@ void drawKeypad() {
     } else if (attempt != "") {
       if (String.valueOf(attempt).length() == 8) {
         if (attempt.equals(keypadCode)) {
+          correctSound.rewind();
+          correctSound.play();
           result = "CORRECT";
           keypadContinueTime = millis() + 2000;
         } else {
           attempt = "";
           result = "WRONG";
+          wrongSound.rewind();
+          wrongSound.play();
         }
       } else {
         text(attempt, 490, 225);
@@ -90,21 +93,22 @@ void drawKeypad() {
     } else if (timeAttempt != "") {
       if (String.valueOf(timeAttempt).length() == String.valueOf(timeKeypadCode).length()) {
         if (attempt.equals(keypadCode)) {
+          correctSound.rewind();
+          correctSound.play();
           timeResult = "CORRECT";
           timeKeypadContinueTime = millis() + 2000;
         } else {
           timeAttempt = "";
           timeResult = "WRONG";
+          wrongSound.rewind();
+          wrongSound.play();
         }
       } else {
         String timeDate = timeAttempt;
         while (String.valueOf(timeDate).length() < String.valueOf(timeKeypadCode).length()) {
           timeDate += "0";
-          println(timeDate);
+          //println(timeDate);
         }
-        String ss1 = timeDate.substring(0, 2);
-        String ss2 = timeDate.substring(2, 4); 
-        String ss3 = timeDate.substring(4, 8);  
         timeDate = timeDate.substring(0, 2) + "-" + timeDate.substring(2, 4) + "-" + timeDate.substring(4, 8);
         text(timeDate, (width/2), 300);
       }
@@ -134,6 +138,8 @@ class keypadButtonObject {
   }
   void clicked() {//check if key has been clicked
     if ((mouseX > (this.xPos) && mouseX < (this.xPos + (buttonSize))) && (mouseY > (this.yPos) && mouseY < (this.yPos + (buttonSize)))  ) {
+      beep.rewind();
+      beep.play();
       if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
         attempt += str(number);
       } else if (sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {

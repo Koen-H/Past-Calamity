@@ -18,7 +18,7 @@ class DialogueObject extends GameObject {
 
   public DialogueObject(String identifier, int x, int y, int owidth, 
     int oheight, String gameObjectImageFile, Dialogue dialogue) {
-    super(identifier, x, y, owidth, oheight, gameObjectImageFile);
+    super(identifier, x, y, owidth, oheight, gameObjectImageFile, null);
     this.dialogue = dialogue;
   }
 
@@ -58,13 +58,12 @@ class DialogueBox {
 
 
   public void drawDialogueBox() {
-    // quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+    //quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
     //image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
-    
     fill(180);
     //quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
     quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
-    image(sprite.sprite, -1,-1);
+    image(sprite.sprite, -1, -1);
     if (background != null) {
       image(background, xPos, yPos, w, h);
       //image(backgroundText, xPos, (yPos-textSize), 200, (yPos+textSize));
@@ -80,8 +79,8 @@ class DialogueBox {
       textCurrent++;
     }
     textSize(textSize);
-    text(printText, xPos + 15, yPos + 35);
-   // text(sprite.name, xPos + 5, yPos -2);
+    text(printText, xPos + 20, yPos + 35);
+    // text(sprite.name, xPos + 5, yPos -2);
   }
 
   boolean finishedTyping() {
