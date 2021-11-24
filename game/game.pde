@@ -47,6 +47,11 @@ void setup()
   //DialogueObject dialogueObject = new DialogueObject(String identifier, Int xPos, Int yPos, Int width, Int height, String imageFile, Dialogue dialogue); //create a button that enables a dialogue
   //scene.addDialogueOnEnter(Dialogue dialogue, boolean dialogueOnlyOnce) //start a dialogue when the payer enters the scene, enable dialogueOnlyOnce if the dialogue should only happen the first time the player enters the scene.
 
+  //Arrow down coordinates  602, 630, 75, 75, "arrowDown.png";
+  //Arrow left coordinates  10, 322, 75, 75, "arrowLeft.png";
+  //Arrow right coordinates  1195, 322, 75, 75, "arrowRight.png";
+
+
   soundLoad();   //load all Sounds
 
   SpriteCharacter finn = new SpriteCharacter("Finn", "FinnTalk.png");
@@ -212,12 +217,12 @@ void setup()
 
   scene01.addDialogueOnEnter(dialogueScene01, true);
   //DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
-  MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1180, 330, 50, 50, "debugblock.png", "scene02", walk2);//go to door scene
-  s01GoToDoor.setHoverImage("frame.png");
+  MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1195, 322, 75, 75, "arrowRight.png", "scene02", walk2);//go to door scene
+  s01GoToDoor.setHoverImage("arrowRight2.png");
   MoveToSceneObject s01ZoomOnPainting = new MoveToSceneObject("s01ZoomOnPainting", 755, 356, 80, 70, "scene01Painting", walk2);//go to zoomedpainting scene
 
-  MoveToSceneObject s01GoToTimeMachine = new MoveToSceneObject("s01GoToTimeMachine", 50, 360, 50, 50, "debugblock.png", "scene01TimeMachine", walk1);//go back to the lab
-  s01GoToTimeMachine.setHoverImage("frame.png");
+  MoveToSceneObject s01GoToTimeMachine = new MoveToSceneObject("s01GoToTimeMachine", 0, 322, 75, 75, "arrowLeft.png", "scene01TimeMachine", walk1);//go back to the lab
+  s01GoToTimeMachine.setHoverImage("arrowLeft2.png");
   s01Drawer = new ScannerObject("s01Drawer", 1090, 429, 40, 40, "drawerKeyObj" ); //
   //ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
   scene01.addScannerObject(s01Drawer);
@@ -227,7 +232,7 @@ void setup()
   scene01.addGameObject(s01GoToTimeMachine);
   //scene01.addGameObject(drawerLocker);
   sceneManager.addScene(scene01);
-  inventoryButton = new InventoryButton(20, 20, 50, 50, "back04_apple.png");
+  inventoryButton = new InventoryButton(20, 20, 75, 75, "bag.png");
 
   //LOCKER
   Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png", null);
@@ -235,7 +240,7 @@ void setup()
   CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, true, takeItem);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
   CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false, takeItem);
-  MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 640, 680, 50, 50, "debugblock.png", "scene01", lockerClosed);
+  MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", lockerClosed);
   scene01Locker.addGameObject(sceneLockerBack);
   scene01Locker.addGameObject(diaryObj);
   scene01Locker.addGameObject(screwDriverObj);
@@ -244,7 +249,7 @@ void setup()
 
 
   Scene scene01TimeMachine = new Scene("scene01TimeMachine", "timemachinefuture.png", null); //here's the time machine
-  MoveToSceneObject s01TimeMachineGoToLab = new MoveToSceneObject("s01TimeMachineGoToLab", 1180, 330, 50, 50, "debugblock.png", "scene01", walk1);//go to door scene
+  MoveToSceneObject s01TimeMachineGoToLab = new MoveToSceneObject("s01TimeMachineGoToLab", 1195, 322, 75, 75, "arrowRight.png", "scene01", walk1);//go to door scene
   MoveToSceneObject s01TimeMachineGoToScrew = new MoveToSceneObject("s01TimeMachineGoToScrew", 570, 248, 130, 100, "scene01TimeMachineScrew", buttonClick);//go zoomed Screw
   MoveToSceneObject s01TimeMachineGoToTimeKeypad= new MoveToSceneObject("s01TimeMachineGoToTimeKeypad", 1023, 239, 126, 160, "scene01TimeMachineKeyPad", buttonClick);//go zoomed keypad
   scene01TimeMachine.addGameObject(s01TimeMachineGoToScrew);
@@ -254,7 +259,7 @@ void setup()
 
   //TIME MACHINE SCREWING
   Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "debugblock.png", null);
-  MoveToSceneObject timeMachineScrewBack = new MoveToSceneObject("timeMachineScrewBack", 640, 680, 50, 50, "debugblock.png", "scene01TimeMachine", buttonClick);//go back to the scene01TimeMachine
+  MoveToSceneObject timeMachineScrewBack = new MoveToSceneObject("timeMachineScrewBack", 602, 630, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);//go back to the scene01TimeMachine
   timeScrew1 = new ScannerObject(" timeScrew1", 50, 50, 20, 20, "frame.png", "screwDriverObj");
   timeScrew2 = new ScannerObject(" timeScrew2", 50, 400, 20, 20, "frame.png", "screwDriverObj");
   timeScrew3 = new ScannerObject(" timeScrew3", 600, 400, 20, 20, "frame.png", "screwDriverObj");
@@ -271,13 +276,15 @@ void setup()
   //FAMILY PHOTO 
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png", null);//zoomedIn painting
   MoveToSceneObject s01OpenPainting = new MoveToSceneObject("s01ZoomOutPainting", 800, 300, 10, 30, "debugblock.png", "scene01OpenPainting", buttonClick);//open painting
-  MoveToSceneObject s01ZoomOutPainting = new MoveToSceneObject("s01ZoomOutPainting", 640, 680, 50, 50, "arrowDown.png", "scene01", buttonClick);//go back to the lab
+  MoveToSceneObject s01ZoomOutPainting = new MoveToSceneObject("s01ZoomOutPainting", 602, 640, 75, 75, "arrowDown.png", "scene01", buttonClick);//go back to the lab
   scene01Painting.addGameObject(s01OpenPainting); 
   scene01Painting.addGameObject(s01ZoomOutPainting);
   scene01Painting.addDialogueOnEnter(dialogueScene01Painting, true);
   sceneManager.addScene(scene01Painting);
 
   Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "zoom_keypad.png", null);
+  MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
+  scene01TimeMachineKeyPad.addGameObject(scene01TimeMachineKeyPadBack);
   createTimeKeypad(521, 321, 60, 15);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
   sceneManager.addScene(scene01TimeMachineKeyPad);
 
@@ -285,7 +292,7 @@ void setup()
 
 
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png", null);//painting open
-  MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 640, 680, 50, 50, "arrowDown.png", "scene01", buttonClick);//close painting
+  MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 602, 640, 75, 75, "arrowDown.png", "scene01", buttonClick);//close painting
   Collectable drawerKey = new Collectable("drawerKey", "key.png");                                   
   CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey, true, false, takeItem);   //drawerKeyObj is identifier
   scene01OpenPainting.addDialogueOnEnter(dialogueScene01OpenPainting, true);
@@ -301,7 +308,7 @@ void setup()
   sceneManager.addScene(scene02);
 
   Scene scene02Keypad = new Scene("scene02Keypad", "keyzoomdoor.png", null);//zoomed-in keypad scene
-  MoveToSceneObject s02KeyPadBack = new MoveToSceneObject("s02KeyPadBack", 640, 680, 50, 50, "arrowDown.png", "scene02", buttonClick);//go to door scene
+  MoveToSceneObject s02KeyPadBack = new MoveToSceneObject("s02KeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene02", buttonClick);//go to door scene
   scene02Keypad.addGameObject(s02KeyPadBack);
   createKeypad(493, 307, 60, 10);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
 
@@ -309,7 +316,7 @@ void setup()
 
   Scene scene03 = new Scene("scene03", "housecrop.png", cityAmbience);//outside car scene
   MoveToSceneObject s03GoToDoor = new MoveToSceneObject("s03GoToDoor", 640, 680, 50, 50, "debugblock.png", "scene02", walk1);//go back to the door scene
-  MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1170, 330, 50, 50, "debugblock.png", "scene04", walk2);//continue scene
+  MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1195, 322, 75, 75, "arrowRight.png", "scene04", walk2);//continue scene
   Collectable teddy = new Collectable("teddy", "back04_apple.png");                            
   CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy, false, false, takeItem);
   scene03.addGameObject(teddyObj);
@@ -320,14 +327,14 @@ void setup()
 
   Scene scene04 = new Scene("scene04", "city.png", null);//walking to city, emergency board
   MoveToSceneObject s04GoToS03 = new MoveToSceneObject("s04GoToS03", 640, 680, 50, 50, "debugblock.png", "scene03", walk2);//go back a scene
-  MoveToSceneObject s04GoToS05 = new MoveToSceneObject("s04GoToS05", 900, 330, 50, 50, "debugblock.png", "scene05", walk1);//continue scene
+  MoveToSceneObject s04GoToS05 = new MoveToSceneObject("s04GoToS05", 1195, 322, 75, 75, "arrowRight.png", "scene05", walk1);//continue scene
   scene04.addGameObject(s04GoToS03); 
   scene04.addGameObject(s04GoToS05); 
   sceneManager.addScene(scene04);
 
   Scene scene05 = new Scene("scene05", "store.png", cityAmbience);//found a store scene
   MoveToSceneObject s05GoToS04 = new MoveToSceneObject("s05GoToS04", 640, 680, 50, 50, "debugblock.png", "scene04", walk1);
-  MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1180, 330, 50, 50, "debugblock.png", "scene07", walk2);
+  MoveToSceneObject s05GoToS07 = new MoveToSceneObject("s05GoToS07", 1195, 322, 75, 75, "arrowRight.png", "scene07", walk2);
   Collectable crowbar = new Collectable("crowbar", "back04_apple.png");                        
   CollectableObject crowbaObj = new CollectableObject("crowbaObj", 600, 400, 150, 150, crowbar, false, false, takeItem);
   //needs a scannerobject to open the store's door make the functionality use scene05.addGameObject();  so it will add the game object, see how I did the keyapd door as example
@@ -341,7 +348,7 @@ void setup()
   sceneManager.addScene(scene05);
 
   Scene scene06 = new Scene("scene06", "inside_store.png", roomTone);//inside a store scene
-  MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 640, 680, 50, 50, "debugblock.png", "scene05", walk2);
+  MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 602, 640, 75, 75, "arrowDown.png", "scene05", walk2);
   Collectable powerCell01 = new Collectable("powerCell1", "Battery1.png");                        
   CollectableObject powerCellObj01 = new CollectableObject("powerCellObj1", 20, 400, 150, 150, powerCell01, true, false, takeItem);
   Collectable powerCell02 = new Collectable("powerCell2", "Battery1.png");                        
@@ -372,16 +379,16 @@ void setup()
 
   // DIARY PAGE 1
   //move to diaryScene: moveToSceneObject
-  Scene sceneDiary = new Scene("sceneDiary", "openDiary.jpeg", null);  
-  MoveToSceneObject diary1GoToDiary2 = new MoveToSceneObject ("diaryPage1", 100, 100, 100, 100, "debugblock.png", "sceneDiary2", pageFlip1);
-  MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 300, 300, 100, 100, "frame.png", true, openBook);
+  Scene sceneDiary = new Scene("sceneDiary", "diary1.png", null);  
+  MoveToSceneObject diary1GoToDiary2 = new MoveToSceneObject ("diaryPage1", 1195, 322, 75, 75, "arrowRight.png", "sceneDiary2", pageFlip1);
+  MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 602, 630, 75, 75, "arrowDown.png", true, openBook);
   sceneDiary.addGameObject(diary1GoToDiary2);
   sceneDiary.addGameObject(diary1GoBack);
   sceneManager.addScene(sceneDiary);
 
   // DIARY PAGE 2  
-  Scene sceneDiary2 = new Scene ("sceneDiary2", "openDiary2.jpeg", null);
-  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 200, 200, 100, 100, "arrowLeft.png", true, pageFlip2);
+  Scene sceneDiary2 = new Scene ("sceneDiary2", "diary2.png", null);
+  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", true, pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
   sceneManager.addScene(sceneDiary2);
 

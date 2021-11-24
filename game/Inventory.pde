@@ -87,8 +87,10 @@ class InventoryManager {
   }
 
   public void mouseClicked() {      //for opening the diary
+
   println("clicked");
   if(moveToDiaryScene){  sceneManager.goToScene("sceneDiary"); }
+
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
       InventorySlot inventorySlot = inventorySlots.get(o);
@@ -100,6 +102,8 @@ class InventoryManager {
         moveToDiaryScene = true;
         //println(sceneManager.getCurrentScene().getSceneName());
         println("Opened Diary");
+
+        //println(sceneManager.getCurrentScene().getSceneName());
         sceneManager.goToScene("sceneDiary");
         println(sceneManager.getCurrentScene().getSceneName()); //for some reason we stay in the scene
       }                         
