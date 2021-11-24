@@ -29,30 +29,33 @@ void createKeypad(int xPos, int yPos, int buttonSize, float spaceBetween) {
 
   //for ( keypadButtonObject kepadButton : keypad) kepadButton.drawButton();
 }
-void createTimeKeypad(int xPos, int yPos, int buttonSize, float spaceBetween) {
+void createTimeKeypad() {
 
-  int startXPos = xPos;
-  for (int i = 9; i > 0; i--) {
-    timeKeypad.add(new keypadButtonObject(xPos, yPos, buttonSize, spaceBetween, i));
-    xPos += buttonSize + spaceBetween;
-    if (xPos == startXPos + ((spaceBetween + buttonSize )* 3)) {
-      yPos += buttonSize + spaceBetween;
-      xPos = startXPos;
-    }
-  }
-  timeKeypad.add(new keypadButtonObject((xPos + buttonSize + spaceBetween), (yPos), buttonSize, spaceBetween, 0));
+  timeKeypad.add(new keypadButtonObject(491, 326, 75, 25, 9));
+  timeKeypad.add(new keypadButtonObject(572, 326, 75, 25, 8));
+  timeKeypad.add(new keypadButtonObject(678, 326, 75, 25, 7));
+  timeKeypad.add(new keypadButtonObject(491, 390, 75, 25, 6));
+  timeKeypad.add(new keypadButtonObject(572, 390, 75, 25, 5));
+  timeKeypad.add(new keypadButtonObject(678, 390, 75, 25, 4));
+  timeKeypad.add(new keypadButtonObject(491, 467, 75, 25, 3));
+  timeKeypad.add(new keypadButtonObject(572, 467, 75, 25, 2));
+  timeKeypad.add(new keypadButtonObject(678, 467, 75, 25, 1));
+  timeKeypad.add(new keypadButtonObject(572, 541, 75, 25, 0));
+
 
   //for ( keypadButtonObject kepadButton : keypad) kepadButton.drawButton();
 }
 
 void drawKeypad() {
+  //println(sceneManager.getCurrentScene().getSceneName());
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
     for ( keypadButtonObject keypadButton : keypad) keypadButton.drawButton();
-  } else if ( sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
+  } 
+  if ( sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
     for ( keypadButtonObject keypadButton : timeKeypad) keypadButton.drawButton();
   }
   fill(0);
-  textSize(42);
+  textSize(30);
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
     if (result == "CORRECT") {
 
@@ -89,10 +92,10 @@ void drawKeypad() {
   }
   if (sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
     if (timeResult == "CORRECT") {
-      text("CORRECT", (width/2), 300);
+      text("CORRECT", 472, 224);
     } else if (timeAttempt != "") {
       if (String.valueOf(timeAttempt).length() == String.valueOf(timeKeypadCode).length()) {
-        if (attempt.equals(keypadCode)) {
+        if (timeAttempt.equals(timeKeypadCode)) {
           correctSound.rewind();
           correctSound.play();
           timeResult = "CORRECT";
@@ -110,10 +113,10 @@ void drawKeypad() {
           //println(timeDate);
         }
         timeDate = timeDate.substring(0, 2) + "-" + timeDate.substring(2, 4) + "-" + timeDate.substring(4, 8);
-        text(timeDate, (width/2), 300);
+        text(timeDate, 472, 224);
       }
     } else if (timeResult == "WRONG") {
-      text("WRONG", (width/2), 300);
+      text("WRONG", 472, 2240);
     }
   }
 }
@@ -131,10 +134,14 @@ class keypadButtonObject {
 
   void drawButton() {
     fill(255);
-    square(xPos, yPos, buttonSize);
+    //square(xPos, yPos, buttonSize);
     fill(0);
     textSize(40);
-    text(number, (xPos + buttonSize/2 - spaceBetween), (yPos + buttonSize/2 + spaceBetween));
+    if (sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
+      text(number, (xPos + buttonSize/2 - spaceBetween), (yPos +  buttonSize/2));
+    } else {
+      text(number, (xPos + 10), (yPos + buttonSize/2 + spaceBetween));
+    }
   }
   void clicked() {//check if key has been clicked
     if ((mouseX > (this.xPos) && mouseX < (this.xPos + (buttonSize))) && (mouseY > (this.yPos) && mouseY < (this.yPos + (buttonSize)))  ) {

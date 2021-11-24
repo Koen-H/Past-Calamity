@@ -37,7 +37,7 @@ class DialogueBox {
   protected int yPos = 545;
   protected int w = 695;
   protected int h = 139;
-  protected float textSize = 25;
+  protected float textSize = 20;
   protected PImage background = loadImage("TextBox.png");
   protected PImage backgroundText;
 

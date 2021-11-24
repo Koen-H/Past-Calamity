@@ -4,7 +4,7 @@ boolean currentlyDragging = false;
 boolean showInventory = false;
 boolean showInventoryButton = true;
 
-boolean playDialogue = false;
+boolean playDialogue = true;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
@@ -56,8 +56,10 @@ void setup()
 
   SpriteCharacter finn = new SpriteCharacter("Finn", "FinnTalk.png");
   SpriteCharacter lila = new SpriteCharacter("Lila", "LilaTalk.png");
-  SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "characterSpritetest.png");
+  SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "Dada1.png");
   SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "characterSpritetest.png");
+  SpriteCharacter dad_finn = new SpriteCharacter("Finn", "dada3.png");
+  SpriteCharacter dad_lila = new SpriteCharacter("Lila", "dada2.png");
 
   DialogueBox testDialogueBox1 = new DialogueBox("Who! this dialogue box works perfect!", finn);
   DialogueBox testDialogueBox2 = new DialogueBox("It even switches to the next one!", dad);
@@ -82,7 +84,7 @@ void setup()
   dialogueManager.add(dialogueCutScene03);
 
   Dialogue dialogueScene01 = new Dialogue();
-  DialogueBox dialogueScene01Box01 = new DialogueBox("Who is that in the hologram?", finn);
+  DialogueBox dialogueScene01Box01 = new DialogueBox("Who is that in the hologram?", dad_finn);
   DialogueBox dialogueScene01Box02 = new DialogueBox("Hello Finn, Hello Lila, \nI wish I could see you in person. \nBut I’m afraid that it is too late", dad);
   DialogueBox dialogueScene01Box03 = new DialogueBox("I have a lot of regrets, \nI should have been a better father.", dad);
   DialogueBox dialogueScene01Box04 = new DialogueBox("For the… Last 18 years... \nI... been trying….. \nget... back, desk... drawer...", dad);
@@ -150,14 +152,14 @@ void setup()
   DialogueBox outsideHouseBox2 = new DialogueBox("No… Could it be?.... Are we in… The future?", finn);
   outsideHouse.addDialogueBox(outsideHouseBox1);
   outsideHouse.addDialogueBox(outsideHouseBox2);
-  dialogueManager.add(doorOpen);
+  dialogueManager.add(outsideHouse);
 
   Dialogue teddyPickUp = new Dialogue();
   DialogueBox teddyPickUpBox1 = new DialogueBox("OHH MY GOD, MISTER GRIZZY(jeff). There you are!", lila);
   DialogueBox teddyPickUpBox2 = new DialogueBox("Why was the bear so secured? \nAnyway let's head to the city to get some Nexxon Cells", finn);
   teddyPickUp.addDialogueBox(teddyPickUpBox1);
   teddyPickUp.addDialogueBox(teddyPickUpBox2);
-  dialogueManager.add(doorOpen);
+  dialogueManager.add(teddyPickUp);
 
   Dialogue foundAlert = new Dialogue();
   DialogueBox foundAlertBox1 = new DialogueBox("Oh wow. An emergency alert message. I wonder what got everyone so panicked.", finn);
@@ -285,7 +287,7 @@ void setup()
   Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "zoom_keypad.png", null);
   MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
   scene01TimeMachineKeyPad.addGameObject(scene01TimeMachineKeyPadBack);
-  createTimeKeypad(521, 321, 60, 15);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
+  createTimeKeypad();
   sceneManager.addScene(scene01TimeMachineKeyPad);
 
 
@@ -518,11 +520,13 @@ void mouseClicked() {
     inventoryButton.mouseClicked();
     inventoryManager.mouseClicked();
     sceneManager.getCurrentScene().mouseClicked();
-    if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad" || sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
+    if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
       for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
-      //beep.rewind();
-      //beep.play();
+    } else if (sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
+      for ( keypadButtonObject keypadButton : timeKeypad) keypadButton.clicked();
     }
+    //beep.rewind();
+    //beep.play();
   } else {
     for ( Dialogue dialogue : dialogueManager) dialogue.nextDialogueBox();
   }
