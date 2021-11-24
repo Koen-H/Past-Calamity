@@ -7,7 +7,6 @@ boolean keypadCompleted, keypadSetProgress;
 float keypadContinueTime;
 
 
-
 void createKeypad(int xPos, int yPos, int buttonSize, float spaceBetween) {
 
   int startXPos = xPos;
@@ -31,7 +30,7 @@ void drawKeypad() {
     if (!keypadSetProgress) {
       keypadSetProgress = true;
       sceneManager.scenes.get("scene02").backgroundImage = loadImage("scene02doorOpen.png");
-      MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 640, 300, 50, 50, "debugblock.png", "scene03");//go to outside Door scene
+      MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 640, 300, 50, 50, "debugblock.png", "scene03", walk1);//go to outside Door scene
       sceneManager.scenes.get("scene02").addGameObject(s02GoOutside);
     }
     text("CORRECT", (width/2), 300);
@@ -43,16 +42,22 @@ void drawKeypad() {
     if (String.valueOf(attempt).length() == 4) {
       if (attempt == keypadCode) {
         result = "CORRECT";
+        correctSound.play();
         keypadContinueTime = millis() + 2000;
+        openDoor.play();
+        
       } else {
         attempt = 0;
         result = "WRONG";
+        wrongSound.rewind();
+        wrongSound.play();
       }
     } else {
       text(attempt, (width/2), 300);
     }
   } else if (result == "WRONG") {
     text("WRONG", (width/2), 300);
+    ;
   }
 }
 class keypadButtonObject {
@@ -74,9 +79,11 @@ class keypadButtonObject {
     textSize(40);
     text(number, (xPos + buttonSize/2 - spaceBetween), (yPos + buttonSize/2 + spaceBetween));
   }
-  void clicked() {//check if key has been clicked
-    if ((mouseX > (this.xPos) && mouseX < (this.xPos + (buttonSize))) && (mouseY > (this.yPos) && mouseY < (this.yPos + (buttonSize)))  ) {
+  boolean clicked() {//check if key has been clicked
+    if ((mouseX > (this.xPos) && mouseX < (this.xPos + (buttonSize))) && (mouseY > (this.yPos) && mouseY < (this.yPos + (buttonSize)))) {
       attempt = attempt * 10 + number;
+      return true;
     }
+    else return false;
   }
 }

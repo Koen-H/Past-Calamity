@@ -6,7 +6,7 @@ class ScannerObject extends GameObject{
   private boolean mouseOverImage = false;
                                                                                                               //name of collectable Object! not collectable
     public ScannerObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile, String draggingObject){
-      super(identifier, x, y, owidth, oheight, gameObjectImageFile);
+      super(identifier, x, y, owidth, oheight, gameObjectImageFile, null);
       this.draggingObject = draggingObject;
     }
     

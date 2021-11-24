@@ -7,7 +7,7 @@ class DialogueObject extends GameObject {
 
   public DialogueObject(String identifier, int x, int y, int owidth, 
     int oheight, String gameObjectImageFile, Dialogue dialogue) {
-    super(identifier, x, y, owidth, oheight, gameObjectImageFile);
+    super(identifier, x, y, owidth, oheight, gameObjectImageFile, null);
     this.dialogue = dialogue;
   }
 
