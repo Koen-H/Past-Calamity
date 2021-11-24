@@ -18,7 +18,7 @@ class DialogueObject extends GameObject {
 
   public DialogueObject(String identifier, int x, int y, int owidth, 
     int oheight, String gameObjectImageFile, Dialogue dialogue) {
-    super(identifier, x, y, owidth, oheight, gameObjectImageFile);
+    super(identifier, x, y, owidth, oheight, gameObjectImageFile, null);
     this.dialogue = dialogue;
   }
 
@@ -37,8 +37,8 @@ class DialogueBox {
   protected int yPos = 545;
   protected int w = 695;
   protected int h = 139;
-  protected float textSize = 25;
-  protected PImage background /*= loadImage("debugblock.png")*/;
+  protected float textSize = 20;
+  protected PImage background = loadImage("TextBox.png");
   protected PImage backgroundText;
 
   //character
@@ -58,15 +58,15 @@ class DialogueBox {
 
 
   public void drawDialogueBox() {
-    // quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
-    image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
+    //quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+    //image(sprite.sprite, (xPos + w - 300), (yPos - 350));//sprite image
+    fill(180);
+    //quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
+    quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+    image(sprite.sprite, -1, -1);
     if (background != null) {
       image(background, xPos, yPos, w, h);
-      image(backgroundText, xPos, (yPos-textSize), 200, (yPos+textSize));
-    } else {
-      fill(#F79500);
-      quad(xPos, (yPos- textSize), (xPos+200), (yPos-textSize), (xPos+200), yPos, xPos, yPos);
-      quad(xPos, yPos, (xPos+w), yPos, (xPos+w), (yPos+h), xPos, (yPos+h));
+      //image(backgroundText, xPos, (yPos-textSize), 200, (yPos+textSize));
     }
 
     drawText();
@@ -79,8 +79,8 @@ class DialogueBox {
       textCurrent++;
     }
     textSize(textSize);
-    text(printText, xPos + 5, yPos + textSize);
-    text(sprite.name, xPos + 5, yPos -2);
+    text(printText, xPos + 20, yPos + 35);
+    // text(sprite.name, xPos + 5, yPos -2);
   }
 
   boolean finishedTyping() {
@@ -97,9 +97,18 @@ class Dialogue {
 
   private int currentDialogueBox = 0;
   private boolean isActive;
+  private String afterDialogueMethod;
+
+  public Dialogue() {
+  }
+
+  public Dialogue(String afterDialogueMethod) {
+    this.afterDialogueMethod = afterDialogueMethod;
+  }
 
   public void nextDialogueBox() {
     if (isActive && dialogue.get(currentDialogueBox).finishedTyping() ) {
+      println("typing text...");
       ++currentDialogueBox;
       if (dialogue.size() == currentDialogueBox) {
         this.disableDialogue();
@@ -133,7 +142,17 @@ class Dialogue {
   }
 
   public void disableDialogue() {
+    if (afterDialogueMethod != null) {
+      afterDialogue(afterDialogueMethod);
+    }
     isActive = false;
     isDialogueActive = false;
+  }
+}
+
+public void afterDialogue(String afterDialogue) {
+  println("Dialogue ended method:" + afterDialogue);
+  if (afterDialogue.equals("activatedHologram")) {
+    sceneManager.getCurrentScene().removeGameObject(newsReporter);
   }
 }
