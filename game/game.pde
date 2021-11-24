@@ -213,10 +213,10 @@ void setup()
   mainMenu.addGameObject(playButton);
   sceneManager.addScene(mainMenu);
   //CutScene
-  Scene cutScene01 = new Scene("cutScene01", "cutscene01.png", null, true);//playing tag
+  Scene cutScene01 = new Scene("cutScene01", "labpresent.png", null, true);//playing tag
   sceneManager.addScene(cutScene01);
 
-  Scene cutScene02 = new Scene("cutScene02", "cutscene02.png", heartbeat, true);//fall in teleporter
+  Scene cutScene02 = new Scene("cutScene02", "timemachine.png", heartbeat, true);//fall in teleporter
   sceneManager.addScene(cutScene02);
   //merge start
   Scene cutScene03 = new Scene("cutScene03", "labfutureoff.png", bodyFall, true);//dark room with a switch
@@ -248,11 +248,11 @@ void setup()
   inventoryButton = new InventoryButton(20, 20, 75, 75, "bag.png");
 
   //LOCKER
-  Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png", null);
+  Scene scene01Locker = new Scene("scene01Locker", "Drawer.png", null);
   Collectable diary = new Collectable("diary", "Notebook.png");                        
-  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, true, takeItem);
+  CollectableObject diaryObj = new CollectableObject("diaryObj", 548, 179, 150, 150, diary, false, true, takeItem);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
-  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false, takeItem);
+  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 865, 299, 150, 150, screwDriver, false, false, takeItem);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", lockerClosed);
   sceneLockerBack.setHoverImage("arrowDown2.png");
   scene01Locker.addGameObject(sceneLockerBack);
