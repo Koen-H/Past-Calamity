@@ -213,10 +213,10 @@ void setup()
   mainMenu.addGameObject(playButton);
   sceneManager.addScene(mainMenu);
   //CutScene
-  Scene cutScene01 = new Scene("cutScene01", "cutscene01.png", null, true);//playing tag
+  Scene cutScene01 = new Scene("cutScene01", "labpresent.png", null, true);//playing tag
   sceneManager.addScene(cutScene01);
 
-  Scene cutScene02 = new Scene("cutScene02", "cutscene02.png", heartbeat, true);//fall in teleporter
+  Scene cutScene02 = new Scene("cutScene02", "timemachine.png", heartbeat, true);//fall in teleporter
   sceneManager.addScene(cutScene02);
   //merge start
   Scene cutScene03 = new Scene("cutScene03", "labfutureoff.png", bodyFall, true);//dark room with a switch
