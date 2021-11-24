@@ -15,7 +15,7 @@ class InventoryManager {
   private int diaryWidth;
   private int diaryHeight;
   private PImage diaryImage; //currently not in use
-  
+
 
   public InventoryManager() {
     collectables = new ArrayList<Collectable>();
@@ -86,21 +86,30 @@ class InventoryManager {
   }
 
   public void mouseClicked() {      //for opening the diary
+  println("clicked");
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
       InventorySlot inventorySlot = inventorySlots.get(o);
-      
-      if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering) {
+
+      /*if(inventoryObject.canBeClicked && inventoryObject.mouseIsHovering){
+       sceneManager.goToScene("sceneDiary");
+       }*/
+      if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
+        println("Opened Diary");
+        println(sceneManager.getCurrentScene().getSceneName());
+        sceneManager.goToScene("sceneDiary");
+      }
+      /*if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering) {
         println("inventoryManager mousecanBeClicked");
-        
+
         diaryX = inventorySlot.objX;
         diaryY = inventorySlot.objY;
         diaryWidth = inventoryObject.owidth;
         diaryHeight = inventoryObject.oheight;
         diaryImage = inventoryObject.imageFile;                                                    //shouldnt be visible
-        moveToDiary = new MoveToSceneObject("moveToDiary",diaryX, diaryY, diaryWidth, diaryHeight, "transparent.png", "sceneDiary", buttonClick);
+        moveToDiary = new MoveToSceneObject("moveToDiary", diaryX, diaryY, diaryWidth, diaryHeight, "transparent.png", "sceneDiary", buttonClick);
         sceneManager.getCurrentScene().addGameObject(moveToDiary);
-      }
+      }*/
     }
   }
 
@@ -110,8 +119,8 @@ class InventoryManager {
       InventoryObject inventoryObject = inventoryObjects.get(o);
       InventorySlot inventorySlot = inventorySlots.get(o);      
 
-      if (inventoryObject.mouseIsHovering) {
-        println("canBeRemoved " + inventoryObject.canBeRemoved);
+      if (inventoryObject.mouseIsHovering && !inventoryObject.canBeClicked) {
+        // println("canBeRemoved " + inventoryObject.canBeRemoved);
         currentlyDragging = true;
         float deltaX = mouseX - pmouseX;
         float deltaY = mouseY - pmouseY;
@@ -159,37 +168,39 @@ class InventoryButton {
   private int owidth;
   private int oheight;
   private PImage gameObjectImage;
-  
-  public InventoryButton(int x, int y, int owidth, int oheight, String gameObjectImageFile){
-   this.x = x;
-   this.y = y;
-   this.owidth = owidth;
-   this.oheight = oheight;
-   this.gameObjectImage = loadImage(gameObjectImageFile);
-   
- }
-  
-  public void display(){
+
+  public InventoryButton(int x, int y, int owidth, int oheight, String gameObjectImageFile) {
+    this.x = x;
+    this.y = y;
+    this.owidth = owidth;
+    this.oheight = oheight;
+    this.gameObjectImage = loadImage(gameObjectImageFile);
+  }
+
+  public void display() {
     //rect(x, y, owidth, oheight);
     image (gameObjectImage, x, y, owidth, oheight);
-    
   } 
-  
 
-  public void mouseClicked(){    //show Inventory when clicking on the inventoryButton
-    if (mouseOverImage){
-      println("I clicked the button");
-      if(showInventory ){ showInventory = false; } //showInventory can be found in game
-      else { showInventory = true; }
+
+  public void mouseClicked() {    //show Inventory when clicking on the inventoryButton
+    if (mouseOverImage) {
+      //println("I clicked the button");
+      if (showInventory ) { 
+        showInventory = false;
+      } //showInventory can be found in game
+      else { 
+        showInventory = true;
+      }
     }
   }
- public void mouseMoved(){
-   mouseOverImage= false;
+  public void mouseMoved() {
+    mouseOverImage= false;
     if (mouseX >= x && mouseX <= x + owidth &&
       mouseY >= y && mouseY <= y + oheight) {
       mouseOverImage = true;
     }
- }
+  }
 }
 // -----------------------------------------------------------------------
 
@@ -200,61 +211,60 @@ class InventoryObject extends GameObject {
   boolean canBeClicked;    //only for diary...
 
   public InventoryObject(String identifier, int x, int y, int owidth, 
-                         int oheight, Collectable collectable, boolean canBeRemoved, boolean canBeClicked) {
+    int oheight, Collectable collectable, boolean canBeRemoved, boolean canBeClicked) {
     super(identifier, x, y, owidth, oheight, collectable.getGameObjectImageFile(), null); //no sound needed
     imageFile = loadImage(collectable.getGameObjectImageFile());
     this.canBeRemoved = canBeRemoved; 
     this.canBeClicked = canBeClicked;
   }  
-  
+
   //display InventoryObject at displayX/Y
-  public void display(int displayX, int displayY){
-    if(mouseIsHovering){
-    rect(displayX, displayY, owidth, oheight);     //hitbox of object
+  public void display(int displayX, int displayY) {
+    if (mouseIsHovering) {
+      //rect(displayX, displayY, owidth, oheight);     //hitbox of object
     }
-    
+
     image(imageFile, displayX, displayY, owidth, oheight);
-    
-    if(mouseX > displayX && mouseX < displayX + owidth &&
-       mouseY > displayY && mouseY < displayY + oheight){
-       mouseIsHovering = true;
-     }
-     else { mouseIsHovering = false; }
-   }
-  
-  public void mouseDragged(){
-    if (mouseIsHovering)
-    image(imageFile, mouseX, mouseY, owidth, oheight);
+
+    if (mouseX > displayX && mouseX < displayX + owidth &&
+      mouseY > displayY && mouseY < displayY + oheight) {
+      mouseIsHovering = true;
+    } else { 
+      mouseIsHovering = false;
+    }
   }
-  public String getId(){
+
+  public void mouseDragged() {
+    if (mouseIsHovering)
+      image(imageFile, mouseX, mouseY, owidth, oheight);
+  }
+  public String getId() {
     return identifier;
   }
 }
 
 // --------------------------------------------------------------------------------------------------
 
-class InventorySlot{
+class InventorySlot {
   private int inventoryHeight = 150;
   private int x;     //inventoryX position
   private int objX;  //object slot positionX
   private int objY;  //object slot positionY
   public int numberOfSlots; //decide how many slots we need
   public boolean hasObject; //if it has object display the inventoryObject where the Slot is
-  
-  InventorySlot(int x, int numberOfSlots){
+
+  InventorySlot(int x, int numberOfSlots) {
     this.x = x;
     this.numberOfSlots = numberOfSlots;
     objX = x + 40; 
     objY = wheight - inventoryHeight;   // inventory Y position;
   }
 
-  void drawSlots(){
+  void drawSlots() {
     push();
     fill(255);
     strokeWeight(2);
     rect(x, wheight - inventoryHeight-10, width/(numberOfSlots), inventoryHeight);
     pop();
   }
-
-
 }

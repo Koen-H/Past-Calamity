@@ -4,7 +4,7 @@ boolean currentlyDragging = false;
 boolean showInventory = false;
 boolean showInventoryButton = true;
 
-boolean playDialogue = true;
+boolean playDialogue = false;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
@@ -28,7 +28,7 @@ void settings()
 void setup()
 {
   frameRate(30);
-  textFont(createFont("neo-latina-demo-FFP.ttf", 32));
+  textFont(createFont("Downlink Bold.otf", 32));
   //Collectable name = new Collectable(String name, String imageFile);
   //CollectableObject name = new CollectableObject(String name, Int xPos, Int yPos, Int width, Int height, Collectable name);
   //MoveToSceneObject name = new MoveToSceneObject(String name, Int xPos, Int yPos, Int width, Int height, String imageFile, String sceneName);
@@ -381,7 +381,7 @@ void setup()
 
   // DIARY PAGE 2  
   Scene sceneDiary2 = new Scene ("sceneDiary2", "openDiary2.jpeg", null);
-  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 200, 200, 100, 100, "debugblock.png", true, pageFlip2);
+  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 200, 200, 100, 100, "arrowLeft.png", true, pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
   sceneManager.addScene(sceneDiary2);
 
@@ -483,12 +483,12 @@ void draw()
   }
   for ( CutScene cutScene : cutScenes) cutScene.update();
   //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-  if (showInventory && !isDialogueActive ) {
+  if (showInventory && !isDialogueActive && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
     inventoryManager.drawInventory();
   }
   for ( Dialogue dialogue : dialogueManager) dialogue.drawDialogueBox();
 
-  if (!isDialogueActive && showInventoryButton) {
+  if (!isDialogueActive && showInventoryButton && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
     inventoryButton.display();      //InventoryButton
   }
 }
@@ -509,6 +509,7 @@ void mouseMoved() {
 void mouseClicked() {
   if (!isDialogueActive) {
     inventoryButton.mouseClicked();
+    inventoryManager.mouseClicked();
     sceneManager.getCurrentScene().mouseClicked();
     if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad" || sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
       for ( keypadButtonObject keypadButton : keypad) keypadButton.clicked();
