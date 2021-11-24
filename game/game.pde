@@ -248,11 +248,11 @@ void setup()
   inventoryButton = new InventoryButton(20, 20, 75, 75, "bag.png");
 
   //LOCKER
-  Scene scene01Locker = new Scene("scene01Locker", "lockerZoomed.png", null);
+  Scene scene01Locker = new Scene("scene01Locker", "Drawer.png", null);
   Collectable diary = new Collectable("diary", "Notebook.png");                        
-  CollectableObject diaryObj = new CollectableObject("diaryObj", 200, 400, 150, 150, diary, false, true, takeItem);
+  CollectableObject diaryObj = new CollectableObject("diaryObj", 548, 179, 150, 150, diary, false, true, takeItem);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
-  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false, takeItem);
+  CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 865, 299, 150, 150, screwDriver, false, false, takeItem);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", lockerClosed);
   sceneLockerBack.setHoverImage("arrowDown2.png");
   scene01Locker.addGameObject(sceneLockerBack);
