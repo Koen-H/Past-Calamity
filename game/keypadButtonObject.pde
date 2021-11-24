@@ -55,14 +55,17 @@ void drawKeypad() {
     for ( keypadButtonObject keypadButton : timeKeypad) keypadButton.drawButton();
   }
   fill(0);
+
   textSize(30);
+
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
     if (result == "CORRECT") {
 
       if (!keypadSetProgress) {
         keypadSetProgress = true;
         sceneManager.scenes.get("scene02").backgroundImage = loadImage("door_open.png");
-        MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 625, 550, 50, 50, "debugblock.png", "scene03", walk1);//go to outside Door scene
+        MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 625, 550, 75, 75, "arrowUp.png", "scene03", walk1);//go to outside Door scene
+        s02GoOutside.setHoverImage("arrowUp2.png");
         sceneManager.scenes.get("scene02").addGameObject(s02GoOutside);
       }
       text("CORRECT", 490, 225);

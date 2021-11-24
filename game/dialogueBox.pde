@@ -152,7 +152,7 @@ class Dialogue {
 
 public void afterDialogue(String afterDialogue) {
   println("Dialogue ended method:" + afterDialogue);
-  if (afterDialogue.equals("readBook")) {
-    sceneManager.goToScene("sceneDiary");
+  if (afterDialogue.equals("activatedHologram")) {
+    sceneManager.getCurrentScene().removeGameObject(newsReporter);
   }
 }
