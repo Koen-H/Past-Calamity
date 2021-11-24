@@ -97,6 +97,14 @@ class Dialogue {
 
   private int currentDialogueBox = 0;
   private boolean isActive;
+  private String afterDialogueMethod;
+
+  public Dialogue() {
+  }
+
+  public Dialogue(String afterDialogueMethod) {
+    this.afterDialogueMethod = afterDialogueMethod;
+  }
 
   public void nextDialogueBox() {
     if (isActive && dialogue.get(currentDialogueBox).finishedTyping() ) {
@@ -134,7 +142,17 @@ class Dialogue {
   }
 
   public void disableDialogue() {
+    if (afterDialogueMethod != null) {
+      afterDialogue(afterDialogueMethod);
+    }
     isActive = false;
     isDialogueActive = false;
+  }
+}
+
+public void afterDialogue(String afterDialogue) {
+  println("Dialogue ended method:" + afterDialogue);
+  if (afterDialogue.equals("readBook")) {
+    sceneManager.goToScene("sceneDiary");
   }
 }
