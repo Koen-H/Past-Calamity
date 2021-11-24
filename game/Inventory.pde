@@ -86,7 +86,6 @@ class InventoryManager {
   }
 
   public void mouseClicked() {      //for opening the diary
-  println("clicked");
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
       InventorySlot inventorySlot = inventorySlots.get(o);
@@ -96,7 +95,7 @@ class InventoryManager {
        }*/
       if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
         println("Opened Diary");
-        println(sceneManager.getCurrentScene().getSceneName());
+        //println(sceneManager.getCurrentScene().getSceneName());
         sceneManager.goToScene("sceneDiary");
       }
       /*if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering) {
