@@ -73,7 +73,7 @@ public void soundLoad(){
 
 }
 
-public class SoundManager{
+/*public class SoundManager{
 
   protected AudioPlayer currentlyPlaying;    //ambience
   protected ArrayList<AudioPlayer> soundEffects = new ArrayList<AudioPlayer>();
@@ -98,4 +98,4 @@ public class SoundManager{
     //ambience
     
   }  
-}
+}*/

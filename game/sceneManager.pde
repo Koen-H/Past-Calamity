@@ -4,7 +4,7 @@ import java.util.HashMap;
 class SceneManager {
   private HashMap<String, Scene> scenes;
   private Stack<Scene> scenesStack;
-  private SoundManager soundManager;
+  //private SoundManager soundManager;
   private boolean playingAmbience = false;
   private AudioPlayer currentAmbience;
   
