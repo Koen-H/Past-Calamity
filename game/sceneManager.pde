@@ -40,7 +40,7 @@ class SceneManager {
 
       
       if (scenes.get(sceneName).ambience != null){                  //playing ambience
-        println(scenes.get(sceneName).ambience);
+        //println(scenes.get(sceneName).ambience);
         
        if(currentAmbience != scenes.get(sceneName).ambience){    //dont rewind when reentering the same scene
           if (playingAmbience){
