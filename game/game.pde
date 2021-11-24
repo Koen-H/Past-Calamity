@@ -295,7 +295,7 @@ void setup()
   MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
   scene01TimeMachineKeyPadBack.setHoverImage("arrowDown2.png");
   scene01TimeMachineKeyPad.addGameObject(scene01TimeMachineKeyPadBack);
-  createTimeKeypad(521, 321, 60, 15);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
+  createTimeKeypad();//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
   sceneManager.addScene(scene01TimeMachineKeyPad);
 
   //FAMILY PHOTO 
@@ -309,20 +309,9 @@ void setup()
   scene01Painting.addDialogueOnEnter(dialogueScene01Painting, true);
   sceneManager.addScene(scene01Painting);
 
-<<<<<<< Updated upstream
 
-  Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "zoom_keypad.png", null);
-  MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
-  scene01TimeMachineKeyPad.addGameObject(scene01TimeMachineKeyPadBack);
-  createTimeKeypad();
-  sceneManager.addScene(scene01TimeMachineKeyPad);
-
-
-
-
-=======
   //FAMILY PHOTO BACK
->>>>>>> Stashed changes
+
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png", null);//painting open
   MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 602, 640, 75, 75, "arrowDown.png", "scene01", buttonClick);//close painting
   s01ClosePainting.setHoverImage("arrowDown2.png");
