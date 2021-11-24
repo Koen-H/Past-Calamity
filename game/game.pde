@@ -64,7 +64,7 @@ void setup()
 
   soundLoad();   //load all Sounds
 
-  SpriteCharacter finn = new SpriteCharacter("Finn", "FinnTalk.png");
+  SpriteCharacter finn = new SpriteCharacter("Finn", "finnText2.png");
   SpriteCharacter lila = new SpriteCharacter("Lila", "lilatext2.png");
 
   SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "Dada1.png");
