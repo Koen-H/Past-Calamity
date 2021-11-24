@@ -52,7 +52,7 @@ void drawKeypad() {
     for ( keypadButtonObject keypadButton : timeKeypad) keypadButton.drawButton();
   }
   fill(0);
-  textSize(42);
+  textSize(35);
   if (sceneManager.getCurrentScene().getSceneName() == "scene02Keypad") {
     if (result == "CORRECT") {
 

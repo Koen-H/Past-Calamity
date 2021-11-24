@@ -4,13 +4,13 @@ boolean currentlyDragging = false;
 boolean showInventory = false;
 boolean showInventoryButton = true;
 
-boolean playDialogue = false;
+boolean playDialogue = true;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
 ScannerObject s01Drawer;
 
-ScannerObject timeScrew1, timeScrew2, timeScrew3, timeScrew4, timeBattery1, timeBattery2;
+ScannerObject timeScrew1, timeScrew2, timeScrew3, timeScrew4, timeBattery1, timeBattery2, hologram1;
 //timeScrew variables;
 boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, timeBattery1B, timeBattery2B, timeBatterySolved;
 
@@ -19,6 +19,7 @@ boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, 
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
+Dialogue activatedHologram = new Dialogue();
 
 PImage slotImage;
 
@@ -59,8 +60,8 @@ void setup()
 
   SpriteCharacter finn = new SpriteCharacter("Finn", "FinnTalk.png");
   SpriteCharacter lila = new SpriteCharacter("Lila", "LilaTalk.png");
-  SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "characterSpritetest.png");
-  SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "characterSpritetest.png");
+  SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "daddy.png");
+  SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "daddy.png");
 
   DialogueBox testDialogueBox1 = new DialogueBox("Who! this dialogue box works perfect!", finn);
   DialogueBox testDialogueBox2 = new DialogueBox("It even switches to the next one!", dad);
@@ -111,7 +112,7 @@ void setup()
   dialogueScene01OpenPainting.addDialogueBox(dialogueScene01OpenPaintingBox01);
   dialogueManager.add(dialogueScene01OpenPainting);
 
-  Dialogue dialogueScene01OpenDrawer = new Dialogue();
+  Dialogue dialogueScene01OpenDrawer = new Dialogue("readBook");
   DialogueBox dialogueScene01OpenDrawerBox01 = new DialogueBox("It's a book!", lila);
   DialogueBox dialogueScene01OpenDrawerBox02 = new DialogueBox("It’s dad’s Notebook? I didn't even know he had a notebook.", finn);
   dialogueScene01OpenDrawer.addDialogueBox(dialogueScene01OpenDrawerBox01);
@@ -181,7 +182,7 @@ void setup()
   foundHologram.addDialogueBox(foundHologramBox1);
   dialogueManager.add(foundHologram);
 
-  Dialogue activatedHologram = new Dialogue();
+
   DialogueBox activatedHologramBox1 = new DialogueBox("I’ve still got it!", finn);
   DialogueBox activatedHologramBox2 = new DialogueBox("Ever since the launch day, things have gone south. Casualties have doubled since yesterday… Watch….. Out…. stay…….Safe………", news_reporter);
   DialogueBox activatedHologramBox3 = new DialogueBox("Must be an older projector.", finn);
@@ -338,6 +339,8 @@ void setup()
   Scene scene04 = new Scene("scene04", "city.png", null);//walking to city, emergency board
   MoveToSceneObject s04GoToS03 = new MoveToSceneObject("s04GoToS03", 640, 680, 50, 50, "debugblock.png", "scene03", walk2);//go back a scene
   MoveToSceneObject s04GoToS05 = new MoveToSceneObject("s04GoToS05", 1195, 322, 75, 75, "arrowRight.png", "scene05", walk1);//continue scene
+  hologram1 = new ScannerObject("hologram1", 200, 200, 75, 75, "debugblock.png", "powerCell");
+  scene04.addScannerObject(hologram1);
   scene04.addGameObject(s04GoToS03); 
   scene04.addGameObject(s04GoToS05); 
   sceneManager.addScene(scene04);
@@ -419,6 +422,14 @@ void draw()
     sceneManager.getCurrentScene().addGameObject(s01ZoomOnLocker);
     sceneManager.goToScene("scene01Locker");
     // sceneManager.getCurrentScene().addGameObject(s01Test);
+  }
+
+  if (hologram1.isActive) {
+    hologram1.isActive = false;
+    sceneManager.getCurrentScene().removeScannerObject(hologram1);
+    GameObject newsReporter = new GameObject("newsReporter", 20, 20, 250, 302, "reporter.png");
+    activatedHologram.activateDialogue();
+    sceneManager.getCurrentScene().addGameObject(newsReporter);
   }
 
   if (timeScrew1.isActive) {

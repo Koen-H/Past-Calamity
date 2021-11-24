@@ -43,17 +43,20 @@ class CollectableObject extends GameObject {
       if (method != null) {
         method(method);
       }
-      println("soundEffect " +soundEffect);
+      //println("soundEffect " +soundEffect);
        soundEffect.rewind();
        soundEffect.play();
       
-      println("Collectable " +canBeRemoved);
+      //println("Collectable " +canBeRemoved);
             //inventoryManager.addCollectable(collectable);             //change owidth/ oheight to inventoryObjectSize, if wanted
       inventoryManager.addInventoryObject(new InventoryObject(identifier, x, y, owidth, oheight, collectable, canBeRemoved, canBeClicked)); 
       sceneManager.getCurrentScene().removeGameObject(this);
       if (willReplaceByAnotherGameObject) {
         sceneManager.getCurrentScene().addGameObject(replaceWith);
       }
+      /*if(){
+        dialogueScene01OpenDrawer.activateDialogue();
+      }*/
     }
   }
 }
