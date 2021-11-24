@@ -17,6 +17,19 @@ class GameObject {
     this(identifier, x, y, owidth, oheight, "", null);
   }
 
+public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile) {
+    this.identifier = identifier;
+    this.x = x;
+    this.y = y;
+    this.owidth = owidth;
+    this.oheight = oheight;
+    this.hasImage = !gameObjectImageFile.equals(""); 
+    if (this.hasImage) {
+      this.gameObjectImage = loadImage(gameObjectImageFile);
+    }
+    hasHoverImage = false;
+    mouseIsHovering = false;
+  }
   public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile, AudioPlayer soundEffect) {
     this.identifier = identifier;
     this.x = x;
