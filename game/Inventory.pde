@@ -15,6 +15,7 @@ class InventoryManager {
   private int diaryWidth;
   private int diaryHeight;
   private PImage diaryImage; //currently not in use
+  public boolean moveToDiaryScene;
 
 
   public InventoryManager() {
@@ -87,6 +88,7 @@ class InventoryManager {
 
   public void mouseClicked() {      //for opening the diary
   println("clicked");
+  if(moveToDiaryScene){  sceneManager.goToScene("sceneDiary"); }
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
       InventorySlot inventorySlot = inventorySlots.get(o);
@@ -95,10 +97,12 @@ class InventoryManager {
        sceneManager.goToScene("sceneDiary");
        }*/
       if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering && sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary") {
+        moveToDiaryScene = true;
+        //println(sceneManager.getCurrentScene().getSceneName());
         println("Opened Diary");
-        println(sceneManager.getCurrentScene().getSceneName());
         sceneManager.goToScene("sceneDiary");
-      }
+        println(sceneManager.getCurrentScene().getSceneName()); //for some reason we stay in the scene
+      }                         
       /*if (inventoryObject.canBeClicked && inventoryObject.mouseIsHovering) {
         println("inventoryManager mousecanBeClicked");
 
@@ -238,6 +242,8 @@ class InventoryObject extends GameObject {
     if (mouseIsHovering)
       image(imageFile, mouseX, mouseY, owidth, oheight);
   }
+
+  
   public String getId() {
     return identifier;
   }

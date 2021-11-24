@@ -29,7 +29,14 @@ class SceneManager {
       scenesStack.push(scenes.get(sceneName));
       scenes.get(sceneName).playDialogueOnEnter();
       scenes.get(sceneName).hasEntered = true;
-      
+          
+          if (scenes.get(sceneName).getSceneName() == "sceneDiary" ||       //hide Inventory(Button) when diary is open
+           scenes.get(sceneName).getSceneName() == "sceneDiary2"){
+           inventoryManager.moveToDiaryScene = false;
+           scenesStack.push(scenes.get(sceneName));
+           }
+          
+
       /*if (scenes.get(sceneName).getSceneName() == "sceneDiary" ||       //hide Inventory(Button) when diary is open
            scenes.get(sceneName).getSceneName() == "sceneDiary2"){
           showInventory = false;                        
