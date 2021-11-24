@@ -20,6 +20,8 @@ boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 
+PImage slotImage;
+
 void settings()
 {
   size(wwidth, wheight);
@@ -27,6 +29,7 @@ void settings()
 
 void setup()
 {
+  slotImage = loadImage("frame.png");
   frameRate(30);
   textFont(createFont("Downlink Bold.otf", 32));
   //Collectable name = new Collectable(String name, String imageFile);
@@ -241,17 +244,21 @@ void setup()
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
   CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 800, 400, 150, 150, screwDriver, false, false, takeItem);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", lockerClosed);
+  sceneLockerBack.setHoverImage("arrowDown2.png");
   scene01Locker.addGameObject(sceneLockerBack);
   scene01Locker.addGameObject(diaryObj);
   scene01Locker.addGameObject(screwDriverObj);
   sceneManager.addScene(scene01Locker);
 
 
-
+  //TIME MACHINE
   Scene scene01TimeMachine = new Scene("scene01TimeMachine", "timemachinefuture.png", null); //here's the time machine
   MoveToSceneObject s01TimeMachineGoToLab = new MoveToSceneObject("s01TimeMachineGoToLab", 1195, 322, 75, 75, "arrowRight.png", "scene01", walk1);//go to door scene
+  s01TimeMachineGoToLab.setHoverImage("arrowRight2.png");
   MoveToSceneObject s01TimeMachineGoToScrew = new MoveToSceneObject("s01TimeMachineGoToScrew", 570, 248, 130, 100, "scene01TimeMachineScrew", buttonClick);//go zoomed Screw
+  ////////////setHoverImage("still need a hover image.png");
   MoveToSceneObject s01TimeMachineGoToTimeKeypad= new MoveToSceneObject("s01TimeMachineGoToTimeKeypad", 1023, 239, 126, 160, "scene01TimeMachineKeyPad", buttonClick);//go zoomed keypad
+  ///////////setHoverImage("stillneedahoverimage.png")
   scene01TimeMachine.addGameObject(s01TimeMachineGoToScrew);
   scene01TimeMachine.addGameObject(s01TimeMachineGoToLab);
   scene01TimeMachine.addGameObject(s01TimeMachineGoToTimeKeypad);
@@ -260,6 +267,7 @@ void setup()
   //TIME MACHINE SCREWING
   Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "debugblock.png", null);
   MoveToSceneObject timeMachineScrewBack = new MoveToSceneObject("timeMachineScrewBack", 602, 630, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);//go back to the scene01TimeMachine
+  timeMachineScrewBack.setHoverImage("arrowDown2.png");
   timeScrew1 = new ScannerObject(" timeScrew1", 50, 50, 20, 20, "frame.png", "screwDriverObj");
   timeScrew2 = new ScannerObject(" timeScrew2", 50, 400, 20, 20, "frame.png", "screwDriverObj");
   timeScrew3 = new ScannerObject(" timeScrew3", 600, 400, 20, 20, "frame.png", "screwDriverObj");
@@ -272,23 +280,25 @@ void setup()
   scene01TimeMachineScrew.addScannerObject( timeScrew4);
   scene01TimeMachineScrew.addGameObject(timeMachineScrewBack);
   sceneManager.addScene(scene01TimeMachineScrew);
+  
+  //TIME MACHINE KEY PAD
+  Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "zoom_keypad.png", null);
+  MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
+  scene01TimeMachineKeyPadBack.setHoverImage("arrowDown2.png");
+  scene01TimeMachineKeyPad.addGameObject(scene01TimeMachineKeyPadBack);
+  createTimeKeypad(521, 321, 60, 15);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
+  sceneManager.addScene(scene01TimeMachineKeyPad);
 
   //FAMILY PHOTO 
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png", null);//zoomedIn painting
   MoveToSceneObject s01OpenPainting = new MoveToSceneObject("s01ZoomOutPainting", 800, 300, 10, 30, "debugblock.png", "scene01OpenPainting", buttonClick);//open painting
   MoveToSceneObject s01ZoomOutPainting = new MoveToSceneObject("s01ZoomOutPainting", 602, 640, 75, 75, "arrowDown.png", "scene01", buttonClick);//go back to the lab
+  s01ZoomOutPainting.setHoverImage("arrowDown2.png");
   scene01Painting.addGameObject(s01OpenPainting); 
   scene01Painting.addGameObject(s01ZoomOutPainting);
   scene01Painting.addDialogueOnEnter(dialogueScene01Painting, true);
   sceneManager.addScene(scene01Painting);
-
-  Scene scene01TimeMachineKeyPad = new Scene("scene01TimeMachineKeyPad", "zoom_keypad.png", null);
-  MoveToSceneObject scene01TimeMachineKeyPadBack = new MoveToSceneObject("scene01TimeMachineKeyPadBack", 602, 640, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);
-  scene01TimeMachineKeyPad.addGameObject(scene01TimeMachineKeyPadBack);
-  createTimeKeypad(521, 321, 60, 15);//TODO  set coordinates correctly based on keypad.png createkeypad( top left x, top left y, keysize, pixels between keys).
-  sceneManager.addScene(scene01TimeMachineKeyPad);
-
-
+  
 
 
   Scene scene01OpenPainting = new Scene("scene01OpenPainting", "zoomedOpenPainting.png", null);//painting open
@@ -394,7 +404,7 @@ void setup()
 
 
   //startGameInScene
-  sceneManager.goToScene("scene01");
+  //sceneManager.goToScene("scene01");
 } 
 
 void draw()

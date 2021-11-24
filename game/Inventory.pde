@@ -23,7 +23,7 @@ class InventoryManager {
     markedForDeathCollectables = new ArrayList<Collectable>();
     inventoryObjects = new ArrayList<InventoryObject>();
     inventorySlots = new ArrayList<InventorySlot>();
-    for (int i = 0; i < numberOfSlots; i++ ) {    //six slots
+    for (int i = 0; i < numberOfSlots; i++ ) {    //six slot
       inventorySlots.add(new InventorySlot (((wwidth/numberOfSlots)*i), numberOfSlots) );
       //println("created Slot");
     }
@@ -48,6 +48,7 @@ class InventoryManager {
    }
    }
    */
+   
   public boolean containsCollectable(Collectable collectable) {  //used in requireObject
     return collectables.contains(collectable);
   }
@@ -247,7 +248,6 @@ class InventoryObject extends GameObject {
       image(imageFile, mouseX, mouseY, owidth, oheight);
   }
 
-  
   public String getId() {
     return identifier;
   }
@@ -263,9 +263,12 @@ class InventorySlot {
   public int numberOfSlots; //decide how many slots we need
   public boolean hasObject; //if it has object display the inventoryObject where the Slot is
 
+
   InventorySlot(int x, int numberOfSlots) {
     this.x = x;
     this.numberOfSlots = numberOfSlots;
+
+
     objX = x + 40; 
     objY = wheight - inventoryHeight;   // inventory Y position;
   }
@@ -274,7 +277,9 @@ class InventorySlot {
     push();
     fill(255);
     strokeWeight(2);
-    rect(x, wheight - inventoryHeight-10, width/(numberOfSlots), inventoryHeight);
+    println(slotImage);
+    //rect(x, wheight - inventoryHeight-10, width/(numberOfSlots), inventoryHeight);
+    image (slotImage, x, wheight - inventoryHeight-10, width/(numberOfSlots), inventoryHeight);
     pop();
   }
 }
