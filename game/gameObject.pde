@@ -57,6 +57,7 @@ public GameObject(String identifier, int x, int y, int owidth, int oheight, Stri
   public void draw() {
     if (hasImage) {
       if (mouseIsHovering && hasHoverImage) {
+        println("isHovering");
         image(gameObjectImageHover, x, y, owidth, oheight);
       } else {
         image(gameObjectImage, x, y, owidth, oheight);
@@ -69,6 +70,8 @@ public GameObject(String identifier, int x, int y, int owidth, int oheight, Stri
     if (mouseX >= x && mouseX <= x + owidth &&
       mouseY >= y && mouseY <= y + oheight) {
       mouseIsHovering = true;
+      fill(1,1,1,0);
+      rect(x, y, owidth, oheight);
     }
   }
 
