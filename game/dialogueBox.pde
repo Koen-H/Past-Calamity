@@ -49,11 +49,18 @@ class DialogueBox {
   protected int textLength;
   protected int textCurrent;
   protected String printText = "";
+  private AudioPlayer soundEffect;
 
   public DialogueBox(String text, SpriteCharacter sprite) {
     this.sprite = sprite;
     this.text = text;
     this.textLength = text.length();
+  }
+  public DialogueBox(String text, SpriteCharacter sprite, AudioPlayer soundEffect) {
+    this.sprite = sprite;
+    this.text = text;
+    this.textLength = text.length();
+    this.soundEffect = soundEffect;
   }
 
 
@@ -99,6 +106,7 @@ class Dialogue {
   private boolean isActive;
   private String afterDialogueMethod;
 
+
   public Dialogue() {
   }
 
@@ -106,8 +114,12 @@ class Dialogue {
     this.afterDialogueMethod = afterDialogueMethod;
   }
 
+
   public void nextDialogueBox() {
     if (isActive && dialogue.get(currentDialogueBox).finishedTyping() ) {
+      if (dialogue.get(currentDialogueBox).soundEffect != null) {
+        dialogue.get(currentDialogueBox).soundEffect.play();
+      }
       println("typing text...");
       ++currentDialogueBox;
       if (dialogue.size() == currentDialogueBox) {
