@@ -93,7 +93,7 @@ void drawKeypad() {
     } else if (result == "WRONG") {
       text("WRONG", 490, 225);
     }
-  }
+  }   //Time machine keyPad
   if (sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
     if (timeResult == "CORRECT") {
       text("CORRECT", 472, 224);
@@ -102,6 +102,7 @@ void drawKeypad() {
         if (timeAttempt.equals(timeKeypadCode)) {
           correctSound.rewind();
           correctSound.play();
+          openDoor.play();
           timeSetCorrect.activateDialogue();
           timeResult = "CORRECT";
           timeKeypadContinueTime = millis() + 2000;

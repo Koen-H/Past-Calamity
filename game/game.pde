@@ -4,7 +4,7 @@ boolean currentlyDragging = false;
 boolean showInventory = false;
 boolean showInventoryButton = true;
 
-boolean playDialogue = false;
+boolean playDialogue = true;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
@@ -85,68 +85,103 @@ void setup()
 
   //All Dialogue
   Dialogue dialogueCutScene03 = new Dialogue();
-  DialogueBox dialogueCutScene03Box01 = new DialogueBox("Ow my head! What in the world happened!", finn);
+  DialogueBox dialogueCutScene03Box01 = new DialogueBox("Ow my head! What in the world happened?", finn);
   DialogueBox dialogueCutScene03Box02 = new DialogueBox("Lila, where are you??! Are you okay??!", finn);
-  DialogueBox dialogueCutScene03Box03 = new DialogueBox("Finn, Help it’s so dark?  \nI’m scared Finn!", lila);
-  DialogueBox dialogueCutScene03Box04 = new DialogueBox("It’s gonna be alright Lila, I am here!", finn);
+  DialogueBox dialogueCutScene03Box03 = new DialogueBox("Finn, Help it’s so dark!  \nI’m scared Finn!", lila);
+  DialogueBox dialogueCutScene03Box04 = new DialogueBox("It’s gonna be alright Lila, I am here!\nIt must be a power outage. Let’s see if the light switch works. ", finn);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box01);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box02);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box03);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box04);
   dialogueManager.add(dialogueCutScene03);
+  
+  //Dialogue First CutScene (Lab)
+  Dialogue dialoguecutScene01 = new Dialogue("cutScene01");
+  DialogueBox dialoguecutScene01Box = new DialogueBox("You can't catch me!", lila);
+  DialogueBox dialoguecutScene01Box2 = new DialogueBox("No, Lila. Don't go into Dad's laboratory!", finn);
+  DialogueBox dialoguecutScene01Box3 = new DialogueBox("...\ncome ,Lila... stop hiding now. We shouldn't be here.", finn);
+  dialoguecutScene01.addDialogueBox(dialoguecutScene01Box);
+  dialoguecutScene01.addDialogueBox(dialoguecutScene01Box2);
+  dialoguecutScene01.addDialogueBox(dialoguecutScene01Box3);
+  dialogueManager.add(dialoguecutScene01);
 
+  //Dialogue 2nd Cutscene (Time Machine)
+  Dialogue dialoguecutScene02 = new Dialogue("cutScene02");
+  DialogueBox dialoguecutScene02Box = new DialogueBox("Aww, you found me!", lila);
+  DialogueBox dialoguecutScene02Box2 = new DialogueBox("Come out of there, let's go back.", finn);
+  DialogueBox dialoguecutScene02Box3 = new DialogueBox("No, I don't wanna!", lila);
+  DialogueBox dialoguecutScene02Box4 = new DialogueBox("Come out or I'll make you come out.", finn);
+  DialogueBox dialoguecutScene02Box5 = new DialogueBox("fine\n...\n... whoops", lila);
+  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box);
+  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box2);
+  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box3);
+  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box4);
+  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box5);
+  dialogueManager.add(dialoguecutScene02);
+  
+  //Dialogue hologram with dad
   Dialogue dialogueScene01 = new Dialogue();
   DialogueBox dialogueScene01Box01 = new DialogueBox("Who is that in the hologram?", finn);
-  DialogueBox dialogueScene01Box02 = new DialogueBox("Hello Finn, Hello Lila, \nI wish I could see you in person. \nBut I’m afraid that it is too late", dad);
+  DialogueBox dialogueScene01Box02 = new DialogueBox("Hello Finn, Hello Lila, \nI wish I could see you in person. \nBut I’m afraid that it is too late...", dad);
   DialogueBox dialogueScene01Box03 = new DialogueBox("I have a lot of regrets, \nI should have been a better father.", dad);
   DialogueBox dialogueScene01Box04 = new DialogueBox("For the… Last 18 years... \nI... been trying….. \nget... back, desk... drawer...", dad);
-  DialogueBox dialogueScene01Box05 = new DialogueBox("Was that dad? Where is dad? \nHe is always in his lab!", lila);
-  DialogueBox dialogueScene01Box06 = new DialogueBox("I think it was, but he never was so... Caring.\nHe also said something strange at the end.", finn);
+  DialogueBox dialogueScene01Box05 = new DialogueBox("Who was that old man? Where is Dad? \nHe is always in his lab!", lila);
+  DialogueBox dialogueScene01Box06 = new DialogueBox("I think it was Dad, but he never was so… caring.\nAnd he looked so old, too. \nHe also said something strange at the end.", finn);
+  DialogueBox dialogueScene01Box07 = new DialogueBox("Also, the lab is so dirty. It was clean and tidy just a moment ago.\nWhat happened here while the power was turned off?", finn);
   dialogueScene01.addDialogueBox(dialogueScene01Box01);
   dialogueScene01.addDialogueBox(dialogueScene01Box02);
   dialogueScene01.addDialogueBox(dialogueScene01Box03);
   dialogueScene01.addDialogueBox(dialogueScene01Box04);
   dialogueScene01.addDialogueBox(dialogueScene01Box05);
   dialogueScene01.addDialogueBox(dialogueScene01Box06);
+  dialogueScene01.addDialogueBox(dialogueScene01Box07);
   dialogueManager.add(dialogueScene01);
 
+  //Dialogue family picture
   Dialogue dialogueScene01Painting = new Dialogue();
-  DialogueBox dialogueScene01PaintingBox01 = new DialogueBox("Look,it’s a picture of us with Mom! \nYou make a funny face!", lila);
-  DialogueBox dialogueScene01PaintingBox02 = new DialogueBox("I remember when we took this picture \nbefore she passed away.", finn);
+  DialogueBox dialogueScene01PaintingBox01 = new DialogueBox("Look, it’s a picture of us with Mom! I miss her...", lila);
+  DialogueBox dialogueScene01PaintingBox02 = new DialogueBox("I do, too. I still remember when we took this picture before\nshe passed away.", finn);
+  DialogueBox dialogueScene01PaintingBox03 = new DialogueBox("I'm sure, that this wasn't standing here before...", finn);
   dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox01);
   dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox02);
+  dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox03);
   dialogueManager.add(dialogueScene01Painting);
-
+  
+  //dialogue key
   Dialogue dialogueScene01OpenPainting = new Dialogue();
-  DialogueBox dialogueScene01OpenPaintingBox01 = new DialogueBox("This could be useful!", finn);
+  DialogueBox dialogueScene01OpenPaintingBox01 = new DialogueBox("I wonder what this opens? ", finn);
   dialogueScene01OpenPainting.addDialogueBox(dialogueScene01OpenPaintingBox01);
   dialogueManager.add(dialogueScene01OpenPainting);
-
+  
+  //dialogue open drawer
   dialogueScene01OpenDrawer = new Dialogue("readBook");
-  DialogueBox dialogueScene01OpenDrawerBox01 = new DialogueBox("It's a book!", lila);
-  DialogueBox dialogueScene01OpenDrawerBox02 = new DialogueBox("It’s dad’s Notebook? I didn't even know he had a notebook.", finn);
+  DialogueBox dialogueScene01OpenDrawerBox01 = new DialogueBox("Oh, a book!", lila);
+  DialogueBox dialogueScene01OpenDrawerBox02 = new DialogueBox("Could it be Dad’s notebook? I didn't even know he had one.\nIt’s so old and dusty", finn);
   dialogueScene01OpenDrawer.addDialogueBox(dialogueScene01OpenDrawerBox01);
   dialogueScene01OpenDrawer.addDialogueBox(dialogueScene01OpenDrawerBox02);
   dialogueManager.add(dialogueScene01OpenDrawer);
 
+  //dialgue open book 
   Dialogue dialogueOpenBook = new Dialogue();
-  DialogueBox dialogueOpenBookBox01 = new DialogueBox("Huh?? Christmas is in about 3 weeks. What is he talking about?", finn);
-  DialogueBox dialogueOpenBookBox02 = new DialogueBox("He never said that he loved us!", lila);
-  DialogueBox dialogueOpenBookBox03 = new DialogueBox("The way he says things is strange, something must be off!", finn);
+  DialogueBox dialogueOpenBookBox01 = new DialogueBox("Huh?? An entry for tomorrow? What is he talking about?", finn);
+  DialogueBox dialogueOpenBookBox02 = new DialogueBox("What does the old book say? I wanna know too!", lila);
+  DialogueBox dialogueOpenBookBox03 = new DialogueBox("The way those words are put together is strange,\nsomething is off!", finn);
   dialogueOpenBook.addDialogueBox(dialogueOpenBookBox01);
   dialogueOpenBook.addDialogueBox(dialogueOpenBookBox02);
   dialogueOpenBook.addDialogueBox(dialogueOpenBookBox03);
   dialogueManager.add(dialogueOpenBook);
-
+  
+  //pass - not in use
   Dialogue pickUpCard = new Dialogue();
   DialogueBox pickUpCardBox01 = new DialogueBox("I should take this just in case.", finn);
   pickUpCard.addDialogueBox(pickUpCardBox01);
   dialogueManager.add(pickUpCard);
-
+  
+  //Dialogue door scene
   Dialogue doorNotOpen = new Dialogue();
   DialogueBox doorNotOpenBox1 = new DialogueBox("That's a pretty big reinforced door\nThis wasn't here before...", finn);
-  DialogueBox doorNotOpenBox2 = new DialogueBox("There seems to be a keypad \nconnected to it!", lila);
-  DialogueBox doorNotOpenBox3 = new DialogueBox("Nice find lila!", finn);
+  DialogueBox doorNotOpenBox2 = new DialogueBox("There seems to be a keypad connected to it!", lila);
+  DialogueBox doorNotOpenBox3 = new DialogueBox("Nice find, Lila!", finn);
   doorNotOpen.addDialogueBox(doorNotOpenBox1);
   doorNotOpen.addDialogueBox(doorNotOpenBox2);
   doorNotOpen.addDialogueBox(doorNotOpenBox3);
@@ -154,21 +189,25 @@ void setup()
 
   Dialogue doorOpen = new Dialogue();
   DialogueBox doorOpenBox1 = new DialogueBox("I knew something was off!", finn);
-  DialogueBox doorOpenBox2 = new DialogueBox("Maybe dad is just getting food.", lila);
+  DialogueBox doorOpenBox2 = new DialogueBox("Maybe Dad is just getting food.", lila);
   doorOpen.addDialogueBox(doorOpenBox1);
   doorOpen.addDialogueBox(doorOpenBox2);
   dialogueManager.add(doorOpen);
 
   Dialogue outsideHouse = new Dialogue();
-  DialogueBox outsideHouseBox1 = new DialogueBox("The house was not that green before!", lila);
-  DialogueBox outsideHouseBox2 = new DialogueBox("No… Could it be?.... Are we in… The future?", finn);
+  DialogueBox outsideHouseBox1 = new DialogueBox("What happened to our house? It’s so green!\nI love it!", lila);
+  DialogueBox outsideHouseBox2 = new DialogueBox("It’s just like the lab…\nCould the machine really have worked…?", finn);
+  DialogueBox outsideHouseBox3 = new DialogueBox("Finn look, it’s the new car Dad bought!", lila);
+  DialogueBox outsideHouseBox4 = new DialogueBox("Uhh, I don’t think it’s THAT new anymore…", finn);
   outsideHouse.addDialogueBox(outsideHouseBox1);
   outsideHouse.addDialogueBox(outsideHouseBox2);
+  outsideHouse.addDialogueBox(outsideHouseBox3);
+  outsideHouse.addDialogueBox(outsideHouseBox4);
   dialogueManager.add(outsideHouse);
 
   teddyPickUp = new Dialogue();
-  DialogueBox teddyPickUpBox1 = new DialogueBox("OHH MY GOD, MISTER GRIZZY(jeff). There you are!", lila);
-  DialogueBox teddyPickUpBox2 = new DialogueBox("Why was the bear so secured..? \nIt doesn't matter, glad you've got your grizzy back!", finn);
+  DialogueBox teddyPickUpBox1 = new DialogueBox("AAAHHH, MISTER GRIZZY! There you are!", lila);
+  DialogueBox teddyPickUpBox2 = new DialogueBox("At least somebody seems happy.", finn);
   teddyPickUp.addDialogueBox(teddyPickUpBox1);
   teddyPickUp.addDialogueBox(teddyPickUpBox2);
   dialogueManager.add(teddyPickUp);
@@ -176,8 +215,10 @@ void setup()
   Dialogue foundAlert = new Dialogue();
   DialogueBox foundAlertBox1 = new DialogueBox("Oh wow. An emergency alert message. \nI wonder what got everyone so panicked.", finn);
   DialogueBox foundAlertBox2 = new DialogueBox("Maybe they also lost their Mr Grizzies.", lila);
+  DialogueBox foundAlertBox3 = new DialogueBox("...sure, Lila", finn);
   foundAlert.addDialogueBox(foundAlertBox1);
   foundAlert.addDialogueBox(foundAlertBox2);
+  foundAlert.addDialogueBox(foundAlertBox3);
   dialogueManager.add(foundAlert);
 
   Dialogue enterStore = new Dialogue();
@@ -188,73 +229,54 @@ void setup()
   dialogueManager.add(enterStore);
 
   Dialogue foundHologram = new Dialogue();
-  DialogueBox foundHologramBox1 = new DialogueBox("I have raided one of these once, if I remember correctly... \nI should be able to power it on with a Nexxon Cell!", finn);
+  DialogueBox foundHologramBox1 = new DialogueBox("I have raided one of these once, if I remember correctly... \nI should be able to power with a Nexxon Cell!", finn);
   foundHologram.addDialogueBox(foundHologramBox1);
   dialogueManager.add(foundHologram);
 
 
   DialogueBox activatedHologramBox1 = new DialogueBox("I’ve still got it!", finn);
   DialogueBox activatedHologramBox2 = new DialogueBox("Ever since the launch day, things have gone south. \nCasualties have doubled since yesterday…\nWatch….. Out…. stay…….Safe………", news_reporter);
-  DialogueBox activatedHologramBox3 = new DialogueBox("Must be an older projector.", finn);
-  DialogueBox activatedHologramBox4 = new DialogueBox("Must be an older  projector.\nI don't want to know what those poor people went through.", finn);
-  DialogueBox activatedHologramBox5 = new DialogueBox("Finn, what was the news lady talking about?", lila);
-  DialogueBox activatedHologramBox6 = new DialogueBox("She said that a lot of people moved away, Lila.", finn);
+  DialogueBox activatedHologramBox3 = new DialogueBox("Must be an older projector.\nI don't want to know what those poor people went through.", finn);
+  DialogueBox activatedHologramBox4 = new DialogueBox("Finn, what was the news lady talking about?", lila);
+  DialogueBox activatedHologramBox5 = new DialogueBox("...she said that a lot of people moved away, Lila.", finn);
   activatedHologram.addDialogueBox(activatedHologramBox1);
   activatedHologram.addDialogueBox(activatedHologramBox2);  
   activatedHologram.addDialogueBox(activatedHologramBox3);  
   activatedHologram.addDialogueBox(activatedHologramBox4);  
-  activatedHologram.addDialogueBox(activatedHologramBox5);  
-  activatedHologram.addDialogueBox(activatedHologramBox6);
+  activatedHologram.addDialogueBox(activatedHologramBox5);
   dialogueManager.add(activatedHologram);
 
   Dialogue enteredCity = new Dialogue();
-  DialogueBox enteredCityBox1 = new DialogueBox("The city is so empty and overgrown.\nA Where is everyone?", finn);
-  DialogueBox enteredCityBox2 = new DialogueBox("Brother, they just got lazy and left the planet\nThey didn't want to clean up the mess they made.\n(PLACEHOLDER)", lila);
-  DialogueBox enteredCityBox3 = new DialogueBox("You can't just say that lila!\nStay in your character!\n(PLACEHOLDER) ", finn);
+  DialogueBox enteredCityBox1 = new DialogueBox(" Where is everyone?\n The city looks like a ghost town.", finn);
   enteredCity.addDialogueBox(enteredCityBox1);
-  enteredCity.addDialogueBox(enteredCityBox2);
-  enteredCity.addDialogueBox(enteredCityBox3);
   dialogueManager.add(enteredCity);
 
   Dialogue clickedDrawer = new Dialogue();
-  DialogueBox clickedDrawerBox1 = new DialogueBox("This seems to be locked up.\nA key might work", finn);
+  DialogueBox clickedDrawerBox1 = new DialogueBox("This seems to be locked up.\nI need a key to open this.", finn);
   clickedDrawer.addDialogueBox(clickedDrawerBox1);
   dialogueManager.add(clickedDrawer);
   clickedDrawer.addDialogueBox(clickedDrawerBox1);
   dialogueManager.add(clickedDrawer);
 
   Dialogue screwedTight = new Dialogue();
-  DialogueBox screwedTightBox1 = new DialogueBox("I can probabably unscrew those with \na screwdriver", finn);
+  DialogueBox screwedTightBox1 = new DialogueBox("I can probabably unscrew those with \na screwdriver.", finn);
   screwedTight.addDialogueBox(screwedTightBox1);
   dialogueManager.add(screwedTight);
 
   Dialogue keyPadFound = new Dialogue();
   DialogueBox keyPadFoundBox1 = new DialogueBox("This keypad needs a 8 digit code...", finn);
-  DialogueBox keyPadFoundBox2 = new DialogueBox("Maybe dad left a clue somewhere!", lila);
+  DialogueBox keyPadFoundBox2 = new DialogueBox("Maybe there is a clue somewhere!", lila);
   keyPadFound.addDialogueBox(keyPadFoundBox1);
   keyPadFound.addDialogueBox(keyPadFoundBox2);
   dialogueManager.add(keyPadFound);
 
   Dialogue timeMachineFound = new Dialogue();
-  DialogueBox timeMachineFoundBox1 = new DialogueBox("Finn look! This machine! I remember it!", lila);
-  DialogueBox  timeMachineFoundBox2 = new DialogueBox("Yes... me too! \nWe were playing tag and you tried to hide here!\nIt seems to be de-activated...", finn);
+  DialogueBox timeMachineFoundBox1 = new DialogueBox("Finn, look! This machine! I remember it!", lila);
+  DialogueBox  timeMachineFoundBox2 = new DialogueBox("Yes, you hid in there not too ago \n It looks very rusty now", finn);
   timeMachineFound.addDialogueBox(timeMachineFoundBox1);
   timeMachineFound.addDialogueBox(timeMachineFoundBox2);
   dialogueManager.add(timeMachineFound);
 
-  Dialogue dialoguecutScene01 = new Dialogue("cutScene01");
-  DialogueBox dialoguecutScene01Box = new DialogueBox("Catch me if you can!!!", lila);
-  DialogueBox dialoguecutScene01Box2 = new DialogueBox("Oh will get you!", finn);
-  dialoguecutScene01.addDialogueBox(dialoguecutScene01Box);
-  dialoguecutScene01.addDialogueBox(dialoguecutScene01Box2);
-  dialogueManager.add(dialoguecutScene01);
-
-  Dialogue dialoguecutScene02 = new Dialogue("cutScene02");
-  DialogueBox dialoguecutScene02Box = new DialogueBox("I'm hiding now!", lila);
-  DialogueBox dialoguecutScene02Box2 = new DialogueBox("Not for long!", finn);
-  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box);
-  dialoguecutScene02.addDialogueBox(dialoguecutScene02Box2);
-  dialogueManager.add(dialoguecutScene02);
 
   Dialogue timeKeyPadFound = new Dialogue();
   DialogueBox timeKeyPadFoundBox = new DialogueBox("Why does this key pad have dashes on it?\nDo we need to calculate?\nI don't like math", lila);
@@ -264,10 +286,8 @@ void setup()
   dialogueManager.add(timeKeyPadFound);
 
   doorOpened = new Dialogue();
-  DialogueBox doorOpenedBox1 = new DialogueBox("Yes! That's it!\nThis code really is made with love!", finn);
-  DialogueBox doorOpenedBox2 = new DialogueBox("Good job finn!", lila);
+  DialogueBox doorOpenedBox1 = new DialogueBox("You did it, Finn!", lila);
   doorOpened.addDialogueBox(doorOpenedBox1);
-  doorOpened.addDialogueBox(doorOpenedBox2);
   dialogueManager.add(doorOpened);
 
   screwedOpen = new Dialogue();
@@ -361,6 +381,7 @@ void setup()
   scene01Locker.addGameObject(sceneLockerBack);
   scene01Locker.addGameObject(diaryObj);
   scene01Locker.addGameObject(screwDriverObj);
+  scene01Locker.addDialogueOnEnter(dialogueScene01OpenDrawer, true);
   sceneManager.addScene(scene01Locker);
 
 
@@ -532,7 +553,7 @@ void setup()
 
   // DIARY PAGE 2  
   Scene sceneDiary2 = new Scene ("sceneDiary2", "Notebook1.png", null);
-  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", "sceneDiary", pageFlip2);
+  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", true, pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
   sceneManager.addScene(sceneDiary2);
 
@@ -542,7 +563,7 @@ void setup()
 
 
   ////////////////////////START GAME SCENE////////////////
-  sceneManager.goToScene("scene06");//for quick access to develop
+  //sceneManager.goToScene("scene01");//for quick access to develop
 } 
 
 void draw()
