@@ -4,7 +4,7 @@ boolean currentlyDragging = false;
 boolean showInventory = false;
 boolean showInventoryButton = true;
 
-boolean playDialogue = true;
+boolean playDialogue = false;
 
 //INITIALIZE Inventory + SCANNER OBJECTS + SCENE
 InventoryButton inventoryButton;
@@ -271,9 +271,9 @@ void setup()
   dialogueManager.add(doorOpened);
 
   screwedOpen = new Dialogue();
-  DialogueBox screwedOpenBox1 = new DialogueBox("It looks like we need two power cells to get this working again!", finn);
-  DialogueBox screwedOpenBox2 = new DialogueBox("You mean those from the Electro & CO store?\n It's not that far away and we can get some \nicecream along the way!", lila);
-  DialogueBox screwedOpenBox3 = new DialogueBox("You're right, lila!", finn);
+  DialogueBox screwedOpenBox1 = new DialogueBox("It looks like we need two Nexxon Cells to get this working again!", finn);
+  DialogueBox screwedOpenBox2 = new DialogueBox("You mean those from the Electro & CO store around the corner?\n ", lila);
+  DialogueBox screwedOpenBox3 = new DialogueBox("Exactly those, lila!", finn);
   screwedOpen.addDialogueBox(screwedOpenBox1);
   screwedOpen.addDialogueBox(screwedOpenBox2);
   screwedOpen.addDialogueBox(screwedOpenBox3);
@@ -382,12 +382,12 @@ void setup()
   Scene scene01TimeMachineScrew = new Scene("scene01TimeMachineScrew", "zoominpanel_timemachine.png", null);
   MoveToSceneObject timeMachineScrewBack = new MoveToSceneObject("timeMachineScrewBack", 602, 630, 75, 75, "arrowDown.png", "scene01TimeMachine", buttonClick);//go back to the scene01TimeMachine
   timeMachineScrewBack.setHoverImage("arrowDown2.png");
-  timeScrew1 = new ScannerObject("timeScrew1", 489, 257, 75, 75, "screw.png", "screwDriverObj", screwedTight);
-  timeScrew2 = new ScannerObject("timeScrew2", 771, 252, 75, 75, "screw.png", "screwDriverObj", screwedTight);
-  timeScrew3 = new ScannerObject("timeScrew3", 506, 449, 75, 75, "screw.png", "screwDriverObj", screwedTight);
-  timeScrew4 = new ScannerObject("timeScrew4", 760, 443, 75, 75, "screw.png", "screwDriverObj", screwedTight);
-  timeBattery1 = new ScannerObject("timeBattery1", 535, 357, 20, 20, "debugblock.png", "powerCell");
-  timeBattery2 = new ScannerObject("timeBattery2", 738, 369, 20, 20, "debugblock.png", "powerCell");
+  timeScrew1 = new ScannerObject("timeScrew1", 469, 247, 75, 75, "screw1.png", "screwDriverObj", screwedTight);
+  timeScrew2 = new ScannerObject("timeScrew2", 751, 242, 75, 75, "screw3.png", "screwDriverObj", screwedTight);
+  timeScrew3 = new ScannerObject("timeScrew3", 486, 439, 75, 75, "screw2.png", "screwDriverObj", screwedTight);
+  timeScrew4 = new ScannerObject("timeScrew4", 740, 433, 75, 75, "screw4.png", "screwDriverObj", screwedTight);
+  timeBattery1 = new ScannerObject("timeBattery1", 421, 210, 300, 300, "powerCell");
+  timeBattery2 = new ScannerObject("timeBattery2", 595, 229, 300, 300, "powerCell"); 
   scene01TimeMachineScrew.addScannerObject( timeScrew1);
   scene01TimeMachineScrew.addScannerObject( timeScrew2);
   scene01TimeMachineScrew.addScannerObject( timeScrew3);
@@ -607,7 +607,8 @@ void draw()
     timeBattery1.isActive = false;
     timeBattery1B = true;
     sceneManager.getCurrentScene().removeScannerObject(timeBattery1);//next line should replace it with a battery sprite
-
+    GameObject battery1 = new GameObject("battery", 421, 210, 300, 300, "Battery1.png");
+    sceneManager.getCurrentScene().addGameObject(battery1);
     checkTimeMachineBattery();
     println("Loaded battery 1");
   }
@@ -615,7 +616,8 @@ void draw()
     timeBattery2.isActive = false;
     timeBattery2B = true;
     sceneManager.getCurrentScene().removeScannerObject(timeBattery2);
-
+    GameObject battery2 = new GameObject("battery", 595, 229, 300, 300, "Battery1.png"); 
+    sceneManager.getCurrentScene().addGameObject(battery2);
     checkTimeMachineBattery();
     println("Loaded battery 2");
   }
