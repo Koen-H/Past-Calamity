@@ -1,4 +1,6 @@
+
 import ddf.minim.*;
+// minim is in the libraries folder, but can also be installed through processing itself
 // use minim for better performance
 //problem: when changing scenes, I can play one specific sound, but I cannot specify specific sounds
 //background music, how to change: scenes need to be initialized in set up
