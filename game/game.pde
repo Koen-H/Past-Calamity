@@ -356,7 +356,7 @@ void setup()
   CollectableObject diaryObj = new CollectableObject("diaryObj", 548, 179, 150, 150, diary, false, true, takeItem);
   Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
   CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 865, 299, 150, 150, screwDriver, false, false, takeItem);
-  MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", lockerClosed);
+  MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", drawerClosed);
   sceneLockerBack.setHoverImage("arrowDown2.png");
   scene01Locker.addGameObject(sceneLockerBack);
   scene01Locker.addGameObject(diaryObj);
@@ -553,7 +553,7 @@ void draw()
     println("Drawer opened");
     s01Drawer.isActive = false; //if not set to false all ItemObjects will be removed at once!
     sceneManager.getCurrentScene().removeScannerObject(s01Drawer);
-    MoveToSceneObject s01ZoomOnLocker = new MoveToSceneObject("s01ZoomOnLocker", 1080, 423, 140, 53, "scene01Locker", lockerOpen);//go to zoomedLocker scene
+    MoveToSceneObject s01ZoomOnLocker = new MoveToSceneObject("s01ZoomOnLocker", 1080, 423, 140, 53, "scene01Locker", drawerOpen);//go to zoomedLocker scene
     sceneManager.getCurrentScene().addGameObject(s01ZoomOnLocker);
     sceneManager.goToScene("scene01Locker");
     // sceneManager.getCurrentScene().addGameObject(s01Test);
