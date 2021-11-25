@@ -23,7 +23,7 @@ final InventoryManager inventoryManager = new InventoryManager();
 //define diloague and gameobjects out of setup if used in draw or other voids
 Dialogue activatedHologram = new Dialogue("activatedHologram");
 Dialogue dialogueScene01OpenDrawer, teddyPickUp, screwedOpen, batteryOn, timeSetCorrect, doorOpened;
-GameObject newsReporter, teddy;
+GameObject newsReporter, teddy, closeDiary1, closeDiary2;
 SpriteCharacter finn, lila, dad;
 
 PImage slotImage;
@@ -564,6 +564,7 @@ void setup()
 
   ////////////////////////START GAME SCENE////////////////
   //sceneManager.goToScene("scene01");//for quick access to develop
+
 } 
 
 void draw()
@@ -583,9 +584,9 @@ void draw()
   if (hologram1.isActive) {
     hologram1.isActive = false;
     sceneManager.getCurrentScene().removeScannerObject(hologram1);
-    newsReporter = new GameObject("newsReporter", 509, 258, 250, 302, "reporter.png");
+    //newsReporter = new GameObject("newsReporter", 509, 258, 250, 302, "reporter.png");
     activatedHologram.activateDialogue();
-    sceneManager.getCurrentScene().addGameObject(newsReporter);
+    //sceneManager.getCurrentScene().addGameObject(newsReporter);
   }
 
   if (timeScrew1.isActive) {
@@ -720,3 +721,8 @@ public void teddyPickUp() {
   sceneManager.getCurrentScene().removeGameObject(teddy);
   lila.sprite = loadImage("lilatext3.png");
 }
+/*public void closeBook() {
+ sceneManager.scenes.get("sceneDiary").removeGameObject(closeDiary1);
+ sceneManager.scenes.get("sceneDiary2").removeGameObject(closeDiary1);
+ }
+ */
