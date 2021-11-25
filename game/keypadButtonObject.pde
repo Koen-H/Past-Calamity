@@ -7,7 +7,7 @@ String result;
 boolean keypadCompleted, keypadSetProgress;
 float keypadContinueTime;
 
-String timeKeypadCode = "03122142";
+String timeKeypadCode = "04122142";
 String timeAttempt = "";
 String timeResult;
 boolean timeKeypadCompleted, timeKeypadSetProgress;
@@ -80,6 +80,7 @@ void drawKeypad() {
           correctSound.play();
           result = "CORRECT";
           keypadContinueTime = millis() + 2000;
+          doorOpened.activateDialogue();
         } else {
           attempt = "";
           result = "WRONG";
@@ -92,7 +93,7 @@ void drawKeypad() {
     } else if (result == "WRONG") {
       text("WRONG", 490, 225);
     }
-  }
+  }   //Time machine keyPad
   if (sceneManager.getCurrentScene().getSceneName() == "scene01TimeMachineKeyPad") {
     if (timeResult == "CORRECT") {
       text("CORRECT", 472, 224);
@@ -101,6 +102,8 @@ void drawKeypad() {
         if (timeAttempt.equals(timeKeypadCode)) {
           correctSound.rewind();
           correctSound.play();
+          openDoor.play();
+          timeSetCorrect.activateDialogue();
           timeResult = "CORRECT";
           timeKeypadContinueTime = millis() + 2000;
         } else {
@@ -121,7 +124,7 @@ void drawKeypad() {
     } else if (timeResult == "WRONG") {
       text("WRONG", 472, 224);
     } else if (timeAttempt == "") {
-        text("00-00-0000", 472, 224);
+      text("00-00-0000", 472, 224);
     }
   }
 }

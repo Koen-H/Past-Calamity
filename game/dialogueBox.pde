@@ -49,11 +49,18 @@ class DialogueBox {
   protected int textLength;
   protected int textCurrent;
   protected String printText = "";
+  private AudioPlayer soundEffect;
 
   public DialogueBox(String text, SpriteCharacter sprite) {
     this.sprite = sprite;
     this.text = text;
     this.textLength = text.length();
+  }
+  public DialogueBox(String text, SpriteCharacter sprite, AudioPlayer soundEffect) {
+    this.sprite = sprite;
+    this.text = text;
+    this.textLength = text.length();
+    this.soundEffect = soundEffect;
   }
 
 
@@ -99,6 +106,7 @@ class Dialogue {
   private boolean isActive;
   private String afterDialogueMethod;
 
+
   public Dialogue() {
   }
 
@@ -106,8 +114,13 @@ class Dialogue {
     this.afterDialogueMethod = afterDialogueMethod;
   }
 
+
   public void nextDialogueBox() {
     if (isActive && dialogue.get(currentDialogueBox).finishedTyping() ) {
+      if (dialogue.get(currentDialogueBox).soundEffect != null) {
+        dialogue.get(currentDialogueBox).soundEffect.rewind();
+        dialogue.get(currentDialogueBox).soundEffect.play();
+      }
       println("typing text...");
       ++currentDialogueBox;
       if (dialogue.size() == currentDialogueBox) {
@@ -154,13 +167,25 @@ class Dialogue {
 public void afterDialogue(String afterDialogue) {
   println("Dialogue ended method: " + afterDialogue);
   if (afterDialogue.equals("activatedHologram")) {
-    sceneManager.getCurrentScene().removeGameObject(newsReporter);
+    //sceneManager.getCurrentScene().removeGameObject(newsReporter);
   }
   if (afterDialogue.equals("cutScene01")) {
     sceneManager.goToScene("cutScene02");
   }
   if (afterDialogue.equals("cutScene02")) {
     heartbeat.play();
-    sceneManager.goToScene("cutScene03");
+    sceneManager.goToScene("blackScene");
   }
+  if (afterDialogue.equals("checkForEnd")) {
+    if (timeBatterySolved && timeResult == "CORRECT") {
+      sceneManager.goToScene("endingScene");
+    }
+  }
+  if (afterDialogue.equals("theEnd")) {
+    sceneManager.goToScene("creditScene");
+    sceneManager.getCurrentScene().removeGameObject(playButton);
+  }
+}
+public void Dialogue() {
+
 }
