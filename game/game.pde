@@ -266,14 +266,14 @@ void setup()
 
   Dialogue keyPadFound = new Dialogue();
   DialogueBox keyPadFoundBox1 = new DialogueBox("This keypad needs a 8 digit code...", finn);
-  DialogueBox keyPadFoundBox2 = new DialogueBox("Maybe there is a clue somewhere!", lila);
+  DialogueBox keyPadFoundBox2 = new DialogueBox("Maybe dad left a clue somewhere!", lila);
   keyPadFound.addDialogueBox(keyPadFoundBox1);
   keyPadFound.addDialogueBox(keyPadFoundBox2);
   dialogueManager.add(keyPadFound);
 
   Dialogue timeMachineFound = new Dialogue();
   DialogueBox timeMachineFoundBox1 = new DialogueBox("Finn, look! This machine! I remember it!", lila);
-  DialogueBox  timeMachineFoundBox2 = new DialogueBox("Yes, you hid in there not too ago \n It looks very rusty now", finn);
+  DialogueBox  timeMachineFoundBox2 = new DialogueBox("Yes, you hid in there not too long ago \nIt looks very rusty now", finn);
   timeMachineFound.addDialogueBox(timeMachineFoundBox1);
   timeMachineFound.addDialogueBox(timeMachineFoundBox2);
   dialogueManager.add(timeMachineFound);
@@ -565,7 +565,7 @@ void setup()
 
   // DIARY PAGE 1
   //move to diaryScene: moveToSceneObject
-  Scene sceneDiary = new Scene("sceneDiary", "Notebook2.png", null);  
+  Scene sceneDiary = new Scene("sceneDiary", "diary1.png", null);  
   MoveToSceneObject diary1GoToDiary2 = new MoveToSceneObject ("diaryPage1", 1195, 322, 75, 75, "arrowRight.png", "sceneDiary2", pageFlip1);
   MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 602, 630, 75, 75, "arrowDown.png", true, openBook);
   sceneDiary.addGameObject(diary1GoToDiary2);
@@ -574,7 +574,7 @@ void setup()
   sceneManager.addScene(sceneDiary);
 
   // DIARY PAGE 2  
-  Scene sceneDiary2 = new Scene ("sceneDiary2", "Notebook1.png", null);
+  Scene sceneDiary2 = new Scene ("sceneDiary2", "diary2.png", null);
   MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", true, pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
   sceneDiary2.addDialogueOnEnter(dialogueOpenBook, true);
@@ -677,7 +677,7 @@ void draw()
   if (!isDialogueActive) {//things disabled when dialogue is active
     for ( CutScene cutScene : cutScenes) cutScene.update();
     //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-    if (sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary" && sceneManager.getCurrentScene().getSceneName() != "mainMenu" && sceneManager.getCurrentScene().getSceneName() != "cutScene01" && sceneManager.getCurrentScene().getSceneName() != "cutScene02"&& sceneManager.getCurrentScene().getSceneName() != "cutScene03" && sceneManager.getCurrentScene().getSceneName() != "blackScene") {
+    if (sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary" && sceneManager.getCurrentScene().getSceneName() != "mainMenu" && sceneManager.getCurrentScene().getSceneName() != "cutScene01" && sceneManager.getCurrentScene().getSceneName() != "cutScene02"&& sceneManager.getCurrentScene().getSceneName() != "cutScene03" && sceneManager.getCurrentScene().getSceneName() != "blackScene"&& sceneManager.getCurrentScene().getSceneName() != "creditScene") {
       if (showInventory) {
         inventoryManager.drawInventory();
       }
