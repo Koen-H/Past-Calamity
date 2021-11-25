@@ -562,9 +562,9 @@ void draw()
   if (hologram1.isActive) {
     hologram1.isActive = false;
     sceneManager.getCurrentScene().removeScannerObject(hologram1);
-    newsReporter = new GameObject("newsReporter", 509, 258, 250, 302, "reporter.png");
+    //newsReporter = new GameObject("newsReporter", 509, 258, 250, 302, "reporter.png");
     activatedHologram.activateDialogue();
-    sceneManager.getCurrentScene().addGameObject(newsReporter);
+    //sceneManager.getCurrentScene().addGameObject(newsReporter);
   }
 
   if (timeScrew1.isActive) {

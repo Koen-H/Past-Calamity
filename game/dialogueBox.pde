@@ -154,7 +154,7 @@ class Dialogue {
 public void afterDialogue(String afterDialogue) {
   println("Dialogue ended method: " + afterDialogue);
   if (afterDialogue.equals("activatedHologram")) {
-    sceneManager.getCurrentScene().removeGameObject(newsReporter);
+    //sceneManager.getCurrentScene().removeGameObject(newsReporter);
   }
   if (afterDialogue.equals("cutScene01")) {
     sceneManager.goToScene("cutScene02");
