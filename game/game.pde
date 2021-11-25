@@ -23,7 +23,7 @@ final InventoryManager inventoryManager = new InventoryManager();
 //define diloague and gameobjects out of setup if used in draw or other voids
 Dialogue activatedHologram = new Dialogue("activatedHologram");
 Dialogue dialogueScene01OpenDrawer, teddyPickUp, screwedOpen, batteryOn, timeSetCorrect, doorOpened;
-GameObject newsReporter, teddy;
+GameObject newsReporter, teddy, closeDiary1, closeDiary2;
 SpriteCharacter finn, lila, dad;
 
 PImage slotImage;
@@ -532,7 +532,7 @@ void setup()
 
   // DIARY PAGE 2  
   Scene sceneDiary2 = new Scene ("sceneDiary2", "Notebook1.png", null);
-  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", "sceneDiary", pageFlip2);
+  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", true, pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
   sceneManager.addScene(sceneDiary2);
 
@@ -542,7 +542,7 @@ void setup()
 
 
   ////////////////////////START GAME SCENE////////////////
-  sceneManager.goToScene("scene06");//for quick access to develop
+  sceneManager.goToScene("scene01");//for quick access to develop
 } 
 
 void draw()
@@ -699,3 +699,8 @@ public void teddyPickUp() {
   sceneManager.getCurrentScene().removeGameObject(teddy);
   lila.sprite = loadImage("lilatext3.png");
 }
+/*public void closeBook() {
+ sceneManager.scenes.get("sceneDiary").removeGameObject(closeDiary1);
+ sceneManager.scenes.get("sceneDiary2").removeGameObject(closeDiary1);
+ }
+ */

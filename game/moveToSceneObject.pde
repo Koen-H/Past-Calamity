@@ -29,7 +29,7 @@ class MoveToSceneObject extends GameObject {
     public void mouseClicked() {
 
     if (mouseIsHovering) {
-      println(identifier);
+     // println(identifier);
       if (soundEffect != null) {
         soundEffect.rewind();
         soundEffect.play();
