@@ -100,7 +100,7 @@ void setup()
   Dialogue dialoguecutScene01 = new Dialogue("cutScene01");
   DialogueBox dialoguecutScene01Box = new DialogueBox("You can't catch me!", lila, projectorButton);
   DialogueBox dialoguecutScene01Box2 = new DialogueBox("No, Lila. Don't go into Dad's laboratory!", finn, projectorButton);
-  DialogueBox dialoguecutScene01Box3 = new DialogueBox("...\ncome ,Lila... stop hiding now. \nWe shouldn't be here.", finn, projectorButton);
+  DialogueBox dialoguecutScene01Box3 = new DialogueBox("...come ,Lila... stop hiding now. \nWe shouldn't be here.", finn, projectorButton);
   dialoguecutScene01.addDialogueBox(dialoguecutScene01Box);
   dialoguecutScene01.addDialogueBox(dialoguecutScene01Box2);
   dialoguecutScene01.addDialogueBox(dialoguecutScene01Box3);
