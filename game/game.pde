@@ -20,11 +20,11 @@ boolean timeScrew1B, timeScrew2B, timeScrew3B, timeScrew4B, timeMachineScrewed, 
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
-
+//define diloague and gameobjects out of setup if used in draw or other voids
 Dialogue activatedHologram = new Dialogue("activatedHologram");
-Dialogue dialogueScene01OpenDrawer;
-
-GameObject newsReporter;
+Dialogue dialogueScene01OpenDrawer, teddyPickUp; 
+GameObject newsReporter, teddy;
+SpriteCharacter finn, lila, dad;
 
 PImage slotImage;
 
@@ -36,7 +36,7 @@ void settings()
 
 void setup()
 {
-  slotImage = loadImage("frame.png");
+  slotImage = loadImage("TextBox.png");
   frameRate(30);
   textFont(createFont("Downlink Bold.otf", 32));
   //Collectable name = new Collectable(String name, String imageFile);
@@ -64,10 +64,10 @@ void setup()
 
   soundLoad();   //load all Sounds
 
-  SpriteCharacter finn = new SpriteCharacter("Finn", "finnText2.png");
-  SpriteCharacter lila = new SpriteCharacter("Lila", "lilatext2.png");
+  finn = new SpriteCharacter("Finn", "finnText2.png");
+  lila = new SpriteCharacter("Lila", "lilatext2.png");
 
-  SpriteCharacter dad = new SpriteCharacter("Dad (Hank)", "Dada1.png");
+  dad = new SpriteCharacter("Dad (Hank)", "Dada1.png");
   SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "characterSpritetest.png");
   SpriteCharacter dad_finn = new SpriteCharacter("Finn", "dada3.png");
   //SpriteCharacter dad_lila = new SpriteCharacter("Lila", "dada2.png");
@@ -166,7 +166,7 @@ void setup()
   outsideHouse.addDialogueBox(outsideHouseBox2);
   dialogueManager.add(outsideHouse);
 
-  Dialogue teddyPickUp = new Dialogue();
+  teddyPickUp = new Dialogue();
   DialogueBox teddyPickUpBox1 = new DialogueBox("OHH MY GOD, MISTER GRIZZY(jeff). There you are!", lila);
   DialogueBox teddyPickUpBox2 = new DialogueBox("Why was the bear so secured..? \nIt doesn't matter, glad you've got your grizzy back!", finn);
   teddyPickUp.addDialogueBox(teddyPickUpBox1);
@@ -217,7 +217,7 @@ void setup()
   dialogueManager.add(enteredCity);
 
   Dialogue clickedDrawer = new Dialogue();
-  DialogueBox clickedDrawerBox1 = new DialogueBox("This seems to be locked up./nA key might work", finn);
+  DialogueBox clickedDrawerBox1 = new DialogueBox("This seems to be locked up.\nA key might work", finn);
   clickedDrawer.addDialogueBox(clickedDrawerBox1);
   dialogueManager.add(clickedDrawer);
   clickedDrawer.addDialogueBox(clickedDrawerBox1);
@@ -420,9 +420,9 @@ void setup()
   s03GoToDoor.setHoverImage("doorHover.png");
   MoveToSceneObject s03GoToS04 = new MoveToSceneObject("s03GoToS04", 1195, 322, 75, 75, "arrowRight.png", "scene04", walk2);//go to city
   s03GoToS04.setHoverImage("arrowRight2.png");
-  Collectable teddy = new Collectable("teddy", "back04_apple.png");                            
-  CollectableObject teddyObj = new CollectableObject("teddyObj", 600, 400, 150, 150, teddy, false, false, takeItem);
-  scene03.addGameObject(teddyObj);
+  teddy = new GameObject("teddy", 284, 512, 50, 75, "teddy.png");    
+  teddy.setMethod("teddyPickUp");
+  scene03.addGameObject(teddy);
   scene03.addGameObject(s03GoToDoor); 
   scene03.addGameObject(s03GoToS04);
   scene03.addDialogueOnEnter(outsideHouse, true);
@@ -436,7 +436,7 @@ void setup()
   s04GoToS05.setHoverImage("arrowRight2.png");
   scene04.addDialogueOnEnter(enteredCity, true);
 
-  hologram1 = new ScannerObject("hologram1", 200, 200, 75, 75, "debugblock.png", "powerCell", foundHologram);
+  hologram1 = new ScannerObject("hologram1", 918, 609, 75, 75, "Hologram.png", "powerCell", foundHologram);
   scene04.addScannerObject(hologram1);
   scene04.addGameObject(s04GoToS03); 
   scene04.addGameObject(s04GoToS05); 
@@ -509,7 +509,7 @@ void setup()
 
 
   ////////////////////////START GAME SCENE////////////////
-  //sceneManager.goToScene("scene01");//for quick access to develop
+  sceneManager.goToScene("scene03");//for quick access to develop
 } 
 
 void draw()
@@ -529,7 +529,7 @@ void draw()
   if (hologram1.isActive) {
     hologram1.isActive = false;
     sceneManager.getCurrentScene().removeScannerObject(hologram1);
-    newsReporter = new GameObject("newsReporter", 20, 20, 250, 302, "reporter.png");
+    newsReporter = new GameObject("newsReporter", 509, 258, 250, 302, "reporter.png");
     activatedHologram.activateDialogue();
     sceneManager.getCurrentScene().addGameObject(newsReporter);
   }
@@ -673,4 +673,10 @@ public void  checkTimeMachineBattery() {
     // dialogueManager.(" testDialogue").activateDialogue();
     timeBatterySolved = true;
   }
+}
+
+public void teddyPickUp() {
+  teddyPickUp.activateDialogue();
+  sceneManager.getCurrentScene().removeGameObject(teddy);
+  lila.sprite = loadImage("lilatext3.png");
 }
