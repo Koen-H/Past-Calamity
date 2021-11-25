@@ -2,7 +2,7 @@ class CollectableObject extends GameObject {
   private Collectable collectable;
   private GameObject replaceWith;
   private boolean willReplaceByAnotherGameObject;
-  private int inventoryObjectSize;                                  //for InventoryObject Size, yet not in use
+  public int inventoryObjectSize = 120;              //for change InventoryObjectsSize to fit the slot
   private boolean canBeRemoved;   //needed for InventoryObject
   private boolean canBeClicked;
   private AudioPlayer soundEffect;    //all collectables have the same sound!
@@ -49,7 +49,7 @@ class CollectableObject extends GameObject {
       
       //println("Collectable " +canBeRemoved);
             //inventoryManager.addCollectable(collectable);             //change owidth/ oheight to inventoryObjectSize, if wanted
-      inventoryManager.addInventoryObject(new InventoryObject(identifier, x, y, owidth, oheight, collectable, canBeRemoved, canBeClicked)); 
+      inventoryManager.addInventoryObject(new InventoryObject(identifier, x, y, inventoryObjectSize, inventoryObjectSize, collectable, canBeRemoved, canBeClicked)); 
       sceneManager.getCurrentScene().removeGameObject(this);
       if (willReplaceByAnotherGameObject) {
         sceneManager.getCurrentScene().addGameObject(replaceWith);
