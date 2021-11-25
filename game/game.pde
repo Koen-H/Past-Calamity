@@ -22,7 +22,7 @@ final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 //define diloague and gameobjects out of setup if used in draw or other voids
 Dialogue activatedHologram = new Dialogue("activatedHologram");
-Dialogue dialogueScene01OpenDrawer, teddyPickUp; 
+Dialogue dialogueScene01OpenDrawer, teddyPickUp, screwedOpen, batteryOn, timeSetCorrect, doorOpened;
 GameObject newsReporter, teddy;
 SpriteCharacter finn, lila, dad;
 
@@ -36,7 +36,7 @@ void settings()
 
 void setup()
 {
-  slotImage = loadImage("TextBox.png");
+  slotImage = loadImage("inventory.png");
   frameRate(30);
   textFont(createFont("Downlink Bold.otf", 32));
   //Collectable name = new Collectable(String name, String imageFile);
@@ -67,9 +67,9 @@ void setup()
   finn = new SpriteCharacter("Finn", "finnText2.png");
   lila = new SpriteCharacter("Lila", "lilatext2.png");
 
-  dad = new SpriteCharacter("Dad (Hank)", "Dada1.png");
-  SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "characterSpritetest.png");
-  SpriteCharacter dad_finn = new SpriteCharacter("Finn", "dada3.png");
+  dad = new SpriteCharacter("Dad (Hank)", "Dadddddddy.png");
+  SpriteCharacter news_reporter = new SpriteCharacter("News Reporter", "reporterTekst.png");
+  SpriteCharacter timeMachine = new SpriteCharacter("Finn", "TIEMMACHIEN.png");
   //SpriteCharacter dad_lila = new SpriteCharacter("Lila", "dada2.png");
 
 
@@ -96,7 +96,7 @@ void setup()
   dialogueManager.add(dialogueCutScene03);
 
   Dialogue dialogueScene01 = new Dialogue();
-  DialogueBox dialogueScene01Box01 = new DialogueBox("Who is that in the hologram?", dad_finn);
+  DialogueBox dialogueScene01Box01 = new DialogueBox("Who is that in the hologram?", finn);
   DialogueBox dialogueScene01Box02 = new DialogueBox("Hello Finn, Hello Lila, \nI wish I could see you in person. \nBut I’m afraid that it is too late", dad);
   DialogueBox dialogueScene01Box03 = new DialogueBox("I have a lot of regrets, \nI should have been a better father.", dad);
   DialogueBox dialogueScene01Box04 = new DialogueBox("For the… Last 18 years... \nI... been trying….. \nget... back, desk... drawer...", dad);
@@ -263,12 +263,48 @@ void setup()
   timeKeyPadFound.addDialogueBox(timeKeyPadFoundBox2);
   dialogueManager.add(timeKeyPadFound);
 
-  Dialogue doorOpened = new Dialogue();
-  DialogueBox doorOpenedBox1 = new DialogueBox("Yes! That's it!/nThis code really is love!", finn);
+  doorOpened = new Dialogue();
+  DialogueBox doorOpenedBox1 = new DialogueBox("Yes! That's it!\nThis code really is made with love!", finn);
   DialogueBox doorOpenedBox2 = new DialogueBox("Good job finn!", lila);
   doorOpened.addDialogueBox(doorOpenedBox1);
   doorOpened.addDialogueBox(doorOpenedBox2);
   dialogueManager.add(doorOpened);
+
+  screwedOpen = new Dialogue();
+  DialogueBox screwedOpenBox1 = new DialogueBox("It looks like we need two power cells to get this working again!", finn);
+  DialogueBox screwedOpenBox2 = new DialogueBox("You mean those from the Electro & CO store?\n It's not that far away and we can get some \nicecream along the way!", lila);
+  DialogueBox screwedOpenBox3 = new DialogueBox("You're right, lila!", finn);
+  screwedOpen.addDialogueBox(screwedOpenBox1);
+  screwedOpen.addDialogueBox(screwedOpenBox2);
+  screwedOpen.addDialogueBox(screwedOpenBox3);
+  dialogueManager.add(screwedOpen);
+
+  batteryOn = new Dialogue("checkForEnd");
+  DialogueBox batteryOnBox1 = new DialogueBox("Watch out lila! It seems to be doing things!", finn);
+  DialogueBox batteryOnBox2 = new DialogueBox("Ok ok! I'll watch out!", lila);
+  DialogueBox batteryOnBox3 = new DialogueBox("MACHINE POWERED ON.", timeMachine);
+  batteryOn.addDialogueBox(batteryOnBox1);
+  batteryOn.addDialogueBox(batteryOnBox2);
+  batteryOn.addDialogueBox(batteryOnBox3);
+  dialogueManager.add(batteryOn);
+
+  timeSetCorrect = new Dialogue("checkForEnd");
+  DialogueBox timeSetCorrectBox1 = new DialogueBox("That's today!", lila);
+  DialogueBox timeSetCorrectBox2 = new DialogueBox("No I don't think it is, lila...\n", finn);
+  timeSetCorrect.addDialogueBox(timeSetCorrectBox1);
+  timeSetCorrect.addDialogueBox(timeSetCorrectBox2);
+  dialogueManager.add(timeSetCorrect);
+
+  Dialogue endScene = new Dialogue();
+  DialogueBox endSceneBox1 = new DialogueBox("TIME MACHINE IS READY \nSTRUCTURAL INTEGRITY: 14%\n", timeMachine);
+  DialogueBox endSceneBox2 = new DialogueBox("ONLY ONE LIVING ORGANISM CAN PASS\n MAINTENANCE REQUIRED", timeMachine);
+  DialogueBox endSceneBox3 = new DialogueBox("Ohno, lila, I can't come with you...", finn);
+  DialogueBox endSceneBox4 = new DialogueBox("Why not finn?", lila);
+  endScene.addDialogueBox(endSceneBox1);
+  endScene.addDialogueBox(endSceneBox2);
+  endScene.addDialogueBox(endSceneBox3);
+  endScene.addDialogueBox(endSceneBox4);
+  dialogueManager.add(endScene);
 
   //Main menu
   Scene mainMenu = new Scene("mainMenu", "title_screen.png", null); //TODO update mainmenu.png
@@ -293,7 +329,6 @@ void setup()
 
   //LAB
   Scene scene01 = new Scene("scene01", "labfutureon.png", labAmbience);// the lab
-
   scene01.addDialogueOnEnter(dialogueScene01, true);
   //DialogueObject s01Hologram = new DialogueObject("hologram01", 700, 400, 50, 50, "debugblock.png", testDialogue);//hologram text
   MoveToSceneObject s01GoToDoor = new MoveToSceneObject("s01GoToDoor", 1195, 322, 75, 75, "arrowRight.png", "scene02", walk2);//go to door scene
@@ -465,21 +500,15 @@ void setup()
   MoveToSceneObject s06GoToS05 = new MoveToSceneObject("s06GoToS05", 602, 630, 75, 75, "arrowDown.png", "scene05", walk2);  //go back outside
   s06GoToS05.setHoverImage("arrowDown2.png");
   Collectable powerCell01 = new Collectable("powerCell1", "Battery1.png");                        
-  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj1", 20, 400, 150, 150, powerCell01, true, false, takeItem);
+  CollectableObject powerCellObj01 = new CollectableObject("powerCellObj1", 12, 323, 50, 50, powerCell01, true, false, takeItem);
   Collectable powerCell02 = new Collectable("powerCell2", "Battery1.png");                        
-  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj2", 200, 400, 150, 150, powerCell02, true, false, takeItem);
+  CollectableObject powerCellObj02 = new CollectableObject("powerCellObj2", 299, 584, 50, 50, powerCell02, true, false, takeItem);
   Collectable powerCell03 = new Collectable("powerCell3", "Battery1.png");                        
-  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj3", 300, 400, 150, 150, powerCell03, true, false, takeItem);
-  Collectable powerCell04 = new Collectable("powerCell4", "Battery1.png");                        
-  CollectableObject powerCellObj04 = new CollectableObject("powerCellObj4", 500, 400, 150, 150, powerCell04, true, false, takeItem);
-  Collectable powerCell05 = new Collectable("powerCell5", "Battery1.png");                        
-  CollectableObject powerCellObj05 = new CollectableObject("powerCellObj5", 600, 800, 150, 150, powerCell05, true, false, takeItem);
+  CollectableObject powerCellObj03 = new CollectableObject("powerCellObj3", 1109, 261, 50, 50, powerCell03, true, false, takeItem);
   scene06.addGameObject(s06GoToS05); 
   scene06.addGameObject(powerCellObj01);
   scene06.addGameObject(powerCellObj02); 
   scene06.addGameObject(powerCellObj03); 
-  scene06.addGameObject(powerCellObj04); 
-  scene06.addGameObject(powerCellObj05);
   scene06.addDialogueOnEnter(enterStore, true);
   sceneManager.addScene(scene06);
 
@@ -493,7 +522,7 @@ void setup()
 
   // DIARY PAGE 1
   //move to diaryScene: moveToSceneObject
-  Scene sceneDiary = new Scene("sceneDiary", "diary1.png", null);  
+  Scene sceneDiary = new Scene("sceneDiary", "Notebook2.png", null);  
   MoveToSceneObject diary1GoToDiary2 = new MoveToSceneObject ("diaryPage1", 1195, 322, 75, 75, "arrowRight.png", "sceneDiary2", pageFlip1);
   MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 602, 630, 75, 75, "arrowDown.png", true, openBook);
   sceneDiary.addGameObject(diary1GoToDiary2);
@@ -502,14 +531,18 @@ void setup()
   sceneManager.addScene(sceneDiary);
 
   // DIARY PAGE 2  
-  Scene sceneDiary2 = new Scene ("sceneDiary2", "diary2.png", null);
-  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", true, pageFlip2);
+  Scene sceneDiary2 = new Scene ("sceneDiary2", "Notebook1.png", null);
+  MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", "sceneDiary", pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
   sceneManager.addScene(sceneDiary2);
 
+  Scene endingScene = new Scene("endingScene", "timemachinefuture.png", null);
+  endingScene.addDialogueOnEnter(endScene, true);
+  sceneManager.addScene(endingScene);
+
 
   ////////////////////////START GAME SCENE////////////////
-  sceneManager.goToScene("scene03");//for quick access to develop
+  sceneManager.goToScene("scene06");//for quick access to develop
 } 
 
 void draw()
@@ -582,26 +615,10 @@ void draw()
     timeBattery2.isActive = false;
     timeBattery2B = true;
     sceneManager.getCurrentScene().removeScannerObject(timeBattery2);
+
     checkTimeMachineBattery();
     println("Loaded battery 2");
   }
-
-  /** if (holo1Screw1.isActive) {
-   holo1Screw1.isActive = false;
-   holo1Screw1B = true;
-   sceneManager.getCurrentScene().removeScannerObject(holoScrew1);
-   if (holo1Screw2B) {
-   //summon battery
-   }
-   }
-   if (holo1Screw2.isActive) {
-   holo1Screw2.isActive = false;
-   holo1Screw1B = true;
-   sceneManager.getCurrentScene().removeScannerObject(holoScrew2);
-   if (holo1Screw1B) {
-   //summon battery
-   }
-   }*/
 
   sceneManager.getCurrentScene().draw(wwidth, wheight);
   sceneManager.getCurrentScene().updateScene();
@@ -664,13 +681,13 @@ public void checkTimeMachineScrew() {
     sceneManager.getCurrentScene().addScannerObject( timeBattery2);
     // MoveToSceneObject s02GoOutside = new MoveToSceneObject("s02GoOutside", 640, 300, 50, 50, "debugblock.png", "scene03");//create scannerobjects where the batteries must be dragged
     // sceneManager.getCurrentScene().addGameObject(s02GoOutside); //add the scannerobjects to the scene
+    screwedOpen.activateDialogue();
   }
 }
 public void  checkTimeMachineBattery() {
   if (timeBattery1B && timeBattery2B && !timeBatterySolved) {
     println("Batteries inserted");
-    //play dialogue because it's ready!
-    // dialogueManager.(" testDialogue").activateDialogue();
+    batteryOn.activateDialogue(); 
     timeBatterySolved = true;
   }
 }
