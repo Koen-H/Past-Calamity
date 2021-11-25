@@ -22,9 +22,10 @@ final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 //define diloague and gameobjects out of setup if used in draw or other voids
 Dialogue activatedHologram = new Dialogue("activatedHologram");
-Dialogue dialogueScene01OpenDrawer, teddyPickUp, screwedOpen, batteryOn, timeSetCorrect, doorOpened;
+Dialogue dialogueScene01OpenDrawer, teddyPickUp, screwedOpen, batteryOn, timeSetCorrect, doorOpened, endScene;
 GameObject newsReporter, teddy, closeDiary1, closeDiary2;
 SpriteCharacter finn, lila, dad;
+MoveToSceneObject playButton;
 
 PImage slotImage;
 
@@ -94,12 +95,12 @@ void setup()
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box03);
   dialogueCutScene03.addDialogueBox(dialogueCutScene03Box04);
   dialogueManager.add(dialogueCutScene03);
-  
+
   //Dialogue First CutScene (Lab)
   Dialogue dialoguecutScene01 = new Dialogue("cutScene01");
-  DialogueBox dialoguecutScene01Box = new DialogueBox("You can't catch me!", lila);
-  DialogueBox dialoguecutScene01Box2 = new DialogueBox("No, Lila. Don't go into Dad's laboratory!", finn);
-  DialogueBox dialoguecutScene01Box3 = new DialogueBox("...\ncome ,Lila... stop hiding now. We shouldn't be here.", finn);
+  DialogueBox dialoguecutScene01Box = new DialogueBox("You can't catch me!", lila, projectorButton);
+  DialogueBox dialoguecutScene01Box2 = new DialogueBox("No, Lila. Don't go into Dad's laboratory!", finn, projectorButton);
+  DialogueBox dialoguecutScene01Box3 = new DialogueBox("...\ncome ,Lila... stop hiding now. \nWe shouldn't be here.", finn, projectorButton);
   dialoguecutScene01.addDialogueBox(dialoguecutScene01Box);
   dialoguecutScene01.addDialogueBox(dialoguecutScene01Box2);
   dialoguecutScene01.addDialogueBox(dialoguecutScene01Box3);
@@ -107,18 +108,18 @@ void setup()
 
   //Dialogue 2nd Cutscene (Time Machine)
   Dialogue dialoguecutScene02 = new Dialogue("cutScene02");
-  DialogueBox dialoguecutScene02Box = new DialogueBox("Aww, you found me!", lila);
-  DialogueBox dialoguecutScene02Box2 = new DialogueBox("Come out of there, let's go back.", finn);
-  DialogueBox dialoguecutScene02Box3 = new DialogueBox("No, I don't wanna!", lila);
-  DialogueBox dialoguecutScene02Box4 = new DialogueBox("Come out or I'll make you come out.", finn);
-  DialogueBox dialoguecutScene02Box5 = new DialogueBox("fine\n...\n... whoops", lila);
+  DialogueBox dialoguecutScene02Box = new DialogueBox("Aww, you found me!", lila, projectorButton);
+  DialogueBox dialoguecutScene02Box2 = new DialogueBox("Come out of there, let's go back.", finn, projectorButton);
+  DialogueBox dialoguecutScene02Box3 = new DialogueBox("No, I don't wanna!", lila, projectorButton);
+  DialogueBox dialoguecutScene02Box4 = new DialogueBox("Come out or I'll make you come out.", finn,criticalAlarm);
+  DialogueBox dialoguecutScene02Box5 = new DialogueBox("Fine\n...\n... \nWhoops", lila, impact);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box2);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box3);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box4);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box5);
   dialogueManager.add(dialoguecutScene02);
-  
+
   //Dialogue hologram with dad
   Dialogue dialogueScene01 = new Dialogue();
   DialogueBox dialogueScene01Box01 = new DialogueBox("Who is that in the hologram?", finn);
@@ -146,13 +147,13 @@ void setup()
   dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox02);
   dialogueScene01Painting.addDialogueBox(dialogueScene01PaintingBox03);
   dialogueManager.add(dialogueScene01Painting);
-  
+
   //dialogue key
   Dialogue dialogueScene01OpenPainting = new Dialogue();
-  DialogueBox dialogueScene01OpenPaintingBox01 = new DialogueBox("I wonder what this opens? ", finn);
+  DialogueBox dialogueScene01OpenPaintingBox01 = new DialogueBox("I wonder what that key opens? ", finn);
   dialogueScene01OpenPainting.addDialogueBox(dialogueScene01OpenPaintingBox01);
   dialogueManager.add(dialogueScene01OpenPainting);
-  
+
   //dialogue open drawer
   dialogueScene01OpenDrawer = new Dialogue("readBook");
   DialogueBox dialogueScene01OpenDrawerBox01 = new DialogueBox("Oh, a book!", lila);
@@ -170,13 +171,13 @@ void setup()
   dialogueOpenBook.addDialogueBox(dialogueOpenBookBox02);
   dialogueOpenBook.addDialogueBox(dialogueOpenBookBox03);
   dialogueManager.add(dialogueOpenBook);
-  
+
   //pass - not in use
   Dialogue pickUpCard = new Dialogue();
   DialogueBox pickUpCardBox01 = new DialogueBox("I should take this just in case.", finn);
   pickUpCard.addDialogueBox(pickUpCardBox01);
   dialogueManager.add(pickUpCard);
-  
+
   //Dialogue door scene
   Dialogue doorNotOpen = new Dialogue();
   DialogueBox doorNotOpenBox1 = new DialogueBox("That's a pretty big reinforced door\nThis wasn't here before...", finn);
@@ -309,35 +310,49 @@ void setup()
   dialogueManager.add(batteryOn);
 
   timeSetCorrect = new Dialogue("checkForEnd");
-  DialogueBox timeSetCorrectBox1 = new DialogueBox("That's today!", lila);
-  DialogueBox timeSetCorrectBox2 = new DialogueBox("No I don't think it is, lila...\n", finn);
+  DialogueBox timeSetCorrectBox1 = new DialogueBox("I love the beeping noise.", lila);
+  DialogueBox timeSetCorrectBox2 = new DialogueBox("Especially if we get it correct!", finn);
   timeSetCorrect.addDialogueBox(timeSetCorrectBox1);
   timeSetCorrect.addDialogueBox(timeSetCorrectBox2);
   dialogueManager.add(timeSetCorrect);
 
-  Dialogue endScene = new Dialogue();
-  DialogueBox endSceneBox1 = new DialogueBox("TIME MACHINE IS READY \nSTRUCTURAL INTEGRITY: 14%\n", timeMachine);
-  DialogueBox endSceneBox2 = new DialogueBox("ONLY ONE LIVING ORGANISM CAN PASS\n MAINTENANCE REQUIRED", timeMachine);
-  DialogueBox endSceneBox3 = new DialogueBox("Ohno, lila, I can't come with you...", finn);
-  DialogueBox endSceneBox4 = new DialogueBox("Why not finn?", lila);
+  endScene = new Dialogue("theEnd");
+  DialogueBox endSceneBox1 = new DialogueBox("TIME MACHINE IS READY \nLOW POWER DETECTED\n", timeMachine);
+  DialogueBox endSceneBox2 = new DialogueBox("ONLY ONE LIVING ORGANISM CAN PASS\n ", timeMachine);
+  DialogueBox endSceneBox3 = new DialogueBox("Ohno... \nLila, let's play a game...", finn);
+  DialogueBox endSceneBox4 = new DialogueBox("I love games!", lila);
+  DialogueBox endSceneBox5 = new DialogueBox("Take a seat, close your eyes and listen closely...\nIn a few seconds you will see dad again.", finn);
+  DialogueBox endSceneBox6 = new DialogueBox("Tell him we went to the future, something bad might happen.", finn);
+  DialogueBox endSceneBox7 = new DialogueBox("There isn't enough power to get us both back.\nI will find a new power supply and come aswell.", finn);
+  DialogueBox endSceneBox8 = new DialogueBox("But Finn-", lila, impact);
+  DialogueBox endSceneBox9 = new DialogueBox("While I'm here, I should probably figure out what happend...\n", finn, stone_steps);
+  DialogueBox endSceneBox10 = new DialogueBox("...", finn);
+  DialogueBox endSceneBox11 = new DialogueBox("Mom?", finn);
   endScene.addDialogueBox(endSceneBox1);
   endScene.addDialogueBox(endSceneBox2);
   endScene.addDialogueBox(endSceneBox3);
   endScene.addDialogueBox(endSceneBox4);
+  endScene.addDialogueBox(endSceneBox5);
+  endScene.addDialogueBox(endSceneBox6);
+  endScene.addDialogueBox(endSceneBox7);
+  endScene.addDialogueBox(endSceneBox8);
+  endScene.addDialogueBox(endSceneBox9);
+  endScene.addDialogueBox(endSceneBox10);
+  endScene.addDialogueBox(endSceneBox11);
   dialogueManager.add(endScene);
 
   //Main menu
   Scene mainMenu = new Scene("mainMenu", "title_screen.png", null); //TODO update mainmenu.png
-  MoveToSceneObject playButton = new MoveToSceneObject("playButton", 0, 0, 1280, 720, "cutScene01", null);
+  playButton = new MoveToSceneObject("playButton", 0, 0, 1280, 720, "cutScene01", null);
   //playButton.setMethod("doCutScene01"); 
   mainMenu.addGameObject(playButton);
   sceneManager.addScene(mainMenu);
   //CutScene
-  Scene cutScene01 = new Scene("cutScene01", "labpresent.png", null, true);//playing tag
+  Scene cutScene01 = new Scene("cutScene01", "labpresent.png", roomTone, true);//playing tag
   cutScene01.addDialogueOnEnter(dialoguecutScene01, true);
   sceneManager.addScene(cutScene01);
 
-  Scene cutScene02 = new Scene("cutScene02", "timemachine.png", null, true);//fall in teleporter
+  Scene cutScene02 = new Scene("cutScene02", "timemachine.png", labAmbience, true);//fall in teleporter
   sceneManager.addScene(cutScene02);
   cutScene02.addDialogueOnEnter(dialoguecutScene02, true);
 
@@ -359,7 +374,7 @@ void setup()
   s01GoToTimeMachine.setHoverImage("arrowLeft2.png");
   drawerHover = loadImage("drawerHover.png");
   s01Drawer = new ScannerObject("s01Drawer", 1090, 431, 129, 44, "drawerKeyObj", drawerHover, clickedDrawer);
-  //ScannerObject s01Frame = new ScannerObject("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
+  //ScannerObject s01Frame = new ScannerObje("s01frame", 1000, 200, 150, 150, "frame.png", "drawerKeyObj");
 
   scene01.addScannerObject(s01Drawer);
   //scene01.addGameObject(s01Hologram); 
@@ -374,7 +389,7 @@ void setup()
   Scene scene01Locker = new Scene("scene01Locker", "Drawer.png", null);
   Collectable diary = new Collectable("diary", "Notebook.png");                        
   CollectableObject diaryObj = new CollectableObject("diaryObj", 548, 179, 150, 150, diary, false, true, takeItem);
-  Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");                        
+  Collectable screwDriver = new Collectable("screwDriver", "Screwed.png");   
   CollectableObject screwDriverObj = new CollectableObject("screwDriverObj", 865, 299, 150, 150, screwDriver, false, false, takeItem);
   MoveToSceneObject sceneLockerBack = new MoveToSceneObject("sceneLockerBack", 602, 630, 75, 75, "arrowDown.png", "scene01", drawerClosed);
   sceneLockerBack.setHoverImage("arrowDown2.png");
@@ -427,7 +442,7 @@ void setup()
 
   //FAMILY PHOTO 
   Scene scene01Painting = new Scene("scene01Painting", "zoomedPainting.png", null);//zoomedIn painting
-  MoveToSceneObject s01OpenPainting = new MoveToSceneObject("s01ZoomOutPainting", 800, 300, 10, 30, "debugblock.png", "scene01OpenPainting", buttonClick);//open painting
+  MoveToSceneObject s01OpenPainting = new MoveToSceneObject("s01ZoomOutPainting", 626, 374, 75, 75, "parrow.png", "scene01OpenPainting", buttonClick);//open painting
   ///////////////.setHoverImage(".png");
   MoveToSceneObject s01ZoomOutPainting = new MoveToSceneObject("s01ZoomOutPainting", 602, 630, 75, 75, "arrowDown.png", "scene01", buttonClick);//go back to the lab
   s01ZoomOutPainting.setHoverImage("arrowDown2.png");
@@ -443,7 +458,7 @@ void setup()
   MoveToSceneObject s01ClosePainting = new MoveToSceneObject("s01ClosePainting", 602, 630, 75, 75, "arrowDown.png", "scene01", buttonClick);//close painting
   s01ClosePainting.setHoverImage("arrowDown2.png");
   Collectable drawerKey = new Collectable("drawerKey", "key.png");                                   
-  CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 600, 400, 150, 150, drawerKey, true, false, takeItem);   //drawerKeyObj is identifier
+  CollectableObject drawerKeyObj = new CollectableObject("drawerKeyObj", 845, 290, 75, 75, drawerKey, true, false, takeItem);   //drawerKeyObj is identifier
   scene01OpenPainting.addDialogueOnEnter(dialogueScene01OpenPainting, true);
   scene01OpenPainting.addGameObject(drawerKeyObj); 
   scene01OpenPainting.addGameObject(s01ClosePainting); 
@@ -548,23 +563,25 @@ void setup()
   MoveToSceneObject diary1GoBack = new MoveToSceneObject("diary1GoBack", 602, 630, 75, 75, "arrowDown.png", true, openBook);
   sceneDiary.addGameObject(diary1GoToDiary2);
   sceneDiary.addGameObject(diary1GoBack);
-  sceneDiary.addDialogueOnEnter(dialogueOpenBook, true);
+
   sceneManager.addScene(sceneDiary);
 
   // DIARY PAGE 2  
   Scene sceneDiary2 = new Scene ("sceneDiary2", "Notebook1.png", null);
   MoveToSceneObject diary2GoToDiary1 = new MoveToSceneObject("goBack_diaryPage1", 10, 322, 75, 75, "arrowLeft.png", true, pageFlip2);
   sceneDiary2.addGameObject(diary2GoToDiary1);
+  sceneDiary2.addDialogueOnEnter(dialogueOpenBook, true);
   sceneManager.addScene(sceneDiary2);
 
   Scene endingScene = new Scene("endingScene", "timemachinefuture.png", null);
   endingScene.addDialogueOnEnter(endScene, true);
   sceneManager.addScene(endingScene);
 
+  Scene creditScene = new Scene("creditScene", "title_screen.png", null);
+  sceneManager.addScene(creditScene);
 
   ////////////////////////START GAME SCENE////////////////
-  //sceneManager.goToScene("scene01");//for quick access to develop
-
+  // sceneManager.goToScene("endingScene");//for quick access to develop
 } 
 
 void draw()
@@ -614,7 +631,7 @@ void draw()
     screw3.play();
     sceneManager.getCurrentScene().removeScannerObject(timeScrew3);
     checkTimeMachineScrew();
-    println("Screwed timeScre3");
+    println("nulltimeScre3");
   }
   if (timeScrew4.isActive) {
     timeScrew4.isActive = false;

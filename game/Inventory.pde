@@ -3,24 +3,19 @@
 
 class InventoryManager {
   private ArrayList<Collectable> collectables;
-  private ArrayList<Collectable> markedForDeathCollectables;
+
   private ArrayList<InventoryObject> inventoryObjects;
   private ArrayList<InventorySlot> inventorySlots;
   private int numberOfSlots = 6;
   private String currentId; 
   private boolean currentlyDragging = false;
-  private MoveToSceneObject moveToDiary;   //move to DiaryScene
-  private int diaryX;
-  private int diaryY;
-  private int diaryWidth;
-  private int diaryHeight;
-  private PImage diaryImage; //currently not in use
+
   public boolean moveToDiaryScene;
 
 
   public InventoryManager() {
     collectables = new ArrayList<Collectable>();
-    markedForDeathCollectables = new ArrayList<Collectable>();
+
     inventoryObjects = new ArrayList<InventoryObject>();
     inventorySlots = new ArrayList<InventorySlot>();
     for (int i = 0; i < numberOfSlots; i++ ) {    //six slot
@@ -93,7 +88,7 @@ class InventoryManager {
 
     for (int o = inventoryObjects.size()-1; o >= 0; o--) {
       InventoryObject inventoryObject = inventoryObjects.get(o);
-      InventorySlot inventorySlot = inventorySlots.get(o);
+
 
       /*if(inventoryObject.canBeClicked && inventoryObject.mouseIsHovering){
        sceneManager.goToScene("sceneDiary");

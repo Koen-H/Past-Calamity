@@ -118,6 +118,7 @@ class Dialogue {
   public void nextDialogueBox() {
     if (isActive && dialogue.get(currentDialogueBox).finishedTyping() ) {
       if (dialogue.get(currentDialogueBox).soundEffect != null) {
+        dialogue.get(currentDialogueBox).soundEffect.rewind();
         dialogue.get(currentDialogueBox).soundEffect.play();
       }
       println("typing text...");
@@ -180,4 +181,11 @@ public void afterDialogue(String afterDialogue) {
       sceneManager.goToScene("endingScene");
     }
   }
+  if (afterDialogue.equals("theEnd")) {
+    sceneManager.goToScene("creditScene");
+    sceneManager.getCurrentScene().removeGameObject(playButton);
+  }
+}
+public void Dialogue() {
+
 }
