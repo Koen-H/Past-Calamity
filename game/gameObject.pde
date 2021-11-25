@@ -17,7 +17,7 @@ class GameObject {
     this(identifier, x, y, owidth, oheight, "", null);
   }
 
-public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile) {
+  public GameObject(String identifier, int x, int y, int owidth, int oheight, String gameObjectImageFile) {
     this.identifier = identifier;
     this.x = x;
     this.y = y;
@@ -57,7 +57,7 @@ public GameObject(String identifier, int x, int y, int owidth, int oheight, Stri
   public void draw() {
     if (hasImage) {
       if (mouseIsHovering && hasHoverImage && !isDialogueActive) {
-       // println("isHovering");
+        // println("isHovering");
         image(gameObjectImageHover, x, y, owidth, oheight);
       } else {
         image(gameObjectImage, x, y, owidth, oheight);
@@ -75,7 +75,13 @@ public GameObject(String identifier, int x, int y, int owidth, int oheight, Stri
     }
   }
 
-  public void mouseClicked() {  }
+  public void mouseClicked() { 
+    if (mouseIsHovering) {
+      if (method != null) {
+        method(method);
+      }
+    }
+  }
 
   public String getIdentifier() {
     return this.identifier;

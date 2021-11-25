@@ -7,7 +7,7 @@ String result;
 boolean keypadCompleted, keypadSetProgress;
 float keypadContinueTime;
 
-String timeKeypadCode = "03122122";
+String timeKeypadCode = "03122142";
 String timeAttempt = "";
 String timeResult;
 boolean timeKeypadCompleted, timeKeypadSetProgress;
