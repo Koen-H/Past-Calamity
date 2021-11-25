@@ -174,7 +174,7 @@ public void afterDialogue(String afterDialogue) {
   }
   if (afterDialogue.equals("cutScene02")) {
     heartbeat.play();
-    sceneManager.goToScene("cutScene03");
+    sceneManager.goToScene("blackScene");
   }
   if (afterDialogue.equals("checkForEnd")) {
     if (timeBatterySolved && timeResult == "CORRECT") {

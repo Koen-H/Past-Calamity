@@ -111,7 +111,7 @@ void setup()
   DialogueBox dialoguecutScene02Box = new DialogueBox("Aww, you found me!", lila, projectorButton);
   DialogueBox dialoguecutScene02Box2 = new DialogueBox("Come out of there, let's go back.", finn, projectorButton);
   DialogueBox dialoguecutScene02Box3 = new DialogueBox("No, I don't wanna!", lila, projectorButton);
-  DialogueBox dialoguecutScene02Box4 = new DialogueBox("Come out or I'll make you come out.", finn,criticalAlarm);
+  DialogueBox dialoguecutScene02Box4 = new DialogueBox("Come out or I'll make you come out.", finn, criticalAlarm);
   DialogueBox dialoguecutScene02Box5 = new DialogueBox("Fine\n...\n... \nWhoops", lila, impact);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box);
   dialoguecutScene02.addDialogueBox(dialoguecutScene02Box2);
@@ -356,11 +356,18 @@ void setup()
   sceneManager.addScene(cutScene02);
   cutScene02.addDialogueOnEnter(dialoguecutScene02, true);
 
+  Scene blackScene = new Scene("blackScene", "black.png", null); //TODO update mainmenu.png
+  GameObject continueButton = new MoveToSceneObject("continueButton", 0, 0, 1280, 720, "cutScene03", null);
+  //playButton.setMethod("doCutScene01"); 
+  blackScene.addGameObject(continueButton);
+  sceneManager.addScene(blackScene);
+
   Scene cutScene03 = new Scene("cutScene03", "labfutureoff.png", bodyFall, true);//dark room with a switch
   cutScene03.addDialogueOnEnter(dialogueCutScene03, true);
   MoveToSceneObject lightSwitch = new MoveToSceneObject("lightSwitch", 360, 349, 35, 40, "scene01", buttonClick);
   cutScene03.addGameObject(lightSwitch);
   sceneManager.addScene(cutScene03);
+
 
   //LAB
   Scene scene01 = new Scene("scene01", "labfutureon.png", labAmbience);// the lab
@@ -670,7 +677,7 @@ void draw()
   if (!isDialogueActive) {//things disabled when dialogue is active
     for ( CutScene cutScene : cutScenes) cutScene.update();
     //inventoryManager.clearMarkedForDeathCollectables(); //this was already here
-    if (sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary" && sceneManager.getCurrentScene().getSceneName() != "mainMenu" && sceneManager.getCurrentScene().getSceneName() != "cutScene01" && sceneManager.getCurrentScene().getSceneName() != "cutScene02"&& sceneManager.getCurrentScene().getSceneName() != "cutScene03") {
+    if (sceneManager.getCurrentScene().getSceneName() != "sceneDiary2" && sceneManager.getCurrentScene().getSceneName() != "sceneDiary" && sceneManager.getCurrentScene().getSceneName() != "mainMenu" && sceneManager.getCurrentScene().getSceneName() != "cutScene01" && sceneManager.getCurrentScene().getSceneName() != "cutScene02"&& sceneManager.getCurrentScene().getSceneName() != "cutScene03" && sceneManager.getCurrentScene().getSceneName() != "blackScene") {
       if (showInventory) {
         inventoryManager.drawInventory();
       }
